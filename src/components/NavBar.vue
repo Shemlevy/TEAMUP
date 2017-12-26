@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: 'Nav',
+  name: 'nav-bar',
   data() {
     return {};
   }

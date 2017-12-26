@@ -1,24 +1,25 @@
 <template>
   <section>
-    <Nav></Nav>
+    <v-app>
+      <search-bar></search-bar>
+    </v-app>
   </section>
 </template>
 
 <script>
-import Nav from '../components/Nav'
+import SearchBar from '../components/SearchBar'
 export default {
   name: 'HomePage',
   data() {
     return {};
   },
   components:{
-    Nav
+    SearchBar
   }
 };
 </script>
 
 <style scoped>
-
 h1{
     font-family: var(--primary-font);
     color: var(--font-main-color);  
