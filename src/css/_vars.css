@@ -1,9 +1,10 @@
 :root{
     /* color vars */
-    --main-color: rgb(70,24,47);
-    --secondary-color: rgb(185,127,158);
+    --main-color: rgb(55,103,200);
+    --secondary-color: rgb(220,148,57);
     --font-main-color: rgb(255, 255, 255);
 
      /* Fonts */
      --primary-font: impact;
+     /* --secondery-font: ; */
 }
