@@ -1,6 +1,6 @@
 'use strict'
 
-var catagorys = [
+var categories = [
     {
         name: 'all',
         _id: '5a4130f20f3f476dbde86d8e'
@@ -19,12 +19,12 @@ var catagorys = [
     }
 ]
 
-function getCatagorys() {
+function getCategories() {
     return new Promise((resolve, reject) => {
-        resolve(catagorys)
+        resolve(categories)
     })
 }
 
 export default {
-    getCatagorys
+    getCategories
 }

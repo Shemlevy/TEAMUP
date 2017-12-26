@@ -28,10 +28,15 @@ function getGameById(gameId) {
 }
 
 
-function getGamesByCatagory(catagory) {
+function getGamesByCatagoryId(catagoryId = null) {
   return new Promise((resolve, reject) => {
-    var SelectedGames = gamess.filter(game => game.catagory === catagory)
-    if (SelectedGamess) resolve(selectedGames)
+    if (!catagoryId) {
+      resolve(games)
+      return;
+    }
+    
+    var selectedGames = games.filter(game => game.catagoryId === catagoryId)
+    if (selectedGames) resolve(selectedGames)
     else rejecet()
   })
 
@@ -44,7 +49,7 @@ function getGamesByCatagory(catagory) {
 
 
 export default {
-  getGamesByCatagory,
+  getGamesByCatagoryId,
   getGameById,
 }
 

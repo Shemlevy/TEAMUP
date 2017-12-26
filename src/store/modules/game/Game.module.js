@@ -1,21 +1,22 @@
-import GameService from '../../service/game/GameService.js'
+import GameService from '../../../service/game/GameService.js'
 
 
 export const LOAD_GAMES = 'game/loadGames';
-export const GET_GAME = 'game/getGame'
+export const GET_SELCTED_GAME = 'game/getSelcetedGame'
 
 const SET_GAMES = 'game/setGames';
 
 export default {
     state: {
         games: [],
+        selectedGame: null
     },
     getters: {
-        gamesToDisplay(context) {
+        gamesToDisplay(state) {
             return state.games
         },
-        [SET_CURRGAME](gameId) {
-            return game = state.games.find(obj => obj._id === gameId)
+        [GET_SELCTED_GAME](state) {
+            return state.selectedGame
         }
     },
     mutations: {
@@ -24,9 +25,8 @@ export default {
         },
     },
     actions: {
-        [LOAD_GAMES]({commit, rootState}, { catagoryId }) {
-            catagory = state.catagorys.find(obj => obj._id === catagoryId)
-            return GameService.getGamesByCatagory(catagory)
+        [LOAD_GAMES]({commit}, { catagoryId }) {
+            return GameService.getGamesByCatagoryId(catagoryId)
                 .then(games => {
                     commit({ type: SET_GAMES, games })
                 })
