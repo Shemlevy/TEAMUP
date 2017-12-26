@@ -1,12 +1,16 @@
 <template>
   <section>
+       <Nav></Nav>
     <h1>TEAMUP</h1>
     <Detailes :teamOb="teamOb"></Detailes>
+ 
   </section>
 </template>
 
 <script>
 import Detailes from '../team/cmps/Detailes'
+import Nav from '../components/Nav'
+
 export default {
   name: 'HomePage',
   data() {
@@ -26,15 +30,20 @@ export default {
     };
   },
   components:{
-    Detailes
+    Detailes,
+    Nav
   }
 };
 </script>
 
 <style scoped>
+
 h1{
     font-family: var(--primary-font);
     color: var(--font-main-color);  
 }
-
 </style>
+
+
+
+

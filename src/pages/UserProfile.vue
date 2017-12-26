@@ -1,19 +1,21 @@
 <template>
   <section>
+    <Nav></Nav>
     <h1>UserProfile</h1>
-    <Signin></Signin>
+    
   </section>
 </template>
 
 <script>
-import Signin from '../components/SignIn'
+import Nav from "../components/Nav";
+
 export default {
-  name: 'UserProfile',
+  name: "UserProfile",
   data() {
     return {};
   },
-  components:{
-    Signin
+  components: {
+    Nav
   }
 };
 </script>
@@ -21,3 +23,4 @@ export default {
 <style scoped>
 
 </style>
+

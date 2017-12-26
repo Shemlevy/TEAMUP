@@ -5,6 +5,7 @@ import Main from '../pages/Main.vue'
 import Register from '../pages/Register.vue'
 import UserProfile from '../pages/UserProfile.vue'
 import Team from '../pages/Team.vue'
+import Login from '../pages/Login.vue'
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ export default new Router({
       path: '/team/:teamId',
       name: 'Team',
       component: Team
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
     },
   ]
 })
