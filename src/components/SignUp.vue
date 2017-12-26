@@ -19,14 +19,12 @@
         <input  id="pass" v-model="loginDetails.pass" type="text" placeholder="Password" aria-required="true">
       </div>
       <div class="name">
-        <input  id="pass" v-model="loginDetails.pass" type="text" placeholder="Full name" aria-required="true">
-      </div>
+        <input  id="name" v-model="loginDetails.pass" type="text" placeholder="Full name" aria-required="true">
+      </div>  
       <div class="btn-log">
         <button type="submit">Sign up</button>
       </div>
-    </form>
-
-   
+    </form>   
   </section>
 </template>
 
