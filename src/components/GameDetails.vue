@@ -1,10 +1,10 @@
 <template>
-   <section class="team-detailes">
+   <section class="team-details">
         <div>
             <div class="info-area">
                 <div class="logo">
                     <img :src="details.logo" />
-                    <!-- TODO: add category to detailes service -->
+                    <!-- TODO: add category to details service -->
                     <h1>{{details.category}} </h1>
                 </div>
                 <h2>Team-name: &nbsp; <span>{{details.name}}</span></h2>
@@ -32,7 +32,7 @@ export default {
 
 <style scoped>
 
-.team-detailes{
+.team-details{
     display: flex;
     flex-direction: column;
     margin-left: 100px;

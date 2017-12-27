@@ -1,5 +1,5 @@
 <template>
-   <section class="team-list">
+   <section class="game-list">
        <ul>
             <li  v-for="game in games" :key="game.id" @click="onGameClicked(game)">
                 <ul class="game-item">
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import {SET_SELECTED_GAME} from "../../store/modules/game/Game.module.js"
+import {SET_SELECTED_GAME} from "../store/modules/game/Game.module"
 export default {
   props: ["games"],
 
@@ -38,7 +38,7 @@ export default {
 </script>
 
 <style scoped>
-.team-list {
+.game-list {
   display: flex;
   flex-direction: column;
   align-items: center;
