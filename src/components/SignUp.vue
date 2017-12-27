@@ -11,15 +11,15 @@
       <p>Open game groups <span> And invite your friends</span></p>
     </div>
 
-    <form @submit.prevent="login">
+    <form @submit.prevent="register">
       <div class="email">
-        <input id="email"  v-model="loginDetails.email" type="email" placeholder="Email" aria-required="true">
+        <input id="email"  v-model="SignUpDetails.email" type="email" placeholder="Email" aria-required="true">
       </div>
       <div class="pass">
-        <input  id="pass" v-model="loginDetails.pass" type="text" placeholder="Password" aria-required="true">
+        <input  id="pass" v-model="SignUpDetails.pass" type="text" placeholder="Password" aria-required="true">
       </div>
       <div class="name">
-        <input  id="name" v-model="loginDetails.pass" type="text" placeholder="Full name" aria-required="true">
+        <input  id="name" v-model="SignUpDetails.name" type="text" placeholder="Full name" aria-required="true">
       </div>  
       <div class="btn-log">
         <button type="submit">Sign up</button>
@@ -29,19 +29,19 @@
 </template>
 
 <script>
+import {USER_REGISTER} from '../store/modules/user/user.module';
+
 export default {
-  name: "Login",
+  name: "SignUp",
   data() {
     return {
-      loginDetails: { email: "", pass: "" }
+      SignUpDetails: { email: "", pass: "" , name: ""}
     };
   },
   methods: {
-    login() {
-          console.log('logindetails',this.loginDetails);
-      
+    register() {      
       this.$store
-        .dispatch({ type: LOGIN, loginDetails: this.loginDetails })
+        .dispatch({ type: USER_REGISTER, newUser: this.SignUpDetails })
         .then(_ => {
           this.$router.push("/");
         })
@@ -60,7 +60,6 @@ export default {
 section {
   color: white;
   font-family: var(--secondery-font);
-  display: flex;
 }
 .details-sign{
   margin:20px;
@@ -82,8 +81,10 @@ p span {
   font-weight: 300;
 }
 form {
+  margin: 20px;
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: column wrap;
+  width: 180px;
 }
 .email,
 .pass,
@@ -96,19 +97,22 @@ form {
 #email,
 #pass,
 #name {
-  width: 172px !important;
-  height: 21px !important;
-  padding: 8px !important;
-  border-radius: 5px !important;
-  border: 1px solid rgb(169, 187, 218) !important;
-  font-size: 1em !important;
+  width: 172px;
+  height: 21px;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid rgb(169, 187, 218);
+  font-size: 1em;
 }
 #email:focus,
 #pass:focus,
 #name:focus {
-  border: 1px solid peru;
-  outline: 1px solid peru;
+  border: 1.5px solid peru;
+  outline: 1.5px solid peru;
   border-radius: 5px;
+}
+.btn-log{
+  margin-left: 20px;
 }
 
 </style>

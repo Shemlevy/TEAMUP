@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import { USER_LOGIN} from "../store/modules/user/user.module";
 
 export default {
   name: "SignIn",
@@ -36,20 +37,22 @@ export default {
   },
   methods: {
     login() {
-          console.log('logindetails',this.loginDetails);
-      
       this.$store
-        .dispatch({ type: SIGNIN, signInDetails: this.signInDetails })
+        .dispatch({ type: USER_LOGIN, signInDetails: this.signInDetails })
         .then(_ => {
-          this.$router.push("/");
+          this.$router.push('/');
         })
         .catch(err => {
-          console.log(err);
+          console.log(err, "catch error in signin");
         });
     }
-  },
+  }
 };
 </script>
+
+
+
+
 
 
 
@@ -68,7 +71,7 @@ form {
   display: flex;
   flex-flow: column;
   margin: 10px;
-  font-family: var(--secondery-font)
+  font-family: var(--secondery-font);
 }
 
 #email,
@@ -83,8 +86,8 @@ form {
   border: 1px solid peru;
   outline: 1px solid peru;
 }
-.btn-log{
-  align-self:center;
+.btn-log {
+  align-self: center;
 }
 </style>
 

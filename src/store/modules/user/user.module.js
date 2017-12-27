@@ -7,29 +7,33 @@ export const GET_USER = 'user/getUser'
 const SET_USER = 'user/setUser';
 
 export default {
-    state:{
+    state: {
         user: null
     },
-    mutations:{
-        [SET_USER](state, {user}){
-           state.user = user;
+    mutations: {
+        [SET_USER](state, { user }) {
+            state.user = user;
         }
     },
-    actions:{
-        [USER_REGISTER]({commit}, {user}){
-            userService.register(user).then(res =>{
-                commit({type: SET_USER , user: res.user})
-                }).catch(err => {
-                    console.log('Error: ', err)
-                    throw err
-                })
+    actions: {
+        [USER_REGISTER]({ commit }, { newUser }) {
+            userService.register(newUser).then(res => {
+                commit({ type: SET_USER, user: res })
+            }).catch(err => {
+                console.log('Error: ', err)
+                throw err
+            })
         },
-        [USER_LOGIN]({commit}, {user}){
-            return userService.login(user)
-                .then(res =>{
-                    console.log('res: ' , res)
-                    commit({type: SET_USER , user: user})
+        [USER_LOGIN]({ commit }, { signInDetails }) {
+            return userService.login(signInDetails)
+                .then(res => {
+                    commit({ type: SET_USER, user: res })
                 })
+        }
+    },
+    getters: {
+        getuser: state => {
+            return state.user
         }
     }
 }

@@ -7,13 +7,14 @@ const URL = 'http://localhost:3003'
 function register(newUserDetails) {
   return new Promise((resolve, reject) => {
     users.push(newUserDetails)
-    resolve()
+    resolve(newUserDetails)
   })
 }
 
 function login(userLoginDetails) {
+  console.log('in service',userLoginDetails.email);
   return new Promise((resolve, reject) => {
-    var user = users.find(user => user.email === userLoginDetails.email && user.password === userLoginDetails.password)
+    var user = users.find(user => user.email === userLoginDetails.email && user.password === userLoginDetails.pass)
     if(user){
       resolve(user)
     }else{
@@ -57,7 +58,7 @@ export default {
 var users = [
     {
         _id: '5a42017f1b02738337351487',
-        profileImg: 'http://placehold.it/32x32',
+        profileImg: 'https://i0.wp.com/urtechpartner.com/wp-content/uploads/2017/07/Profile-Pics-DP.jpg?resize=466%2C604&ssl=1',
         age: 40,
         password: '123',
         name: 'Cecilia Nichols',
