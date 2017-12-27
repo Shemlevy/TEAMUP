@@ -1,15 +1,19 @@
 <template>
    <section class="team-list">
        <ul>
-            <li  v-for="game in games" :key="game.id">
+            <li  v-for="game in games" :key="game.id" @click="onGameClicked(game)">
                 <ul class="game-item">
                     <li>
-                        {{game.membersCount}} / {{game.membersLimit}} 
+                       <h2>Number of members:{{game.members.length}} / {{game.membersLimit}}</h2> 
                     </li>
          
                     <li>
-                        {{game.Location.adress}}
+                        <h2>Game-location:{{game.location.address}}</h2>
                     </li>
+                    <li>
+                        <h2>Next game: &nbsp; {{game.schedule}}</h2>
+                    </li>
+                  
                 </ul>
             </li>
         </ul>
@@ -18,11 +22,17 @@
 </template>
 
 <script>
+import {SET_SELECTED_GAME} from "../../store/modules/game/Game.module.js"
 export default {
   props: ["games"],
 
   data() {
     return {};
+  },
+  methods:{
+      onGameClicked(game){
+          this.$store.commit({type:SET_SELECTED_GAME, gameId: game._id})
+      }
   }
 };
 </script>
@@ -31,29 +41,21 @@ export default {
 .team-list {
   display: flex;
   flex-direction: column;
-  position: relative;
-  left: 500px;
   align-items: center;
-  height: 90vh;
-  width: 90vh;
+  width:445px;
 }
 h2 {
-  font-family: Helvetica;
+  font-family: var(--secondery-font);
   color: var(--font-main-color);
-  height: 2em;
   text-shadow: 1px 1px 2px black;
+  font-size:1.2em;
 }
-h1 {
-  font-family: Helvetica;
-  font-size: 2em;
-  color: var(--font-main-color);
-  height: 3em;
-  text-shadow: 2px 2px 4px peru;
-}
+
 .game-item {
   background-color: peru;
   border-style: solid;
   border-width: 1px;
+  padding:8px;
 }
 ul{
     list-style-type: none;
