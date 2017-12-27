@@ -1,33 +1,27 @@
 <template>
-    <section>    
-        <input @change="getGeoByAddress" class="controls" type="text"  placeholder="Search Box" ref="googleSearch">    
-        <div class="google-map" id="map"></div>
-    </section>  
+  <section>
+    <input @change="getGeoByAddress" class="controls" type="text"  placeholder="Search Box" ref="googleSearch">    
+    <div class="google-map" :id="mapName"></div>
+  </section>
 </template>
-
-
 <script>
 export default {
-  props: ["name"],
-  data() {
+  name: 'google-map',
+  props: ['name'],
+  data: function () {
     return {
-      mapName: 'map',
-      markerCoordinates: [
-        {
-          latitude: -6.1607908,
-          longitude: 39.1886614,
-          placeName: this.searchPosition,
-          icoUrl: '',
-          catagory: this.pickedPlaceInfo,
-          title: `Zanzibar`,
-          info: `Need to go`,
-          img: "PlacesMgmt/img/zanzibar.jpg",
-          iconTitle: "I Wanna FunFunFun",
-          iconClass: "fa fa-heartbeat ico-places",
-          idx: 0
-        }
-      ],
+      mapName: this.name + "-map",
 
+      markerCoordinates: [{
+        latitude: 51.501527,
+        longitude: -0.1921837
+      }, {
+        latitude: 51.505874,
+        longitude: -0.1838486
+      }, {
+        latitude: 51.4998973,
+        longitude: -0.202432
+      }],
       map: null,
       bounds: null,
       markers: [],
@@ -36,161 +30,51 @@ export default {
         latitude: 51.501527,
         longitude: -0.1921837
       },
-      sideBar: false,
-      searchPosition: null,
-      pickedPlaceInfo: null,
-      pickedIco: null,
-      placeTitle: null,
-      placeInfo: null,
-      showPlace: false,
-      currPlace: null
-    };
+    }
   },
-   methods: {
-        getGeoByAddress(e) {
-            e.preventDefault();
-            console.log('e', e);
-            this.searchPosition = e.target.value
-            var get = axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.searchPosition}&key=AIzaSyBMPwmpKGkNozJfQ2zrVZdvlvJDv7QsZrM`)
-                .then(res => {
-                    var lat = res.data.results[0].geometry.location.lat;
-                    var lng = res.data.results[0].geometry.location.lng;
-                    this.searchLocation.latitude = lat
-                    this.searchLocation.longitude = lng
+  mounted: function () {
+    this.bounds = new google.maps.LatLngBounds();
+    const element = document.getElementById(this.mapName)
+    const mapCentre = this.markerCoordinates[0]
+    const options = {
+      center: new google.maps.LatLng(mapCentre.latitude, mapCentre.longitude)
+    }
+    this.map = new google.maps.Map(element, options);
 
-                    this.map.setZoom(25)
-                    this.map.panTo(new google.maps.LatLng(lat, lng));
-                    this.showAddress(lat, lng)
-                    const position = new google.maps.LatLng(lat, lng);
-                    var markerIcon = {
-                        url: 'https://raw.githubusercontent.com/google/material-design-icons/master/maps/drawable-xxxhdpi/ic_place_black_48dp.png',
-                        scaledSize: new google.maps.Size(50, 50),
-                        origin: new google.maps.Point(0, 0), // used if icon is a part of sprite, indicates image position in sprite
-                        anchor: new google.maps.Point(20, 40) // lets offset the marker image
-                    };
-                    const marker = new google.maps.Marker({
-                        icon: markerIcon,
-                        animation: google.maps.Animation.DROP,
-                        position,
-                        draggable: true,
-                        map: this.map
-                    });
-                    //function for adding place?
-                    marker.addListener('click', function (e) {
-                        console.log('eventtooo', e);
-                        this.sideBar = !this.sideBar
-                    });
-                });
-        },
-        deletePlace(idx) {
-            console.log('idx to delete', idx);
-            this.markerCoordinates.splice(idx, 1)
-            console.log('markers', this.markerCoordinates);
-            this.showPlace = false;
-            this.renderMap()
+    var input = this.$refs.googleSearch
 
-        },
-        // renderMap() {
-
-        //     var lat = this.markerCoordinates[0].latitude
-        //     var lng = this.markerCoordinates[0].longitude
-        //     this.renderMap()            
-
-        // },
-
-        showAddress(lat, lng) {
-            axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyBMPwmpKGkNozJfQ2zrVZdvlvJDv7QsZrM`)
-                .then(res => {
-                    this.searchPosition = res.data.results[0].formatted_address;
-                })
-        },
-        pickedPlace(picked) {
-            this.pickedPlaceInfo = this.icons.title[picked.target.id]
-            this.pickedIco = this.icons.img[picked.target.id]
-            var x = document.getElementsByClassName('label-ico');
-            var i;
-            for (i = 0; i < x.length; i++) {
-                if (x[i] != picked.target) x[i].checked = false;
-            }
-        },
-        savePlace() {
-            let newPlace = {
-                placeName: this.searchPosition,
-                ico: this.pickedIco,
-                catagory: this.pickedPlaceInfo,
-                title: this.placeTitle,
-                info: this.placeInfo,
-                img: this.img,
-                latitude: this.searchLocation.latitude,
-                longitude: this.searchLocation.longitude,
-                iconTitle: this.pickedPlaceInfo,
-                iconClass: this.pickedIco,
-                idx: this.markerCoordinates.length
-
-            }
-        },
-        renderMap() {
-            var self = this
-            this.bounds = new google.maps.LatLngBounds();
-            const element = document.getElementById(this.mapName)
-            const mapCentre = this.searchLocation
-            const options = {
-                center: new google.maps.LatLng(mapCentre.latitude, mapCentre.longitude)
-            }
-            this.map = new google.maps.Map(element, options);
-
-            var input = this.$refs.googleSearch
-            
-            
             console.log(input)
             this.searchBox = new google.maps.places.SearchBox(input);
-            this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
+            this.map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
 
-            this.markerCoordinates.forEach((coord) => {
-                const position = new google.maps.LatLng(coord.latitude, coord.longitude);
-                var markerIcon = {
 
-                    url: coord.icoUrl,
-                    scaledSize: new google.maps.Size(30, 30),
-                };
-                const marker = new google.maps.Marker({
-                    icon: markerIcon,
-                    animation: google.maps.Animation.DROP,
-                    position,
-                    map: this.map
-
-                });
-                marker.addListener('click', function (e) {
-                    this.map.panTo(new google.maps.LatLng(coord.latitude, coord.longitude));
-                    this.map.setZoom(23)
-                    self.showPlace = !self.showPlace
-                    self.currPlace = coord
-                });
-
-                this.markers.push(marker)
-                this.map.fitBounds(this.bounds.extend(position))
-            });
-        },
-    },
-    computed: {
-
-    },
-    mounted() {
-        this.renderMap()
-    },
-    components: {
-    }
+    this.markerCoordinates.forEach((coord) => {
+      const position = new google.maps.LatLng(coord.latitude, coord.longitude);
+      const marker = new google.maps.Marker({ 
+        position,
+        map: this.map
+      });
+    this.markers.push(marker)
+      this.map.fitBounds(this.bounds.extend(position))
+    });
+  }
 };
 </script>
-
 <style scoped>
-
+.google-map {
+  width: 100vw;
+  height: 600px;
+  margin: 0 auto;
+  background: gray;
+}
+.controls {
+  width: 300px;
+  height: 25px;
+  font-size: 1.2em;
+  font-weight: 500;
+  /* z-index: 5;
+  position: absolute;
+  right: 0px;
+  top: 0px; */
+}
 </style>
-
-
-    
- 
- 
-
-            
-   
