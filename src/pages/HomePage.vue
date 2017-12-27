@@ -1,6 +1,5 @@
 <template>
   <section >
-    <Nav></Nav>
     <category-search-bar></category-search-bar>
     <section class="main-game-info">
       <category-list v-if="games" :games="games"></category-list>
@@ -14,7 +13,6 @@ import {LOAD_CATEGORIES, GET_SELECTED_CATEGORY} from '../store/modules/category/
 import {LOAD_GAMES, GET_GAMES,GET_SELCTED_GAME, SET_SELECTED_GAME} from '../store/modules/game/Game.module'
 import categoryDetailes from '../team/cmps/categoryDetailes';
 import categoryList from '../team/cmps/categoryList';
-import Nav from '../components/Nav';
 import CategorySearchBar from '../components/CategorySearchBar'
 
 export default {
@@ -37,7 +35,6 @@ export default {
   },
   components: {
     categoryDetailes,
-    Nav,
     categoryList,
     CategorySearchBar
   },

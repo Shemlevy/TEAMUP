@@ -4,13 +4,33 @@ const URL = 'http://localhost:3003'
 
 
 
+function register(newUserDetails) {
+  return new Promise((resolve, reject) => {
+    users.push(newUserDetails)
+    resolve(newUserDetails)
+  })
+}
+
+function login(userLoginDetails) {
+  console.log('in service',userLoginDetails.email);
+  return new Promise((resolve, reject) => {
+    var user = users.find(user => user.email === userLoginDetails.email && user.password === userLoginDetails.pass)
+    if(user){
+      resolve(user)
+    }else{
+      reject({messege: 'invaild user details'}) 
+    }
+  })
+}
+
+
 // function signup(userDetails) {
-    // return axios.post(`${URL}/data/user`, userDetails)
-    //     .then(_ => {
-    //         console.log('userDetails', userDetails);
-    //         return login(userDetails)
-    //     })
-    //     .catch(err => err)
+//     return axios.post(`${URL}/data/user`, userDetails)
+//         .then(_ => {
+//             console.log('userDetails', userDetails);
+//             return login(userDetails)
+//         })
+//         .catch(err => err)
 // }
 
 // function login(userCreds) {
@@ -25,23 +45,22 @@ const URL = 'http://localhost:3003'
 // }
 
 
-// export default {
-//     signup,
-//     login,
-//     logout,
-// } 
+export default {
+    register,
+    login,
+} 
 
 
 
 
 
 
-users = [
+var users = [
     {
         _id: '5a42017f1b02738337351487',
-        profileImg: 'http://placehold.it/32x32',
+        profileImg: 'https://i0.wp.com/urtechpartner.com/wp-content/uploads/2017/07/Profile-Pics-DP.jpg?resize=466%2C604&ssl=1',
         age: 40,
-        password: '',
+        password: '123',
         name: 'Cecilia Nichols',
         gender: 'female',
         email: 'cecilianichols@edecine.com',
