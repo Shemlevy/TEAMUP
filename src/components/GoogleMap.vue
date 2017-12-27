@@ -1,63 +1,23 @@
 <template>
-    <section>
-        <div v-if="sideBar"  v-on:blur="sideBar = !sideBar" class="side-bar">
-            <h1>{{searchPosition}}</h1>
-            <p>choose icon to describe the place</p>
-            <div class="icon-places">
-                <label v-for="(item,idx) in 4" :for="idx" :key="item"> 
-                    <input class="label-ico" type="checkBox" @click="pickedPlace" :id="idx">
-                    <i :class="icons.img[idx]"  :title="icons.title[idx]" aria-hidden="true"></i>
-                </label>
-            </div>
-            <input v-model="placeTitle" class="input-place" placeholder="Title For The Place"  type="text">
-            <textarea v-model="placeInfo" class="input-place" placeholder="Describe this place" rows="5"  type="text"></textarea>
-            <div class="picked-info">
-                <i :class="pickedIco"  :title="pickedPlaceInfo" aria-hidden="true"></i>
-                <p>{{pickedPlaceInfo}}</p>
-            </div>
-            <section class="save-btns">
-                <label for="btn-save-input">
-                    <i  class="material-icons add-photo">add_a_photo</i>
-                </label>
-                <input type="file" id="btn-save-input"></input>
-                <button @click="savePlace" class="btn-save">Save Place</button>
-            </section>  
-        </div>
-        <show-place v-if="showPlace" @place="deletePlace" :icons="icons" :currPlace="currPlace" ></show-place>
-    
-            <input @change="getGeoByAddress" class="controls" type="text"  placeholder="Search Box" ref="googleSearch">    
-        <div class="google-map" :id="mapName"></div>
+    <section>    
+        <input @change="getGeoByAddress" class="controls" type="text"  placeholder="Search Box" ref="googleSearch">    
+        <div class="google-map" id="map"></div>
     </section>  
 </template>
 
 
 <script>
 export default {
-  name: "google-map",
   props: ["name"],
   data() {
     return {
-      icons: {
-        img: [
-          "fa fa-cutlery ico-places",
-          "fa fa-briefcase ico-places",
-          "fa fa-map-marker ico-places",
-          "fa fa-heartbeat ico-places"
-        ],
-        title: [
-          "Great Place To Eat",
-          "Good Job",
-          "A Place To Remember",
-          "I Wanna FunFunFun"
-        ]
-      },
-      mapName: this.name + "-map",
+      mapName: 'map',
       markerCoordinates: [
         {
           latitude: -6.1607908,
           longitude: 39.1886614,
           placeName: this.searchPosition,
-          icoUrl: "PlacesMgmt/ico/fun.png",
+          icoUrl: '',
           catagory: this.pickedPlaceInfo,
           title: `Zanzibar`,
           info: `Need to go`,
