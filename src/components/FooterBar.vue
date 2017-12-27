@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'Nav',
+  name: 'footer-bar',
   data() {
     return {};
   }

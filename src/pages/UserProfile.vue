@@ -1,13 +1,11 @@
 <template>
   <section>
-    <Nav></Nav>
     <h1>UserProfile</h1>
     
   </section>
 </template>
 
 <script>
-import Nav from "../components/Nav";
 
 export default {
   name: "UserProfile",
@@ -15,7 +13,7 @@ export default {
     return {};
   },
   components: {
-    Nav
+    
   }
 };
 </script>
