@@ -13,16 +13,16 @@
 
     <form @submit.prevent="register">
       <div class="email">
-        <input id="email"  v-model="SignUpDetails.email" type="email" placeholder="Email" aria-required="true">
+        <input id="email"  v-model="SignUpDetails.email" type="email" placeholder="Email" required>
       </div>
       <div class="pass">
-        <input  id="pass" v-model="SignUpDetails.pass" type="text" placeholder="Password" aria-required="true">
+        <input  id="pass" v-model="SignUpDetails.password" type="text" placeholder="Password" required>
       </div>
       <div class="name">
-        <input  id="name" v-model="SignUpDetails.name" type="text" placeholder="Full name" aria-required="true">
+        <input  id="name" v-model="SignUpDetails.name" type="text" placeholder="Full name" required>
       </div>  
       <div class="btn-log">
-        <button type="submit">Sign up</button>
+        <button class="main-btn" type="submit">Sign up</button>
       </div>
     </form>   
   </section>
@@ -35,7 +35,7 @@ export default {
   name: "SignUp",
   data() {
     return {
-      SignUpDetails: { email: "", pass: "" , name: ""}
+      SignUpDetails: { email: "", password: "" , name: "",profileImg:"https://cdn4.iconfinder.com/data/icons/social-communication/142/add_user-512.png"}
     };
   },
   methods: {
@@ -98,11 +98,11 @@ form {
 #pass,
 #name {
   width: 172px;
-  height: 21px;
   padding: 8px;
   border-radius: 5px;
   border: 1px solid rgb(169, 187, 218);
   font-size: 1em;
+  font-weight: 600;
 }
 #email:focus,
 #pass:focus,

@@ -10,14 +10,14 @@
     <form @submit.prevent="login">
       <div class="email">
           <label for="email">Email</label>
-          <input id="email"  v-model="signInDetails.email" type="email">
+          <input id="email"  v-model="signInDetails.email" type="email" required>
       </div>
       <div class="pass">
           <label for="pass">Password</label>
-          <input  id="pass" v-model="signInDetails.pass" type="text">
+          <input  id="pass" v-model="signInDetails.password" type="text" required>
       </div>
       <div class="btn-log">
-          <button type="submit">Log in</button>
+          <button  class="main-btn" type="submit">Log in</button>
       </div>
     </form>
 
@@ -26,13 +26,13 @@
 </template>
 
 <script>
-import { USER_LOGIN} from "../store/modules/user/user.module";
+import { USER_LOGIN } from "../store/modules/user/user.module";
 
 export default {
   name: "SignIn",
   data() {
     return {
-      signInDetails: { email: "", pass: "" }
+      signInDetails: { email: "", password: "" }
     };
   },
   methods: {
@@ -40,7 +40,7 @@ export default {
       this.$store
         .dispatch({ type: USER_LOGIN, signInDetails: this.signInDetails })
         .then(_ => {
-          this.$router.push('/');
+          this.$router.push("/");
         })
         .catch(err => {
           console.log(err, "catch error in signin");
@@ -71,15 +71,17 @@ form {
   display: flex;
   flex-flow: column;
   margin: 10px;
+  font-size: 1em;
+  font-weight: 600;
   font-family: var(--secondery-font);
 }
 
 #email,
 #pass {
-  width: 145px;
-  height: 15px;
-  padding: 3px;
+  width: 160px;
+  padding: 5px;
   border: 1px solid black;
+  font-weight: 600;
 }
 #email:focus,
 #pass:focus {

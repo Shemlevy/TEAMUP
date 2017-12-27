@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="btn-area">
-            <button>TEAM<span>up</span></button>
+            <button class="main-btn" >TEAM<span>up</span></button>
         </div>
     </section>
 
