@@ -2,8 +2,8 @@
   <section >
     <category-search-bar></category-search-bar>
     <section class="main-game-info">
-      <category-list v-if="games" :games="games"></category-list>
-      <category-detailes v-if="gameDetails" :details="gameDetails"></category-detailes>
+      <game-list v-if="games" :games="games"></game-list>
+      <game-details v-if="gameDetails" :details="gameDetails"></game-details>
     </section>
   </section>
 </template>
@@ -11,8 +11,8 @@
 <script>
 import {LOAD_CATEGORIES, GET_SELECTED_CATEGORY} from '../store/modules/category/Category.module'
 import {LOAD_GAMES, GET_GAMES,GET_SELCTED_GAME, SET_SELECTED_GAME} from '../store/modules/game/Game.module'
-import categoryDetailes from '../team/cmps/categoryDetailes';
-import categoryList from '../team/cmps/categoryList';
+import GameDetails from '../components/GameDetails';
+import GameList from '../components/GameList';
 import CategorySearchBar from '../components/CategorySearchBar'
 
 export default {
@@ -34,8 +34,8 @@ export default {
     };
   },
   components: {
-    categoryDetailes,
-    categoryList,
+    GameDetails,
+    GameList,
     CategorySearchBar
   },
   methods:{

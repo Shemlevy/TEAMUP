@@ -8,6 +8,7 @@
 <script>
 import {SET_CATEGORY_FILTER, GET_CATEGORIES_BY_FILTER, SET_SELECTED_CATEGORY} from '../store/modules/category/Category.module'
 import {LOAD_GAMES} from '../store/modules/game/Game.module'
+
 export default {
   name: 'SearchBar',
   data() {
