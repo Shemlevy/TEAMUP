@@ -8,12 +8,17 @@
     outline: none;
 }
 
+button, input, select, textarea {
+    background-color: white;
+    border-style: none;
+    color: black;
+}
 
-body{
+.main-body{
     background-color: var(--main-color)
 }
 
-button{
+.main-btn{
     cursor: pointer;
     border:none;
     font-family: var(--secondery-font);
@@ -25,6 +30,6 @@ button{
     padding: 6px 14px;
 }
 
-button:hover{
+.main-btn:hover{
     transform: scale(1.03)
 }

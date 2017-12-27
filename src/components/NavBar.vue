@@ -6,10 +6,14 @@
     <router-link to="/register">Register</router-link>
     <router-link to="/user/:userId">UserProfile</router-link>
     <router-link to="/team/:teamId">Team</router-link> -->
-    <router-link v-if="!!!user" class="log-btn" tag="button" to="/login">  Login/Signup</router-link>
-    <div v-if="!!login" class="user-details">
-      <img class="profile-img" :src="user.profileImg"/>
-      <h3>Hello {{login.name}}</h3> 
+    <router-link v-if="!!!user" class="main-btn log-btn" tag="button" to="/login">Login/Signup</router-link>
+    <div v-if="!!login">
+      <router-link class="user-link" to="/user">
+      <div class="user-details">
+        <img class="profile-img" :src="user.profileImg"/>
+        <h4 class="profile-nav">{{login.name}}</h4>
+      </div>
+      </router-link>
     </div>
   </nav>
 </template>
@@ -26,7 +30,7 @@ export default {
   },
   computed: {
     login() {
-      return this.user = this.$store.getters.getuser
+      return (this.user = this.$store.getters.getuser);
     }
   }
 };
@@ -41,7 +45,6 @@ nav {
   width: 100vw;
   height: 80px;
   border-bottom: 3px solid rgb(26, 48, 90);
-  /* box-shadow: 2px 2px 6px black; */
   margin-bottom: 10px;
   background-color: rgb(36, 36, 37);
 }
@@ -64,10 +67,20 @@ h1 span {
   height: 50px;
   border-radius: 50%;
 }
-.user-details{
+.user-details {
   display: flex;
   align-items: center;
-  color:white;
-  margin-right:10px;
+  color: white;
+  margin-right: 10px;
+  font-size: 1.2em;
+  font-family: var(--secondery-font);
 }
+.user-details:hover{
+  background-color: rgba(0, 0, 0, 0.212);
+}
+.user-link{
+  text-decoration: none;
+}
+
+
 </style>
