@@ -35,7 +35,7 @@ export default {
 .team-detailes{
     display: flex;
     flex-direction: column;
-    margin-left: 10px;
+    margin-left: 100px;
     align-items: center;
 }
 
