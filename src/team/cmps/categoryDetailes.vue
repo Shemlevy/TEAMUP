@@ -35,7 +35,7 @@ export default {
 .team-detailes{
     display: flex;
     flex-direction: column;
-    margin-left: 10px;
+    margin-left: 100px;
     align-items: center;
 }
 
@@ -60,6 +60,7 @@ export default {
     width:150px;
     height: 150px;
     border-radius: 50%;
+    margin-bottom: 30px;
 }
 h2 {
   font-family: var(--secondery-font);
