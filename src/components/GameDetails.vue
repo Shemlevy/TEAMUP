@@ -32,11 +32,12 @@ export default {
 
 <style scoped>
 
+
 .team-details{
     display: flex;
     flex-direction: column;
-    margin-left: 100px;
     align-items: center;
+    z-index: 1;
 }
 
 .info-area {

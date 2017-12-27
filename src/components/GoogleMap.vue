@@ -1,13 +1,14 @@
 <template>
-  <section>
-    <input @change="getGeoByAddress" class="controls" type="text"  placeholder="Search Box" ref="googleSearch">    
+  <section> 
+    <!-- @change="getGeoByAddress" -->
+    <input  class="controls" type="text"  placeholder="Search Box" ref="googleSearch">    
     <div class="google-map" :id="mapName"></div>
   </section>
 </template>
 <script>
 export default {
   name: 'google-map',
-  props: ['name'],
+  props: ['name','details'],
   data: function () {
     return {
       mapName: this.name + "-map",
@@ -42,10 +43,8 @@ export default {
     this.map = new google.maps.Map(element, options);
 
     var input = this.$refs.googleSearch
-
-            console.log(input)
             this.searchBox = new google.maps.places.SearchBox(input);
-            this.map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
+            this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
 
 
     this.markerCoordinates.forEach((coord) => {
@@ -57,10 +56,22 @@ export default {
     this.markers.push(marker)
       this.map.fitBounds(this.bounds.extend(position))
     });
+  },
+  watch:{
+    details(){
+      if (!this.details) return;
+      var lat = this.details.location.latitude;
+      var lng = this.details.location.longitude;
+      this.map.panTo(new google.maps.LatLng(lat, lng));
+    }
   }
 };
 </script>
 <style scoped>
+section {
+  position: absolute;
+  z-index: 0;
+}
 .google-map {
   width: 100vw;
   height: 600px;
@@ -72,9 +83,8 @@ export default {
   height: 25px;
   font-size: 1.2em;
   font-weight: 500;
-  /* z-index: 5;
-  position: absolute;
-  right: 0px;
-  top: 0px; */
+  margin: 13px;
+  border-radius: 5px;
+  padding: 8px;
 }
 </style>

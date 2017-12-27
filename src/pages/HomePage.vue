@@ -3,8 +3,8 @@
     <category-search-bar></category-search-bar>
     <section class="main-game-info">
       <game-list v-if="games" :games="games"></game-list>
-      <game-details v-if="gameDetails" :details="gameDetails"></game-details>
-      <google-map></google-map>
+      <!-- <game-details v-if="gameDetails" :details="gameDetails"></game-details> -->
+      <google-map :details="gameDetails"></google-map>
     </section>
   </section>
 </template>
@@ -79,11 +79,11 @@ h1 {
   color: var(--font-main-color);
 }
 .main-game-info{
-  margin: 20px 10px 10px 10px;
-  /* width: 100vw; */
   display: flex;
 }
-
+.game-list{
+  margin-right: 100px;
+}
 </style>
 
 
