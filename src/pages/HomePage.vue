@@ -3,7 +3,7 @@
     <category-search-bar></category-search-bar>
     <section class="main-game-info">
       <game-list v-if="games" :games="games"></game-list>
-      <!-- <game-details v-if="gameDetails" :details="gameDetails"></game-details> -->
+      <game-details v-if="gameDetails" :details="gameDetails"></game-details>
       <google-map :details="gameDetails"></google-map>
     </section>
   </section>

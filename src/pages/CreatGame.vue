@@ -2,11 +2,15 @@
 <section class="cg-container">
     <form>
         <h1>Create New Game</h1>
-        <h2>Choose Category:
-        <select class="ctg-drop-down" v-model="ctg" >
-        <option  v-for="item in items"  :value="item" :key="item">{{item}} </option>   
-        </select>
-        </h2>
+        <v-select
+        label="Choose Game Category"
+        v-model="select"
+        :items="items"
+        :error-messages="selectErrors"
+        @change="$v.select.$touch()"
+        @blur="$v.select.$touch()"
+        required
+        ></v-select>
         <v-text-field
         label="Name"
         v-model="name"
@@ -45,6 +49,7 @@ export default {
     name: { required, maxLength: maxLength(10) },
     location: {required},
     select: { required }
+  
   },
   data() {
     return {
@@ -64,7 +69,8 @@ export default {
       gameName: this.name,
       gameLocation: this.location,
       gameCategory: this.ctg,
-      GameDate: this.picker
+      GameDate: this.picker,
+      Select: this.select
       }
       console.log('inside submit', {gameObj});
      
@@ -77,12 +83,6 @@ export default {
     }
   },
   computed: {
-    // checkboxErrors() {
-    //   const errors = [];
-    //   if (!this.$v.checkbox.$dirty) return errors;
-    //   !this.$v.checkbox.required && errors.push("You must agree to continue!");
-    //   return errors;
-    // },
     selectErrors() {
       const errors = [];
       if (!this.$v.select.$dirty) return errors;
