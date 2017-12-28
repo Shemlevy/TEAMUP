@@ -6,6 +6,7 @@ export const GET_GAMES = 'game/getGames'
 export const CREATE_GAME = 'game/createGame'
 export const DELETE_GAME = 'game/createGame'
 export const UPDATE_GAME = 'game/updateGame'
+export const LOAD_GAME_BY_ID = 'game/loadGameById'
 export const GET_SELCTED_GAME = 'game/getSelectedGame'
 export const SET_SELECTED_GAME = 'game/setSelectedGame'
 
@@ -76,9 +77,19 @@ export default {
                 }).catch(err => {
                     console.log('game was not updated in database')
                 })
+        },
+        [LOAD_GAME_BY_ID]({state}, {gameId}){
+            GameService.getGameById(gameId)
+                .then(game => {
+                    console.log(game)
+                    console.log('game loaded succefully')
+                    /*TODO: change to new mutation*/
+                    state.selectedGame = game
+                })
+                .catch(err => {
+                    console.log('was not able to load game')
+                })
         }
-
-        
         
     }
 
