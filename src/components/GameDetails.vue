@@ -5,10 +5,9 @@
                 <div class="logo">
                     <img :src="details.logo" />
                     <!-- TODO: add category to details service -->
-                    <h1>{{details.category}} </h1>
+                    <h1>{{details.categoryName}} </h1>
                 </div>
-                <h2>Team-name: &nbsp; <span>{{details.name}}</span></h2>
-                <h2>Team-type: &nbsp; <span> {{details.type}}</span></h2>
+                <!-- <h2>Team-type: &nbsp; <span> {{details.type}}</span></h2> -->
                 <h2>Number of members: &nbsp; <span> {{details.players.length}} / {{details.playersLimit}}</span></h2>
                 <h2>Game-location: &nbsp; <span>{{details.location.address}}</span></h2><br>
                 <h2>Next game: &nbsp; <span> {{details.schedule}}</span></h2>
@@ -16,6 +15,7 @@
         </div>
         <div class="btn-area">
             <button class="main-btn" >TEAM<span>up</span></button>
+            <button class="main-btn" @click="unselectGame()">Back to list</button>
         </div>
     </section>
 
@@ -26,17 +26,23 @@ export default {
   props: ["details"],
   data() {
     return {};
+  },
+  methods: {
+    unselectGame(){
+        this.$emit('unselectGame')
+    }
   }
 };
 </script>
 
 <style scoped>
 
+
 .team-details{
     display: flex;
     flex-direction: column;
-    margin-left: 100px;
     align-items: center;
+    z-index: 1;
 }
 
 .info-area {
@@ -53,6 +59,7 @@ export default {
     
 }
 .logo{
+    max-width: 120px;
     display: flex;
     justify-content: space-between;   
 }

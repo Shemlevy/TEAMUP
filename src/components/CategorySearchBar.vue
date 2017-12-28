@@ -38,7 +38,7 @@ export default {
 .search-input{
   margin: 10px;
   padding: 8px;
-  width: 430px;
+  width: 48vw;
   font-size: 1.5em;
   border: none;
   border-radius: 5px;
