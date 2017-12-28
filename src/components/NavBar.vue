@@ -10,7 +10,7 @@
     <div v-if="!!login">
       <router-link class="user-link" to="/user">
       <div class="user-details">
-        <img class="profile-img" :src="user.profileImg"/>
+        <img class="profile-img" :src="user.imgUrl"/>
         <h4 class="profile-nav">{{login.name}}</h4>
       </div>
       </router-link>

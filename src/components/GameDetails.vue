@@ -9,7 +9,7 @@
                 </div>
                 <h2>Team-name: &nbsp; <span>{{details.name}}</span></h2>
                 <h2>Team-type: &nbsp; <span> {{details.type}}</span></h2>
-                <h2>Number of members: &nbsp; <span> {{details.members.length}} / {{details.membersLimit}}</span></h2>
+                <h2>Number of members: &nbsp; <span> {{details.players.length}} / {{details.playersLimit}}</span></h2>
                 <h2>Game-location: &nbsp; <span>{{details.location.address}}</span></h2><br>
                 <h2>Next game: &nbsp; <span> {{details.schedule}}</span></h2>
             </div>

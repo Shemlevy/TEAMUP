@@ -3,6 +3,9 @@ import GameService from '../../../service/game/GameService.js'
 
 export const LOAD_GAMES = 'game/loadGames'
 export const GET_GAMES = 'game/getGames'
+export const CREATE_GAME = 'game/createGame'
+export const DELETE_GAME = 'game/createGame'
+export const UPDATE_GAME = 'game/updateGame'
 export const GET_SELCTED_GAME = 'game/getSelectedGame'
 export const SET_SELECTED_GAME = 'game/setSelectedGame'
 
@@ -38,17 +41,43 @@ export default {
     },
     actions: {
         [LOAD_GAMES]({commit}, payload) {
-            return GameService.getGamesByCatagoryId(payload.categoryId)
+            return GameService.getGames(payload.categoryId)
                 .then(games => {
-                    console.log('found a categoryyyyy')
                     commit({ type: SET_GAMES, games })
                 })
                 .catch(err => {
-                    console.log('nooooooooooooo')
                     commit(SET_GAMES, [])
                     throw err
             })
+        },
+        [CREATE_GAME]({commit}, {newGame}){
+            GameService.createGame(newGame)
+                .then(res => {
+                    console.log('new game created!!')
+                    console.log('game: ' , res)
+                })
+                .catch(err => {
+                    console.log('new game didnt make it to module')
+                })
+        },
+        [DELETE_GAME]({commit}, {gameId}){
+            GameService.deleteGame(gameId)
+                .then(_ => {
+                    console.log('game deleted in data base')
+                })
+                .catch(_ => {
+                    console.log('game was not delted in database')
+                })
+        },
+        [UPDATE_GAME]({commit}, {game}){
+            GameService.updateGame(game)
+                .then(res => {
+                    console.log('game updated in database')
+                }).catch(err => {
+                    console.log('game was not updated in database')
+                })
         }
+
         
         
     }
