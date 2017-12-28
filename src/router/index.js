@@ -6,6 +6,7 @@ import Register from '../pages/Register.vue'
 import UserProfile from '../pages/UserProfile.vue'
 import Team from '../pages/Team.vue'
 import Login from '../pages/Login.vue'
+import CreatGame from '../pages/CreatGame.vue'
 
 Vue.use(Router)
 
@@ -40,6 +41,11 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/CreatGame',
+      name: 'CreatGame',
+      component: CreatGame
     },
   ]
 })

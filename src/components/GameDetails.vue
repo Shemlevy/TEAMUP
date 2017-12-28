@@ -7,7 +7,6 @@
                     <!-- TODO: add category to details service -->
                     <h1>{{details.category}} </h1>
                 </div>
-                <h2>Team-name: &nbsp; <span>{{details.name}}</span></h2>
                 <h2>Team-type: &nbsp; <span> {{details.type}}</span></h2>
                 <h2>Number of members: &nbsp; <span> {{details.members.length}} / {{details.membersLimit}}</span></h2>
                 <h2>Game-location: &nbsp; <span>{{details.location.address}}</span></h2><br>
