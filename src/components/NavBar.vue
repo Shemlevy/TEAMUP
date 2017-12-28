@@ -1,7 +1,7 @@
 <template>
   <nav>
-    <h1>TEAM<span>UP</span></h1>
-    <!-- <router-link to="/">HomePage</router-link>
+    <router-link class="hp-btn" to="/"><h1>TEAM<span>UP</span></h1></router-link>
+    <!-- 
     <router-link to="/Main">main</router-link>
     <router-link to="/register">Register</router-link>
     <router-link to="/user/:userId">UserProfile</router-link>
@@ -77,12 +77,13 @@ h1 span {
   font-size: 1.2em;
   font-family: var(--secondery-font);
 }
-.user-details:hover{
+.user-details:hover {
   background-color: rgba(0, 0, 0, 0.212);
 }
-.user-link{
+.user-link {
   text-decoration: none;
 }
-
-
+.hp-btn{
+  text-decoration: none;
+}
 </style>
