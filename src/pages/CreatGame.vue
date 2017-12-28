@@ -135,12 +135,9 @@ font-family: Arial;
 font-size: 16px;
 width: 70%;
 }
-.card>:first-child {
-  background-color:  rgb(55,103,200);
-}
+
 .date-picker{
   width: 70%;
-  margin:auto 0;
 }
 
 
