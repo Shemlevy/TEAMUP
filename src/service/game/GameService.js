@@ -61,6 +61,7 @@ var games = [
     _id: '5a4130f222b11b534f3480d3',
     logo: 'https://static.pexels.com/photos/47730/the-ball-stadion-football-the-pitch-47730.jpeg',
     catagoryId: '5a41f7a62f7ac8f876f05913',
+    category: 'Soccer',
     name: 'PukiSoccer',
     schhedule: 1514251226,
     adminId: '5a42017f1b02738337351487',
@@ -79,6 +80,7 @@ var games = [
   {
     _id: '5a41fa1a07939b4a38708361',
     catagoryId: '5a41fa1a69eca78df41eb03a',
+    category: 'Poker',
     adminId: '5a42017f1b02738337351487',
     logo: 'https://www.casinopauma.com/wp-content/uploads/2016/11/poker-5.jpg',
     name: 'Mallory',
@@ -99,6 +101,7 @@ var games = [
   {
     _id: '5a41fa1a002727d5daa69a6c',
     catagoryId: '5a41fa1ae7736f3b000c5c15',
+    category: 'Ping-Pong',
     adminId: '5a42017fbd55bb8f1c10ecb4',
     logo: 'https://static.pexels.com/photos/47730/the-ball-stadion-football-the-pitch-47730.jpeg',
     name: 'Tyson',
@@ -119,6 +122,7 @@ var games = [
   {
     _id: '5a42017fbd55bb8f1c10ecb4',
     catagoryId: '5a41f7a62f7ac8f876f05913',
+    category: 'Soccer',
     adminId: '5a41fa1ab218007180e47be3',
     logo: 'https://www.casinopauma.com/wp-content/uploads/2016/11/poker-5.jpg',
     name: 'Elise',
@@ -139,6 +143,7 @@ var games = [
   {
     _id: '5a42017f1b02738337351487',
     catagoryId: '5a41fa1a69eca78df41eb03a',
+    category: 'Poker',
     adminId: '5a41fa1ac025f5b3ee8b425f',
     logo: 'https://www.casinopauma.com/wp-content/uploads/2016/11/poker-5.jpg',
     name: 'Sonja',
