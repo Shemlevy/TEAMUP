@@ -3,7 +3,8 @@
     <category-search-bar></category-search-bar>
     <section class="main-game-info">
       <game-list v-if="games" :games="games"></game-list>
-      <game-details v-if="gameDetails" :details="gameDetails"></game-details>
+      <!-- <game-details v-if="gameDetails" :details="gameDetails"></game-details> -->
+      <google-map :details="gameDetails"></google-map>
     </section>
   </section>
 </template>
@@ -14,6 +15,8 @@ import {LOAD_GAMES, GET_GAMES,GET_SELCTED_GAME, SET_SELECTED_GAME} from '../stor
 import GameDetails from '../components/GameDetails';
 import GameList from '../components/GameList';
 import CategorySearchBar from '../components/CategorySearchBar'
+import GoogleMap from '../components/GoogleMap';
+
 
 export default {
   name: 'HomePage',
@@ -36,7 +39,9 @@ export default {
   components: {
     GameDetails,
     GameList,
-    CategorySearchBar
+    CategorySearchBar,
+    GoogleMap
+    
   },
   methods:{
     loadGames(){
@@ -74,9 +79,10 @@ h1 {
   color: var(--font-main-color);
 }
 .main-game-info{
-  margin: 20px 10px 10px 10px;
-  /* width: 100vw; */
   display: flex;
+}
+.game-list{
+  margin-right: 100px;
 }
 </style>
 
