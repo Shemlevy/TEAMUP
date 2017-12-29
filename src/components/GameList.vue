@@ -17,6 +17,9 @@
                     <li>
                         <h2>Next game: &nbsp; {{game.schedule}}</h2><br>
                     </li>
+                    <li>
+                      <button class="main-btn" >TEAM<span>up</span></button>
+                    </li>
                   
                 </ul>
             </li>
