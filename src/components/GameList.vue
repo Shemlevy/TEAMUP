@@ -4,10 +4,10 @@
             <li  v-for="game in games" :key="game.id" @click="onGameClicked(game)">
                 <ul class="game-item">
                     <li>
-                       <h2>Game Category:{{game.category}}</h2><br> 
+                       <h2>Game Category:{{game.categoryName}}</h2><br> 
                     </li>
                     <li>
-                       <h2>Number of members:{{game.members.length}} / {{game.membersLimit}}</h2><br> 
+                       <h2>Number of members:{{game.players.length}} / {{game.playersLimit}}</h2><br> 
                     </li>
          
                     <li>

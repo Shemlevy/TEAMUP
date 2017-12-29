@@ -30,12 +30,12 @@
 
 <script>
 import {USER_REGISTER} from '../store/modules/user/user.module';
-
+import userService from '../service/user/UserService'
 export default {
   name: "SignUp",
   data() {
     return {
-      SignUpDetails: { email: "", password: "" , name: "",profileImg:"https://cdn4.iconfinder.com/data/icons/social-communication/142/add_user-512.png"}
+      SignUpDetails: null
     };
   },
   methods: {
@@ -50,6 +50,9 @@ export default {
         });
     }
   },
+  created(){
+    this.SignUpDetails = userService.getEmptyUser()
+  }
 
 };
 </script>
