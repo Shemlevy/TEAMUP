@@ -1,20 +1,24 @@
 <template>
-   <section class="game-list">
+   <section class="game-list"> 
        <ul>
-            <li  v-for="game in games" :key="game.id" @click="onGameClicked(game)">
+            <h1>Game Category:&nbsp; {{selectedCategory}}</h1><br>
+            <li  v-for="game in games" :key="game._id" @click="onGameClicked(game)">
                 <ul class="game-item">
                     <li>
-                       <h2>Game Category:{{game.categoryName}}</h2><br> 
+                       <h2>Game Category:&nbsp; {{game.categoryName}}</h2><br> 
                     </li>
                     <li>
-                       <h2>Number of members:{{game.players.length}} / {{game.playersLimit}}</h2><br> 
+                       <h2>Number of members:&nbsp;{{game.players.length}} / {{game.playersLimit}}</h2><br> 
                     </li>
          
                     <li>
-                        <h2>Game-location:{{game.location.address}}</h2><br>
+                        <h2>Game-location:&nbsp;{{game.location.address}}</h2><br>
                     </li>
                     <li>
                         <h2>Next game: &nbsp; {{game.schedule}}</h2><br>
+                    </li>
+                    <li>
+                      <button class="main-btn" >TEAM<span>up</span></button>
                     </li>
                   
                 </ul>
@@ -27,8 +31,17 @@
 <script>
 import { SET_SELECTED_GAME } from "../store/modules/game/Game.module";
 export default {
-  props: ["games"],
-
+  props: ["games","selectedCategory"],
+  // props:{
+  //   games: {
+  //     type: Array
+  //   },
+  //   selectedCategory: {
+  //     type: String,
+  //     default: All
+  //   }
+  // },
+ 
   data() {
     return {};
   },
@@ -48,10 +61,18 @@ export default {
   width: 50vw;
   height: 600px;
   z-index: 1;
-  /* background-color: rgba(205, 134, 63, 0.774);  */
+  background-color: rgba(250, 248, 245, 0.704); 
+}
+h1{
+  font-family: var(--secondery-font);
+  font-size: var(--size-L);
+  color: var(--dark);
+  text-shadow: 1px 1px 2px var(--dark);
+  padding-left: 20px;
 }
 h2 {
   font-family: var(--secondery-font);
+  font-size: var(--size-S);
   color: var(--font-main-color);
   text-shadow: 1px 1px 2px black;
   font-size: 1.2em;

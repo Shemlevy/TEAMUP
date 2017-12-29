@@ -6,6 +6,7 @@
     <router-link to="/register">Register</router-link>
     <router-link to="/user/:userId">UserProfile</router-link>
     <router-link to="/team/:teamId">Team</router-link> -->
+    <router-link to="/GameDetailsPage">GameDetailsPage</router-link> 
     <router-link to="/CreatGame">CreatGame</router-link>
     <router-link v-if="!!!user" class="main-btn log-btn" tag="button" to="/login">Login/Signup</router-link>
     <div v-if="!!login">

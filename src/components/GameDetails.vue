@@ -71,19 +71,21 @@ export default {
 }
 h2 {
   font-family: var(--secondery-font);
+  font-size: var(--size-M);
   color: var(--font-main-color);
   height: 2em; 
   text-shadow: 1px 1px 2px black;  
 }
 h1{
   font-family: var(--secondery-font);
-  font-size: 2em;
+  font-size: var(--size-L);
   color: var(--font-main-color);
   height: 3em; 
   text-shadow: 2px 2px 4px peru;  
 }
 h2 > span{
   font-family: var(--secondery-font);
+  font-size: var(--size-M);
   color: var(--font-main-color);
   text-shadow: 1px 1px 2px peru;  
   height: 1em;

@@ -2,8 +2,8 @@
   <section >
     <category-search-bar></category-search-bar>
     <section class="main-game-info">
-      <game-details v-if="gameDetails" @unselectGame="unselectGame" :details="gameDetails"></game-details>
-      <game-list v-else :games="games"></game-list>
+      <!-- <game-details v-if="gameDetails" @unselectGame="unselectGame" :details="gameDetails"></game-details> -->
+      <game-list v-if="games" :games="games" :selectedCategory="selectedCategory"></game-list>
       <google-map :details="gameDetails"></google-map>
     </section>
   </section>
@@ -29,18 +29,7 @@ export default {
   name: "HomePage",
   data() {
     return {
-      teamOb: {
-        category: "volybool",
-        logo: "logo",
-        name: "fun-voly",
-        type: "public",
-        membersCount: 10,
-        membersLimit: 12,
-        Location: {
-          adress: "shenkin 42, tel aviv"
-        },
-        schedule: "25/12/17"
-      }
+      
     };
   },
   components: {
