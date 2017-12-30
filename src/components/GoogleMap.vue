@@ -88,7 +88,6 @@ export default {
         
         this.map.setZoom(16);
         this.map.panTo(new google.maps.LatLng(res.lat, res.lng));
-        console.log(res.address)
         this.$store.commit({
           type: SET_CURR_ADDERSS,
           address: res.address
