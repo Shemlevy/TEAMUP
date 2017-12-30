@@ -46,8 +46,8 @@ nav {
   align-items: center;
   width: 100vw;
   height: 80px;
-  border-bottom: 3px solid rgb(26, 48, 90);
-  margin-bottom: 10px;
+  /* border-bottom: 3px solid rgb(26, 48, 90); */
+  /* margin-bottom: 10px; */
   background-color: rgb(36, 36, 37);
 }
 h1 {

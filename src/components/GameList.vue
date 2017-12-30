@@ -1,3 +1,5 @@
+
+
 <template>
    <section class="game-list"> 
        <ul>
@@ -32,15 +34,6 @@
 import { SET_SELECTED_GAME } from "../store/modules/game/Game.module";
 export default {
   props: ["games","selectedCategory"],
-  // props:{
-  //   games: {
-  //     type: Array
-  //   },
-  //   selectedCategory: {
-  //     type: String,
-  //     default: All
-  //   }
-  // },
  
   data() {
     return {};
@@ -99,10 +92,3 @@ ul {
   transform: scale(1.05);
 }
 </style>
-
-
-
-
-
-
-
