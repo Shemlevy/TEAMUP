@@ -48,7 +48,7 @@ nav {
   height: 80px;
   border-bottom: 3px solid rgb(26, 48, 90);
   margin-bottom: 10px;
-  background-color: rgb(36, 36, 37);
+  background-color: rgb(36, 36, 36);
 }
 h1 {
   color: var(--font-main-color);

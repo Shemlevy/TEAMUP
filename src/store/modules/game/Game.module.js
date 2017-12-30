@@ -14,7 +14,7 @@ const SET_GAMES = 'game/setGames';
 
 export default {
     state: {
-        games: [],
+        games: null,
         selectedGame: null
     },
     getters: {
