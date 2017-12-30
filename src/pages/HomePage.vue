@@ -4,7 +4,7 @@
     <section class="main-game-info">
       <!-- <game-details v-if="gameDetails" @unselectGame="unselectGame" :details="gameDetails"></game-details> -->
       <game-list v-if="games" :games="games" :selectedCategory="selectedCategory"></game-list>
-      <google-map :details="gameDetails"></google-map>
+      <google-map v-if="games"></google-map>
     </section>
   </section>
 </template>
