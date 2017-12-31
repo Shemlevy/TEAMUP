@@ -17,7 +17,7 @@
                     <v-divider v-if="i > 0" :key="i"></v-divider>
                     <v-list-tile avatar  @click="">
                     <v-list-tile-avatar>
-                        <!-- <img src="../../static/memebers-img/Soccer.jpg"></v-list-tile-avatar> -->
+                         <img src="../../static/memebers-img/Soccer.jpg"></v-list-tile-avatar> 
                     </v-list-tile-avatar>
                     <v-list-tile-content>
                         <v-list-tile-title v-html="game.name"></v-list-tile-title>
