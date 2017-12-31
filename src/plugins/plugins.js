@@ -11,6 +11,6 @@ Vue.use(Vuetify, {
     theme: {
       primary: '#3767c8',
       secondary: '#dc9439',
-      
+      Ourblack: '#363636'
     }
   })

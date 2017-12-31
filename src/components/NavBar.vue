@@ -31,7 +31,7 @@ export default {
   },
   computed: {
     login() {
-      return (this.user = this.$store.getters.getuser);
+      return (this.user = this.$store.getters[GET_USER]);
     }
   }
 };
