@@ -1,9 +1,11 @@
 'user strict'
 
 import axios from 'axios'
+import cloudinary from "cloudinary"
 
 const USER_URL = 'http://localhost:3003';
-
+const CLOUDINARY_URL='https://api.cloudinary.com/v1_1/dkp5cwwjh/image/upload'
+const CLOUDINARY_PRESET = 'hxglosfa'
 function getEmptyUser() {
   return {
     name: '',
@@ -56,13 +58,33 @@ function deleteUser(userId){
         })
 }
 
+function uploadImage(file) {
+  var formData = new FormData()
+  formData.append('file', file)
+  formData.append('upload_preset', CLOUDINARY_PRESET)
+
+  for (var pair of formData.entries()) {
+      console.log(pair[0] + ', ' + pair[1]);
+  }
+
+  return axios({
+      url: CLOUDINARY_URL,
+      method: 'POST',
+      headers: {
+          'Content-type': 'application/x-www-form-urlencoded'
+      },
+      data: formData
+  }).then(res => res.data.url)
+      .catch(err => console.log(err))
+}
 
 export default {
   updateUser,
   getEmptyUser,
   register,
   login,
-  deleteUser
+  deleteUser,
+  uploadImage
 }
 
 
