@@ -1,6 +1,6 @@
 <template>
   <section> 
-    <cg-popup v-if="show" @close-dialog="close"></cg-popup>
+    <cg-popup v-if="show" @close-dialog="close" blur: onBlur></cg-popup>
     <input  class="controls" type="text" @change="getGeoByAddress" placeholder="Search Box" ref="googleSearch">    
     <div class="google-map" :id="mapName"></div>
   </section>
