@@ -20,20 +20,22 @@
         @blur="$v.name.$touch()"
         required
         ></v-text-field>
-        <v-text-field
+        <label style="color:gray;">Location*</label>
+        <div>{{currAddress}}</div> 
+        <hr style="border-top: 1px solid gray;">
+        <br>
+
+        <!--********** if we let the use pick a place input for it******** -->
+        <!-- <v-text-field
         label="Location"
         v-model="location"
         @input="$v.location.$touch()"
         @blur="$v.location.$touch()"
         required
-        ></v-text-field>
-        <v-layout row wrap>
-        <v-flex md12 lg4>
-        <v-date-picker class="date-picker" v-model="picker"></v-date-picker>
-        </v-flex>
-        </v-layout>
-        <v-btn class="main-btn" @click="submit">submit</v-btn>
-        <v-btn class="main-btn" @click="clear">clear</v-btn>
+        ></v-text-field> -->
+        <date-picker></date-picker>
+
+       
     </form>
   </section>
 </template>
@@ -41,15 +43,16 @@
 
 <script>
 import { validationMixin } from "vuelidate";
-import { required, maxLength} from "vuelidate/lib/validators";
+import { required, maxLength } from "vuelidate/lib/validators";
+import { GET_CURR_ADDRESS } from "../store/modules/map/Map.module";
+import DatePicker from '../components/DatePicker'
 
 export default {
   mixins: [validationMixin],
   validations: {
     name: { required, maxLength: maxLength(10) },
-    location: {required},
+    location: { required },
     select: { required }
-  
   },
   data() {
     return {
@@ -59,21 +62,19 @@ export default {
       select: null,
       items: ["Category 1", "Category 2", "Category 3", "Category 4"],
       picker: null
-     
     };
   },
   methods: {
     submit() {
       this.$v.$touch();
-      var gameObj={
-      gameName: this.name,
-      gameLocation: this.location,
-      gameCategory: this.ctg,
-      GameDate: this.picker,
-      Select: this.select
-      }
-      console.log('inside submit', {gameObj});
-     
+      var gameObj = {
+        gameName: this.name,
+        gameLocation: this.location,
+        gameCategory: this.ctg,
+        GameDate: this.picker,
+        Select: this.select
+      };
+      console.log("inside submit", { gameObj });
     },
     clear() {
       this.$v.$reset();
@@ -96,10 +97,13 @@ export default {
         errors.push("Name must be at most 10 characters long");
       !this.$v.name.required && errors.push("Name is required.");
       return errors;
+    },
+    currAddress() {
+      return this.$store.getters[GET_CURR_ADDRESS];
     }
-    
-    
-  
+  },
+  components:{
+    DatePicker
   }
 };
 </script>
@@ -107,38 +111,17 @@ export default {
 <style scoped>
 .cg-container {
   margin: 0 auto;
-  width: 600px;
-  height: 100vh;
   background-color: rgb(255, 255, 255);
   padding: 10px;
   font-family: var(--secondery-font);
   padding: 50px;
+  box-shadow: 2px 2px 8px black;
 }
-h1{
-  font-family: var(--secondery-font);
-  font-size: 2em;
-  /* color: var(--font-main-color); */
-  color: black;
-  height: 3em; 
-  opacity: 0.9; 
-  /* text-shadow: 2px 2px 4px black;   */
+h1 {
+  font-family: var(--primary-font);
+  font-size: 3em;
+  color: var(--font-secondery-color);
+  height: 3em;
 }
-h2 {
-  font-family: Arial;
-  color: black;
-  font-size:16px;
-  font-weight:normal
- 
-}
-.ctg-drop-down{
-font-family: Arial;
-font-size: 16px;
-width: 70%;
-}
-
-.date-picker{
-  width: 70%;
-}
-
 
 </style>
