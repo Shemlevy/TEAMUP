@@ -34,6 +34,8 @@
         required
         ></v-text-field> -->
         <date-picker></date-picker>
+        <v-btn class="main-btn" @click="submit">Submit</v-btn>
+        <v-btn class="main-btn" @click="clear">clear</v-btn>
 
        
     </form>
