@@ -7,6 +7,7 @@ import Carousel3d from 'vue-carousel-3d';
 
 
 
+
 Vue.use(Vuex)
 Vue.use(Vuetify)
 Vue.use(VueRouter)
