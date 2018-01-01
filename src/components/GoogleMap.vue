@@ -5,7 +5,7 @@
     </transition>
     <input  class="controls" type="text" @change="getGeoByAddress" placeholder="Search Box" ref="googleSearch">    
     <div class="google-map" :id="mapName"></div>
-    <button class="location-btn" @click="getUserLoc"><i title="Get my location location-btn" class="material-icons">my_location</i></button>
+    <button class="location-btngit" @click="getUserLoc"><i title="Get my location location-btn" class="material-icons">my_location</i></button>
   </section>
 </template>
 <script>
