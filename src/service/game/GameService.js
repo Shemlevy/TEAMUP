@@ -64,6 +64,13 @@ function getGameById(gameId) {
     })
 }
 
+function getPlayerGames (PlayerId){
+  return axios.get(`${GAME_URL}`, {params:{ PlayerId }})
+    .then(res => {
+      return res.data
+    })
+    .catch(e => console.log('Could not find player games', e))
+}
 
 function getGames(categoryId = null) {
   console.log(categoryId, ' category d')
@@ -82,7 +89,8 @@ export default {
   getGameById,
   createGame,
   deleteGame,
-  updateGame
+  updateGame,
+  getPlayerGames
 }
 
 
