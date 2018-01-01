@@ -50,6 +50,7 @@
 <script>
 import { SET_SELECTED_GAME } from "../store/modules/game/Game.module";
 import CategorySearchBar from "../components/CategorySearchBar";
+
 export default {
   props: ["games", "selectedCategory"],
   data() {

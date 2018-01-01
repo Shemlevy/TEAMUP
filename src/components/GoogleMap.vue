@@ -5,6 +5,7 @@
     </transition>
     <input  class="controls" type="text" @change="getGeoByAddress" placeholder="Search Box" ref="googleSearch">    
     <div class="google-map" :id="mapName"></div>
+    <button class="location-btn" @click="getUserLoc"><i title="Get my location location-btn" class="material-icons">my_location</i></button>
   </section>
 </template>
 <script>
@@ -27,6 +28,7 @@ export default {
       map: null,
       bounds: null,
       tempMarker: null,
+      infoWindow: null,
       // markers: [],
       searchBox: null
       // searchLocation: {
@@ -41,7 +43,7 @@ export default {
       draggable: false,
       map: this.map
     });
-    let self = this
+    let self = this;
     this.tempMarker.addListener("click", function(e) {
       self.show = !self.show;
     });
@@ -49,8 +51,9 @@ export default {
   mounted: function() {
     this.bounds = new google.maps.LatLngBounds();
     const element = document.getElementById(this.mapName);
-    
-    const mapCentre = this.games[0];
+
+    let eltCenter = [{ location: { lat: 32.072634, lng: 34.763987 } }];
+    const mapCentre = this.games ? this.games[0] : eltCenter[0];
 
     const options = {
       center: new google.maps.LatLng(
@@ -58,25 +61,34 @@ export default {
         mapCentre.location.lng
       )
     };
-    this.map = new google.maps.Map(element, options);
+
+    
+    this.map = new google.maps.Map(element, { maxZoom: 16 });
+    this.infoWindow = new google.maps.InfoWindow()
+
+    
+
     this.tempMarker.setMap(this.map);
     var input = this.$refs.googleSearch;
     this.searchBox = new google.maps.places.SearchBox(input);
     this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
 
-    this.games.forEach(coord => {
-      const position = new google.maps.LatLng(
-        coord.location.lat,
-        coord.location.lng
-      );
-      const marker = new google.maps.Marker({
-        animation: google.maps.Animation.DROP,
-        position,
-        map: this.map
+    let arr = (this.games)? this.games : eltCenter
+    
+      arr.forEach(coord => {
+        const position = new google.maps.LatLng(
+          coord.location.lat,
+          coord.location.lng
+        );
+        const marker = new google.maps.Marker({
+          animation: google.maps.Animation.DROP,
+          position,
+          map: this.map
+        });
+
+        // this.markers.push(marker)
+        this.map.fitBounds(this.bounds.extend(position));
       });
-      // this.markers.push(marker)
-      this.map.fitBounds(this.bounds.extend(position));
-    });
   },
   watch: {
     selctedGame() {
@@ -102,12 +114,45 @@ export default {
         this.$store.commit({
           type: SET_CURR_ADDERSS,
           address: res
-        });        
+        });
         this.tempMarker.setPosition(res.postion);
       });
     },
     close() {
       this.show = false;
+    },
+    getUserLoc() {
+      let self = this
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            self.infoWindow.setPosition(pos);
+            self.infoWindow.setContent("You are Here");
+            self.infoWindow.open(self.map);
+            self.map.setCenter(pos);
+          },
+          function() {
+            handleLocationError(true, self.infoWindow, self.map.getCenter());
+          }
+        );
+      } else {
+        // Browser doesn't support Geolocation
+        handleLocationError(false, self.infoWindow, map.getCenter());
+      }
+    },
+    handleLocationError(browserHasGeolocation, infoWindow, pos) {
+      self.infoWindow.setPosition(pos);
+      self.infoWindow.setContent(
+        browserHasGeolocation
+          ? "Error: The Geolocation service failed."
+          : "Error: Your browser doesn't support geolocation."
+      );
+      self.infoWindow.open(self.map);
     }
   },
   components: {
@@ -151,5 +196,21 @@ section {
 .slide-fade-leave-to {
   transform: translateY(50px);
   opacity: 0;
+}
+
+.location-btn{
+  border: 0px;
+  margin: 10px 44px;
+  padding: 0px;
+  position: absolute;
+  cursor: pointer;
+  user-select: none;
+  width: 25px;
+  height: 25px;
+  overflow: hidden;
+  top: 51px;
+  right: 0px;
+  color: gray;
+  background-color: white;
 }
 </style>
