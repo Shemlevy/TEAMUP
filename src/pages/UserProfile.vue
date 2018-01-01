@@ -26,7 +26,6 @@
 <script>
   import {GET_USER, USER_UPDATE, USER_DELETE, GET_USER_GAMES} from '../store/modules/user/user.module.js';
   import UserProfileDetails from '../components/UserProfileDetails.vue'
-  import GameList from '../components/GameList.vue'
 export default {
 
   name: "UserProfile",
@@ -52,7 +51,6 @@ export default {
   },
   components: {
     UserProfileDetails,
-    GameList
   }
 };
 </script>

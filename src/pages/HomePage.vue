@@ -20,7 +20,6 @@ import {
   SET_SELECTED_GAME
 } from "../store/modules/game/Game.module";
 import GameDetails from "../components/GameDetails";
-import GameList from "../components/GameList";
 import CategorySearchBar from "../components/CategorySearchBar";
 import GoogleMap from "../components/GoogleMap";
 import GamesListVut from "../components/GamesListVut";
@@ -34,7 +33,6 @@ export default {
   },
   components: {
     GameDetails,
-    GameList,
     CategorySearchBar,
     GoogleMap,
     GamesListVut

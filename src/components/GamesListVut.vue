@@ -29,7 +29,7 @@
                                   <v-list-tile-sub-title style="width: 150px;"> 
                                   {{game.name}} 
                                   </v-list-tile-sub-title>
-                                  <v-avatar class="avatar-area" v-for="n in game.rank" :key="n" size="20px">
+                                  <v-avatar class="avatar-area" v-for="n in game.level" :key="n" size="20px">
                                       <img src="../../static/icons/iconmuscle.png" alt="avatar">
                                   </v-avatar>
                                   <v-list-tile-sub-title>
