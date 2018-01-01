@@ -9,16 +9,10 @@ function getEmptyGame(){
   return {
     url: '',
     category:{
-<<<<<<< HEAD
       categoryId: '',
       categoryName: '',
     },
     level:'',
-=======
-    categoryId: '',
-    categoryName: ''
-    },
->>>>>>> 488eabb3e567ae73d061375e758b94fb7a1adece
     name: '',
     time: {
       date:'',

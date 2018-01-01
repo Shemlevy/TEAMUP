@@ -65,11 +65,7 @@ export default {
         },
     },
     getters: {
-<<<<<<< HEAD
         [GET_USER]: state => {
-=======
-        [GET_USER](state){
->>>>>>> 488eabb3e567ae73d061375e758b94fb7a1adece
             return state.user
         },
         [GET_USER_GAMES](state){
