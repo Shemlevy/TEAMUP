@@ -48,7 +48,31 @@ export default {
       self.show = !self.show;
     });
   },
-  mounted: function() {
+  mounted() {
+    this.renderMap()
+  },
+  watch: {
+    selctedGame() {
+      if (!this.selctedGame) return;
+      var lat = this.selctedGame.location.lat;
+      var lng = this.selctedGame.location.lng;
+      this.map.panTo(new google.maps.LatLng(lat, lng));
+    },
+    games(){  
+      if (this.games) this.renderMap()
+    }
+  },
+  computed: {
+    selctedGame() {
+      return this.$store.getters[GET_SELCTED_GAME];
+    },
+    games() {
+      return this.$store.getters[GET_GAMES];
+    }
+  },
+  methods: {
+    renderMap(){
+    let self = this;
     this.bounds = new google.maps.LatLngBounds();
     const element = document.getElementById(this.mapName);
 
@@ -62,20 +86,16 @@ export default {
       )
     };
 
-    
     this.map = new google.maps.Map(element, { maxZoom: 16 });
     this.infoWindow = new google.maps.InfoWindow()
-
-    
 
     this.tempMarker.setMap(this.map);
     var input = this.$refs.googleSearch;
     this.searchBox = new google.maps.places.SearchBox(input);
     this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
 
-    let arr = (this.games)? this.games : eltCenter
-    
-      arr.forEach(coord => {
+    if (this.games) { 
+      this.games.forEach(coord => {
         const position = new google.maps.LatLng(
           coord.location.lat,
           coord.location.lng
@@ -85,28 +105,17 @@ export default {
           position,
           map: this.map
         });
-
+        marker.addListener("click", function(e) {
+        console.log(coord._id);
+        self.$router.push(`/game/${coord._id}`);
+        });
         // this.markers.push(marker)
         this.map.fitBounds(this.bounds.extend(position));
-      });
-  },
-  watch: {
-    selctedGame() {
-      if (!this.selctedGame) return;
-      var lat = this.selctedGame.location.lat;
-      var lng = this.selctedGame.location.lng;
-      this.map.panTo(new google.maps.LatLng(lat, lng));
-    }
-  },
-  computed: {
-    selctedGame() {
-      return this.$store.getters[GET_SELCTED_GAME];
+        });
+        } else {
+        this.map.fitBounds(this.bounds.extend(options.center));
+      }
     },
-    games() {
-      return this.$store.getters[GET_GAMES];
-    }
-  },
-  methods: {
     getGeoByAddress(e) {
       MapService.getGeoByAddress(e).then(res => {
         this.map.setZoom(16);
