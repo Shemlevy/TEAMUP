@@ -1,10 +1,9 @@
 <template>
   <section >
-    <category-search-bar></category-search-bar>
+    <!--<category-search-bar></category-search-bar>-->
     <section class="main-game-info">
-      <!-- <game-details v-if="gameDetails" @unselectGame="unselectGame" :details="gameDetails"></game-details> -->
-      <game-list v-if="games" :games="games" :selectedCategory="selectedCategory"></game-list>
-      <google-map v-if="games"></google-map>
+      <games-list-vut :games="games" :selectedCategory="selectedCategory"></games-list-vut>
+      <google-map :details="gameDetails"></google-map> 
     </section>
   </section>
 </template>
@@ -24,6 +23,7 @@ import GameDetails from "../components/GameDetails";
 import GameList from "../components/GameList";
 import CategorySearchBar from "../components/CategorySearchBar";
 import GoogleMap from "../components/GoogleMap";
+import GamesListVut from "../components/GamesListVut";
 
 export default {
   name: "HomePage",
@@ -36,7 +36,8 @@ export default {
     GameDetails,
     GameList,
     CategorySearchBar,
-    GoogleMap
+    GoogleMap,
+    GamesListVut
   },
   methods: {
     unselectGame() {
@@ -62,6 +63,7 @@ export default {
     selectedCategory() {
       console.log("hi");
       this.$store.commit({ type: SET_SELECTED_GAME, categoryId: null });
+      // console.log('categoryId',categoryId)
     }
   }
 };

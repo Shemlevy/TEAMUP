@@ -9,10 +9,16 @@ function getEmptyGame(){
   return {
     url: '',
     category:{
+<<<<<<< HEAD
       categoryId: '',
       categoryName: '',
     },
     level:'',
+=======
+    categoryId: '',
+    categoryName: ''
+    },
+>>>>>>> 488eabb3e567ae73d061375e758b94fb7a1adece
     name: '',
     time: {
       date:'',
@@ -68,10 +74,19 @@ function getGameById(gameId) {
     })
 }
 
+function getPlayerGames (PlayerId){
+  return axios.get(`${GAME_URL}`, {params:{ PlayerId }})
+    .then(res => {
+      return res.data
+    })
+    .catch(e => console.log('Could not find player games', e))
+}
 
 function getGames(categoryId = null) {
+  console.log(categoryId, ' category d')
   return axios.get(`${GAME_URL}`, { params: { categoryId } })
     .then(res => {
+      console.log({res, msg: 'we are in the service'})
       return res.data
     })
     .catch(e => console.log('No Games', e))
@@ -84,7 +99,8 @@ export default {
   getGameById,
   createGame,
   deleteGame,
-  updateGame
+  updateGame,
+  getPlayerGames
 }
 
 
