@@ -1,7 +1,6 @@
 <template>
  <section>
    <input class="search-input" @input="filterByValue" @keydown.enter="updateCategory" v-model="inputValue" type="text"/>
-   
  </section>
 </template>
 
@@ -13,6 +12,7 @@ import {
 } from "../store/modules/category/Category.module";
 import { LOAD_GAMES } from "../store/modules/game/Game.module";
 
+
 export default {
   name: "SearchBar",
   data() {
@@ -21,6 +21,9 @@ export default {
     };
   },
   methods: {
+    getData(obj){
+        console.log(obj);
+      },
     filterByValue() {
       // we just save the input nothging more
       this.$store.commit({ type: SET_CATEGORY_FILTER, input: this.inputValue });
@@ -61,6 +64,6 @@ export default {
   border: none;
   border-radius: 5px;
   background-color: rgba(0, 0, 0, 0);
-  color: rgba(255, 255, 255, 0.747);
+  color: rgba(255, 255, 255, 0.562);
 }
 </style>

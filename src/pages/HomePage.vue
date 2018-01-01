@@ -3,7 +3,7 @@
     <!--<category-search-bar></category-search-bar>-->
     <section class="main-game-info">
       <games-list-vut :games="games" :selectedCategory="selectedCategory"></games-list-vut>
-      <google-map :details="gameDetails"></google-map> 
+      <google-map v-if="games" :details="gameDetails"></google-map> 
     </section>
   </section>
 </template>
