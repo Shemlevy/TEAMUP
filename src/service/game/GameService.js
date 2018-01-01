@@ -9,11 +9,15 @@ function getEmptyGame(){
   return {
     url: '',
     category:{
-    categoryId: '',
-    categoryName: ''
+      categoryId: '',
+      categoryName: '',
     },
+    level:'',
     name: '',
-    date: '',
+    time: {
+      date:'',
+      hour:'',
+    },
     location: {
       lat: null,
       lng: null,
@@ -21,7 +25,7 @@ function getEmptyGame(){
     },
     about: '',
     playersLimit: null,
-    players:{}
+    players:[]
   }
 }
 

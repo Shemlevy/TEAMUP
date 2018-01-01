@@ -65,7 +65,7 @@ export default {
         },
     },
     getters: {
-        [GET_USER](state){
+        [GET_USER]: state => {
             return state.user
         },
         [GET_USER_GAMES](state){

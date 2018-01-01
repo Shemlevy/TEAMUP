@@ -1,8 +1,11 @@
 <template>
   <section> 
-    <cg-popup v-if="show" @close-dialog="close"></cg-popup>
+    <transition name="slide-fade">
+      <cg-popup v-if="show" @close-dialog="close"></cg-popup>
+    </transition>
     <input  class="controls" type="text" @change="getGeoByAddress" placeholder="Search Box" ref="googleSearch">    
     <div class="google-map" :id="mapName"></div>
+    <button class="location-btn" @click="getUserLoc"><i title="Get my location location-btn" class="material-icons">my_location</i></button>
   </section>
 </template>
 <script>
@@ -13,19 +16,19 @@ import {
 } from "../store/modules/game/Game.module";
 import MapService from "../service/map/MapService";
 import CgPopup from "../components/CgPopup";
-import {SET_CURR_ADDERSS} from '../store/modules/map/Map.module'
-
+import { SET_CURR_ADDERSS } from "../store/modules/map/Map.module";
 
 export default {
   name: "google-map",
-  // props: ['name'],
   data: function() {
     return {
-      currAddress: null,
+      // currAddress: null,
       show: false,
       mapName: this.name + "-map",
       map: null,
       bounds: null,
+      tempMarker: null,
+      infoWindow: null,
       // markers: [],
       searchBox: null
       // searchLocation: {
@@ -34,11 +37,23 @@ export default {
       // },
     };
   },
+  created() {
+    this.tempMarker = new google.maps.Marker({
+      animation: google.maps.Animation.DROP,
+      draggable: false,
+      map: this.map
+    });
+    let self = this;
+    this.tempMarker.addListener("click", function(e) {
+      self.show = !self.show;
+    });
+  },
   mounted: function() {
     this.bounds = new google.maps.LatLngBounds();
     const element = document.getElementById(this.mapName);
-    
-    const mapCentre = this.games[0];
+
+    let eltCenter = [{ location: { lat: 32.072634, lng: 34.763987 } }];
+    const mapCentre = this.games ? this.games[0] : eltCenter[0];
 
     const options = {
       center: new google.maps.LatLng(
@@ -46,25 +61,34 @@ export default {
         mapCentre.location.lng
       )
     };
-    this.map = new google.maps.Map(element, options);
 
+    
+    this.map = new google.maps.Map(element, { maxZoom: 16 });
+    this.infoWindow = new google.maps.InfoWindow()
+
+    
+
+    this.tempMarker.setMap(this.map);
     var input = this.$refs.googleSearch;
     this.searchBox = new google.maps.places.SearchBox(input);
     this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
 
-    this.games.forEach(coord => {
-      const position = new google.maps.LatLng(
-        coord.location.lat,
-        coord.location.lng
-      );
-      const marker = new google.maps.Marker({
-        animation: google.maps.Animation.DROP,
-        position,
-        map: this.map
+    let arr = (this.games)? this.games : eltCenter
+    
+      arr.forEach(coord => {
+        const position = new google.maps.LatLng(
+          coord.location.lat,
+          coord.location.lng
+        );
+        const marker = new google.maps.Marker({
+          animation: google.maps.Animation.DROP,
+          position,
+          map: this.map
+        });
+
+        // this.markers.push(marker)
+        this.map.fitBounds(this.bounds.extend(position));
       });
-      // this.markers.push(marker)
-      this.map.fitBounds(this.bounds.extend(position));
-    });
   },
   watch: {
     selctedGame() {
@@ -84,29 +108,51 @@ export default {
   },
   methods: {
     getGeoByAddress(e) {
-      let self = this;
       MapService.getGeoByAddress(e).then(res => {
-        
         this.map.setZoom(16);
         this.map.panTo(new google.maps.LatLng(res.lat, res.lng));
         this.$store.commit({
           type: SET_CURR_ADDERSS,
-          address: res.address
+          address: res
         });
-
-        const marker = new google.maps.Marker({
-          animation: google.maps.Animation.DROP,
-          position: res.postion,
-          draggable: false,
-          map: this.map
-        });
-        marker.addListener("click", function(e) {
-          self.show = !self.show;
-        });
+        this.tempMarker.setPosition(res.postion);
       });
     },
     close() {
       this.show = false;
+    },
+    getUserLoc() {
+      let self = this
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            self.infoWindow.setPosition(pos);
+            self.infoWindow.setContent("You are Here");
+            self.infoWindow.open(self.map);
+            self.map.setCenter(pos);
+          },
+          function() {
+            handleLocationError(true, self.infoWindow, self.map.getCenter());
+          }
+        );
+      } else {
+        // Browser doesn't support Geolocation
+        handleLocationError(false, self.infoWindow, map.getCenter());
+      }
+    },
+    handleLocationError(browserHasGeolocation, infoWindow, pos) {
+      self.infoWindow.setPosition(pos);
+      self.infoWindow.setContent(
+        browserHasGeolocation
+          ? "Error: The Geolocation service failed."
+          : "Error: Your browser doesn't support geolocation."
+      );
+      self.infoWindow.open(self.map);
     }
   },
   components: {
@@ -138,5 +184,33 @@ section {
   margin: 13px;
   border-radius: 5px;
   padding: 8px;
+}
+
+.slide-fade-enter-active {
+  transition: all 0.5s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.4s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-enter,
+.slide-fade-leave-to {
+  transform: translateY(50px);
+  opacity: 0;
+}
+
+.location-btn{
+  border: 0px;
+  margin: 10px 44px;
+  padding: 0px;
+  position: absolute;
+  cursor: pointer;
+  user-select: none;
+  width: 25px;
+  height: 25px;
+  overflow: hidden;
+  top: 51px;
+  right: 0px;
+  color: gray;
+  background-color: white;
 }
 </style>

@@ -6,6 +6,7 @@ export const GET_SELECTED_CATEGORY = 'category/getSelectedCategory';
 export const SET_SELECTED_CATEGORY = 'category/setSelectedCategory'
 export const SET_CATEGORY_FILTER = 'category/setCatagoryFilter'
 export const GET_CATEGORIES_BY_FILTER = 'category/setSelectedCategory'
+export const GET_CATEGORIES = 'category/getCategories'
 
 const SET_CATEGORIES = 'category/setCategories'
 const GET_CATEGORY_BY_ID = 'category/getCategoryById'
@@ -17,6 +18,9 @@ export default {
         filterByInput: null
     },
     getters: {
+        [GET_CATEGORIES](state){
+            return state.categories
+        },
         [GET_SELECTED_CATEGORY](state){
             return state.selectedCategory
         },

@@ -19,5 +19,7 @@ export default {
 </script>
 
 <style>
-
+#app {
+  background-color: var(--main-color);
+}
 </style>
