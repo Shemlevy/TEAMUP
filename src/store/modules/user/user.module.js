@@ -49,7 +49,7 @@ export default {
         }
     },
     getters: {
-        getuser: state => {
+        [GET_USER]: state => {
             return state.user
         }
     }

@@ -1,6 +1,8 @@
 <template>
   <section> 
-    <cg-popup v-if="show" @close-dialog="close" blur: onBlur></cg-popup>
+    <transition name="slide-fade">
+      <cg-popup v-if="show" @close-dialog="close"></cg-popup>
+    </transition>
     <input  class="controls" type="text" @change="getGeoByAddress" placeholder="Search Box" ref="googleSearch">    
     <div class="google-map" :id="mapName"></div>
   </section>
@@ -13,19 +15,18 @@ import {
 } from "../store/modules/game/Game.module";
 import MapService from "../service/map/MapService";
 import CgPopup from "../components/CgPopup";
-import {SET_CURR_ADDERSS} from '../store/modules/map/Map.module'
-
+import { SET_CURR_ADDERSS } from "../store/modules/map/Map.module";
 
 export default {
   name: "google-map",
-  // props: ['name'],
   data: function() {
     return {
-      currAddress: null,
+      // currAddress: null,
       show: false,
       mapName: this.name + "-map",
       map: null,
       bounds: null,
+      tempMarker: null,
       // markers: [],
       searchBox: null
       // searchLocation: {
@@ -33,6 +34,17 @@ export default {
       //   longitude: -0.1921837
       // },
     };
+  },
+  created() {
+    this.tempMarker = new google.maps.Marker({
+      animation: google.maps.Animation.DROP,
+      draggable: false,
+      map: this.map
+    });
+    let self = this
+    this.tempMarker.addListener("click", function(e) {
+      self.show = !self.show;
+    });
   },
   mounted: function() {
     this.bounds = new google.maps.LatLngBounds();
@@ -46,7 +58,7 @@ export default {
       )
     };
     this.map = new google.maps.Map(element, options);
-
+    this.tempMarker.setMap(this.map);
     var input = this.$refs.googleSearch;
     this.searchBox = new google.maps.places.SearchBox(input);
     this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
@@ -83,25 +95,14 @@ export default {
   },
   methods: {
     getGeoByAddress(e) {
-      let self = this;
       MapService.getGeoByAddress(e).then(res => {
-        
         this.map.setZoom(16);
         this.map.panTo(new google.maps.LatLng(res.lat, res.lng));
         this.$store.commit({
           type: SET_CURR_ADDERSS,
-          address: res.address
-        });
-
-        const marker = new google.maps.Marker({
-          animation: google.maps.Animation.DROP,
-          position: res.postion,
-          draggable: false,
-          map: this.map
-        });
-        marker.addListener("click", function(e) {
-          self.show = !self.show;
-        });
+          address: res
+        });        
+        this.tempMarker.setPosition(res.postion);
       });
     },
     close() {
@@ -137,5 +138,17 @@ section {
   margin: 13px;
   border-radius: 5px;
   padding: 8px;
+}
+
+.slide-fade-enter-active {
+  transition: all 0.5s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.4s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-enter,
+.slide-fade-leave-to {
+  transform: translateY(50px);
+  opacity: 0;
 }
 </style>

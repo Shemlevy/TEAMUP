@@ -8,10 +8,16 @@ const GAME_URL = 'http://localhost:3003/data/game';
 function getEmptyGame(){
   return {
     url: '',
-    catagoryId: '',
-    catagoryName: '',
+    category:{
+      categoryId: '',
+      categoryName: '',
+    },
+    level:'',
     name: '',
-    date: '',
+    time: {
+      date:'',
+      hour:'',
+    },
     location: {
       lat: null,
       lng: null,
@@ -19,7 +25,7 @@ function getEmptyGame(){
     },
     about: '',
     playersLimit: null,
-    players:{}
+    players:[]
   }
 }
 

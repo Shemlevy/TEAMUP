@@ -6,8 +6,8 @@
     <router-link to="/register">Register</router-link>
     <router-link to="/user/:userId">UserProfile</router-link>
     <router-link to="/team/:teamId">Team</router-link> -->
-    <router-link to="/GameDetailsPage">GameDetailsPage</router-link> 
-    <router-link to="/CreatGame">CreatGame</router-link>
+    <!-- <router-link to="/GameDetailsPage">GameDetailsPage</router-link>  -->
+    <!-- <router-link to="/CreatGame">CreatGame</router-link> -->
     <router-link v-if="!!!user" class="main-btn log-btn" tag="button" to="/login">Login/Signup</router-link>
     <div v-if="!!login">
       <router-link class="user-link" to="/user">
@@ -32,7 +32,7 @@ export default {
   },
   computed: {
     login() {
-      return (this.user = this.$store.getters.getuser);
+      return (this.user = this.$store.getters[GET_USER]);
     }
   }
 };
