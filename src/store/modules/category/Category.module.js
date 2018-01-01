@@ -33,9 +33,7 @@ export default {
     },
     mutations: {
         [SET_SELECTED_CATEGORY](state, payload){
-            console.log('In category module: ', payload.categoryId)
             var category = state.categories.find(category => category._id === payload.categoryId)
-            console.log(category)
             state.selectedCategory = category
         },
         [SET_CATEGORIES](state, {categories}){

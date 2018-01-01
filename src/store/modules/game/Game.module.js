@@ -44,6 +44,7 @@ export default {
         [LOAD_GAMES]({commit}, payload) {
             return GameService.getGames(payload.categoryId)
                 .then(games => {
+                    console.log({games ,  payload})
                     commit({ type: SET_GAMES, games })
                 })
                 .catch(err => {

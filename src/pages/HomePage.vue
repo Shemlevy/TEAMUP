@@ -2,9 +2,8 @@
   <section >
     <!--<category-search-bar></category-search-bar>-->
     <section class="main-game-info">
-      <!--<game-list :games="games" :selectedCategory="selectedCategory"></game-list>-->
       <games-list-vut :games="games" :selectedCategory="selectedCategory"></games-list-vut>
-      <google-map :details="gameDetails"></google-map>
+      <google-map :details="gameDetails"></google-map> 
     </section>
   </section>
 </template>
@@ -64,6 +63,7 @@ export default {
     selectedCategory() {
       console.log("hi");
       this.$store.commit({ type: SET_SELECTED_GAME, categoryId: null });
+      // console.log('categoryId',categoryId)
     }
   }
 };
@@ -82,6 +82,6 @@ h1 {
 }
 </style>
 
-<!--eddit!! v-if="games"-->
+
 
 

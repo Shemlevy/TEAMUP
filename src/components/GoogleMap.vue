@@ -37,6 +37,7 @@ export default {
   mounted: function() {
     this.bounds = new google.maps.LatLngBounds();
     const element = document.getElementById(this.mapName);
+    
     const mapCentre = this.games[0];
 
     const options = {
