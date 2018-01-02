@@ -5,32 +5,6 @@ import axios from 'axios'
 const GAME_URL = 'http://localhost:3003/data/game';
 
 
-<<<<<<< HEAD
-// function getEmptyGame(){
-//   return {
-//     url: '',
-//     category:{
-//       categoryId: '',
-//       categoryName: '',
-
-//     },
-//     level:'',
-//     name: '',
-//     time: {
-//       date:'',
-//       hour:'',
-//     },
-//     location: {
-//       lat: null,
-//       lng: null,
-//       address: ''
-//     },
-//     about: '',
-//     playersLimit: null,
-//     players:[]
-//   }
-// }
-=======
 function getEmptyGame(){
   return {
     url: '',
@@ -51,7 +25,6 @@ function getEmptyGame(){
     players:[]
   }
 }
->>>>>>> dfbaf1914a4b1ff759dfec1edcacdbb249a4babe
 
 function updateGame(game){
   return axios.put(`${GAME_URL}/${game._id}`, game)

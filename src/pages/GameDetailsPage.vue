@@ -3,11 +3,7 @@
     <v-layout row v-if="game">
     <v-flex xs12 sm6 offset-sm3>
       <v-card>
-<<<<<<< HEAD
-        <v-card-media class="card-pic-area" src="" height="300px" >
-=======
         <v-card-media class="card-pic-area" :src="coverImg" height="300px">
->>>>>>> dfbaf1914a4b1ff759dfec1edcacdbb249a4babe
           <v-layout column class="media">
             <v-card-title>
               <v-btn dark icon>
@@ -116,19 +112,12 @@ export default {
       return this.game.category.url;
     }
   },
-<<<<<<< HEAD
   created (){
       console.log('page created')
       var id = this.$router.history.current.params.gameId
       this.$store.dispatch({type: LOAD_GAME_BY_ID , gameId: id})
       
       
-=======
-  created() {
-    console.log("page created sucess new");
-    var id = this.$router.history.current.params.gameId;
-    this.$store.dispatch({ type: LOAD_GAME_BY_ID, gameId: id });
->>>>>>> dfbaf1914a4b1ff759dfec1edcacdbb249a4babe
   }
 };
 </script>

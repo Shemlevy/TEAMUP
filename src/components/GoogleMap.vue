@@ -96,7 +96,6 @@ export default {
       // this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
       this.searchBox = new google.maps.places.SearchBox(input);
 
-<<<<<<< HEAD
     if (this.games) { 
       console.log('in google map', this.games)
       this.games.forEach(coord => {
@@ -115,27 +114,6 @@ export default {
         });
         // this.markers.push(marker)
         this.map.fitBounds(this.bounds.extend(position));
-=======
-      if (this.games) {
-        this.map = new google.maps.Map(element, { maxZoom: 18 });
-
-        this.games.forEach(coord => {
-          const position = new google.maps.LatLng(
-            coord.location.lat,
-            coord.location.lng
-          );
-          const marker = new google.maps.Marker({
-            animation: google.maps.Animation.DROP,
-            position,
-            map: this.map
-          });
-          console.log(marker)
-          marker.addListener("click", function(e) {
-            self.$router.push(`/game/${coord._id}`);
-          });
-          // this.markers.push(marker)
-          this.map.fitBounds(this.bounds.extend(position));
->>>>>>> dfbaf1914a4b1ff759dfec1edcacdbb249a4babe
         });
       } else {
         this.map.fitBounds(this.bounds.extend(options.center));
@@ -151,14 +129,8 @@ export default {
           type: SET_CURR_ADDERSS,
           address: res
         });
-<<<<<<< HEAD
         this.tempMarker.setPosition(res.postion);
         console.log('this i this.tempMarkers res' ,  this.tempMarker);
-=======
-        this.tempMarker.setPosition(pos);
-        console.log('this tempmarker',this.tempMarker);
-        
->>>>>>> dfbaf1914a4b1ff759dfec1edcacdbb249a4babe
       });
     },
     close() {
