@@ -26,7 +26,7 @@
                     <img src="../../static/icons/iconmuscle.png" alt="avatar">
                   </v-avatar>
                   <v-list-tile-sub-title>
-                    <!-- <button class="main-btn" >TEAM<span>UP</span></button> -->
+                    <button class="main-btn" @click="emitJoin(game)">TEAM<span>UP</span></button>
                   </v-list-tile-sub-title>
                   <v-list-tile-sub-title>
                     <button class="main-btn" @click="showDetPage(game._id)">detailes</button>
@@ -65,6 +65,9 @@ export default {
     },
     showDetPage(gameId){
       this.$router.push(`/game/${gameId}`);
+    },
+    emitJoin(game){
+      this.$emit('userJoinGame', game)
     }
   },
   components:{

@@ -13,7 +13,7 @@
     </v-tabs-bar>
     <v-tabs-items>
       <v-tabs-content v-if="games" :id="'tab-games'">
-        <game-list :games="games"></game-list>
+        <game-list-vut :games="games"></game-list-vut>
       </v-tabs-content>
       <!-- <v-tabs-content :id="'tab-notifications'">
         <h1>No new notifications</h1>
@@ -25,7 +25,8 @@
 
 <script>
   import {GET_USER, USER_UPDATE, USER_DELETE, GET_USER_GAMES} from '../store/modules/user/user.module.js';
-  import UserProfileDetails from '../components/UserProfileDetails.vue'
+  import UserProfileDetails from '../components/UserProfileDetails.vue';
+  import gameListVut from '../components/GamesListVut.vue';
 export default {
 
   name: "UserProfile",
@@ -51,6 +52,7 @@ export default {
   },
   components: {
     UserProfileDetails,
+    gameListVut
   }
 };
 </script>

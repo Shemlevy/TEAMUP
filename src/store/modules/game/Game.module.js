@@ -11,6 +11,9 @@ export const LOAD_GAME_BY_ID = 'game/loadGameById'
 export const GET_SELCTED_GAME = 'game/getSelectedGame'
 export const SET_SELECTED_GAME = 'game/setSelectedGame'
 export const GET_GAMES_BY_CTG = 'game/getGamesByCtg'
+export const ADD_NEW_GAME ='game/addNewGame'
+export const UPDATE_SPECIFIC_GAME = 'game/updateSpecificGame'
+
 
 const SET_GAMES = 'game/setGames';
 
@@ -29,6 +32,7 @@ export default {
     },
     mutations: {
         [SET_GAMES](state, { games }) {
+            console.log('state in game module mutation: ' ,state)
             state.games = games
         },
         [SET_SELECTED_GAME](state, {gameId}){
@@ -38,8 +42,17 @@ export default {
             }else{
                 state.selectedGame = game;
             }
-
-            
+        },
+        [UPDATE_SPECIFIC_GAME](state , {updatedGame}){
+            console.log('recived game in module :' , updatedGame)
+            var gameIdx = state.games.findIndex(game => game._id === updatedGame._id)
+            if(gameIdx >= 0){
+                console.log('game idx: ', gameIdx)
+                state.games.splice(gameIdx , 1 , updatedGame)
+            }
+        },
+        [ADD_NEW_GAME](state, {game}){
+            state.games.push(game)
         }
     },
     actions: {
@@ -70,16 +83,17 @@ export default {
                     console.log('game deleted in data base')
                 })
                 .catch(_ => {
-                    console.log('game was not delted in database')
+                    console.log('game was not deleted in database')
                 })
         },
         [UPDATE_GAME]({commit}, {game}){
             GameService.updateGame(game)
-                .then(res => {
-                    console.log('game updated in database')
-                }).catch(err => {
-                    console.log('game was not updated in database')
-                })
+                console.log('game in game module: ', game)
+                // .then(res => {
+                //     console.log('game updated in database')
+                // }).catch(err => {
+                //     console.log('game was not updated in database')
+                // })
         },
         [LOAD_GAME_BY_ID]({state}, {gameId}){
             GameService.getGameById(gameId)
@@ -92,8 +106,11 @@ export default {
                 .catch(err => {
                     console.log('was not able to load game')
                 })
+        },
+        socket_newGameAdded({state}, payload){
+            console.log(payload)
         }
-        
+            
     }
 
 }
