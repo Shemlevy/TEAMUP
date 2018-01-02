@@ -7,7 +7,7 @@ const CATEGORY_URL = 'http://localhost:3003/data/category';
 
 function getCategories() {
     return axios.get(CATEGORY_URL)
-            .then(res => res.data)
+            .then(res =>  {return res.data})
             .catch(_ => console.log('error'))
 }
 

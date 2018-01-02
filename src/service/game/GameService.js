@@ -8,10 +8,7 @@ const GAME_URL = 'http://localhost:3003/data/game';
 function getEmptyGame(){
   return {
     url: '',
-    category:{
-      categoryId: '',
-      categoryName: '',
-    },
+    category:{},
     level:'',
     name: '',
     time: {
@@ -81,6 +78,7 @@ function getGames(categoryId = null) {
   return axios.get(`${GAME_URL}`, { params: { categoryId } })
     .then(res => {
       console.log({res, msg: 'we are in the service'})
+      if (res.data.length === 0) return null
       return res.data
     })
     .catch(e => console.log('No Games', e))

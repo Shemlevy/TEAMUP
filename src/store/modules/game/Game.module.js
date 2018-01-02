@@ -1,4 +1,5 @@
 import GameService from '../../../service/game/GameService.js'
+import { GET_SELECTED_CATEGORY } from '../category/Category.module'
 
 
 export const LOAD_GAMES = 'game/loadGames'
@@ -9,6 +10,7 @@ export const UPDATE_GAME = 'game/updateGame'
 export const LOAD_GAME_BY_ID = 'game/loadGameById'
 export const GET_SELCTED_GAME = 'game/getSelectedGame'
 export const SET_SELECTED_GAME = 'game/setSelectedGame'
+export const GET_GAMES_BY_CTG = 'game/getGamesByCtg'
 
 const SET_GAMES = 'game/setGames';
 
@@ -42,9 +44,9 @@ export default {
     },
     actions: {
         [LOAD_GAMES]({commit}, payload) {
-            return GameService.getGames(payload.categoryId)
+            return GameService.getGames(payload.ctgId)
                 .then(games => {
-                    console.log({games ,  payload})
+                    console.log('in load game',{games ,  payload})
                     commit({ type: SET_GAMES, games })
                 })
                 .catch(err => {

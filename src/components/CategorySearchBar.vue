@@ -30,14 +30,14 @@ export default {
     },
     updateCategory() {
       // we actually chagnw some staff
-      console.log({catgories: this.categories, msg: 'we are in update cattagory'})
+      // console.log({catgories: this.categories, msg: 'we are in update cattagory'})
       this.$store.dispatch({
         type: LOAD_GAMES,
         categoryId: this.categories[0]._id
       });
 
       
-      console.log({catgories: this.categories, msg: 'we are after the dispatch'})
+      // console.log({catgories: this.categories, msg: 'we are after the dispatch'})
       
       this.$store.commit({
         type: SET_SELECTED_CATEGORY,

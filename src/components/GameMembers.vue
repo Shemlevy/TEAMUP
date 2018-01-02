@@ -1,7 +1,7 @@
 <template>
   <carousel-3d >
     <section  v-for="(item,i) in items" :key="i">
-  <slide :index="i" class="slide" style="height: 150px; width:200px; border-radius:25% ">
+  <slide :index="i" class="slide" style="height: 150px; width:200px; border-radius:25% margin-left: 22%; border:none; box-shadow: 2px 2px 6px black; ">
     <img :src="item.src" > 
   </slide>
   </section>
