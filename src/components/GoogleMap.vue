@@ -93,7 +93,7 @@ export default {
       var input = this.$refs.googleSearch;
       console.log('input',input);
       
-      // this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
+      this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
       this.searchBox = new google.maps.places.SearchBox(input);
 
     if (this.games) { 

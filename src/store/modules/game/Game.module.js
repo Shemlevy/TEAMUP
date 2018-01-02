@@ -1,5 +1,5 @@
 import GameService from '../../../service/game/GameService.js'
-import { GET_SELECTED_CATEGORY } from '../category/Category.module'
+// import { GET_SELECTED_CATEGORY } from '../category/Category.module'
 
 
 export const LOAD_GAMES = 'game/loadGames'
