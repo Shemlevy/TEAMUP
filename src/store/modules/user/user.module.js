@@ -8,6 +8,7 @@ export const USER_REGISTER = 'user/userRegister';
 export const USER_DELETE = 'user/userDelete'
 export const GET_USER = 'user/getUser'
 export const GET_USER_GAMES = 'user/getUserGames'
+export const UPDATE_SPECIFIC_USER_GAME ='user/updateSpecificUserGame'
 
 const SET_USER = 'user/setUser';
 const SET_USER_GAMES = 'user/setUserGames'
@@ -16,7 +17,8 @@ const SET_USER_GAMES = 'user/setUserGames'
 export default {
     state: {
         user: null,
-        games: null
+        games: null,
+        connect: false,
     },
     mutations: {
         [SET_USER](state, { user }) {
@@ -24,6 +26,12 @@ export default {
         },
         [SET_USER_GAMES](state, {games}){
             state.games = games
+        },
+        [UPDATE_SPECIFIC_USER_GAME](state , {updatedGame}){
+            var gameIdx = state.games.findIndex(game => game._id === updatedGame._id)
+            if(gameIdx >= 0){
+                games.splice(gameIdx , 0 , updatedGame)
+            }
         }
     },
     actions: {
@@ -63,6 +71,9 @@ export default {
                 .then(_ => commit({ type: SET_USER, user: null }))
                 .catch(_ => 'couldnt delete user... ')
         },
+        socket_userUpdated({commit}, payload){
+            console.log(payload)
+        }
     },
     getters: {
         [GET_USER](state){

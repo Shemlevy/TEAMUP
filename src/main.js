@@ -6,9 +6,10 @@ import router from './router'
 import './plugins/plugins.js'
 import store from './store/store'
 
-
-
-
+const SOCKET_URL = 'http://localhost:3003'
+import VueSocketio from 'vue-socket.io'
+import socketio from 'socket.io-client'
+Vue.use(VueSocketio, socketio(SOCKET_URL), store);
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

@@ -1,6 +1,7 @@
 'use strict'
 
 import axios from 'axios'
+import { setTimeout } from 'timers';
 
 const GAME_URL = 'http://localhost:3003/data/game';
 
@@ -44,7 +45,7 @@ function deleteGame(gameId){
 function createGame(newGame){
   return axios.post(GAME_URL , newGame)
          .then(res =>{
-           console.log('new game created', res.data)
+          //  console.log('new game created', res.data)
          })
          .catch(err => {
            console.log('could not create new game')
@@ -88,8 +89,6 @@ export default {
   updateGame,
   getPlayerGames
 }
-
-
 
 
 // var games = [

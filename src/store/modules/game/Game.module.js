@@ -9,6 +9,8 @@ export const UPDATE_GAME = 'game/updateGame'
 export const LOAD_GAME_BY_ID = 'game/loadGameById'
 export const GET_SELCTED_GAME = 'game/getSelectedGame'
 export const SET_SELECTED_GAME = 'game/setSelectedGame'
+export const UPDATE_SPECIFIC_GAME = 'game/updateSpecificGame'
+export const ADD_NEW_GAME = 'game/addNewGame'
 
 const SET_GAMES = 'game/setGames';
 
@@ -27,6 +29,7 @@ export default {
     },
     mutations: {
         [SET_GAMES](state, { games }) {
+            console.log('state in game module mutation: ' ,state)
             state.games = games
         },
         [SET_SELECTED_GAME](state, {gameId}){
@@ -36,8 +39,15 @@ export default {
             }else{
                 state.selectedGame = game;
             }
-
-            
+        },
+        [UPDATE_SPECIFIC_GAME](state , {updatedGame}){
+            var gameIdx = state.games.findIndex(game => game._id === updatedGame._id)
+            if(gameIdx >= 0){
+                games.splice(gameIdx , 0 , updatedGame)
+            }
+        },
+        [ADD_NEW_GAME](state, {game}){
+            state.games.push(game)
         }
     },
     actions: {
@@ -89,8 +99,11 @@ export default {
                 .catch(err => {
                     console.log('was not able to load game')
                 })
+        },
+        socket_newGameAdded({state}, payload){
+            console.log(payload)
         }
-        
+            
     }
 
 }
