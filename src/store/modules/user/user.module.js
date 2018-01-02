@@ -30,7 +30,7 @@ export default {
         [UPDATE_SPECIFIC_USER_GAME](state , {updatedGame}){
             var gameIdx = state.games.findIndex(game => game._id === updatedGame._id)
             if(gameIdx >= 0){
-                games.splice(gameIdx , 0 , updatedGame)
+                state.games.splice(gameIdx , 0 , updatedGame)
             }
         }
     },

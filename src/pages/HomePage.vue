@@ -2,24 +2,25 @@
   <section >
     <!--<category-search-bar></category-search-bar>-->
     <section class="main-game-info">
-      <games-list-vut :games="games" :selectedCategory="selectedCategory"></games-list-vut>
-      <google-map v-if="games" :details="gameDetails"></google-map> 
+      <games-list-vut @userJoinGame="userJoinGame" :games="games" :selectedCategory="selectedCategory"></games-list-vut>
+      <google-map></google-map> 
     </section>
   </section>
 </template>
 
 <script>
 import {
-  LOAD_CATEGORIES,
-  GET_SELECTED_CATEGORY
+  GET_SELECTED_CATEGORY,
+  LOAD_CATEGORIES
 } from "../store/modules/category/Category.module";
 import {
   LOAD_GAMES,
   GET_GAMES,
   GET_SELCTED_GAME,
-  SET_SELECTED_GAME
+  SET_SELECTED_GAME,
+  UPDATE_GAME
 } from "../store/modules/game/Game.module";
-import GameDetails from "../components/GameDetails";
+import {GET_USER} from '../store/modules/user/user.module'
 import CategorySearchBar from "../components/CategorySearchBar";
 import GoogleMap from "../components/GoogleMap";
 import GamesListVut from "../components/GamesListVut";
@@ -27,19 +28,27 @@ import GamesListVut from "../components/GamesListVut";
 export default {
   name: "HomePage",
   data() {
-    return {
-      
-    };
+    return {};
   },
   components: {
-    GameDetails,
     CategorySearchBar,
     GoogleMap,
     GamesListVut
   },
   methods: {
     unselectGame() {
-      this.$store.commit({ type: SET_SELECTED_GAME, gameId: null })
+      this.$store.commit({ type: SET_SELECTED_GAME, gameId: null });
+    },
+    userJoinGame(){
+      let game = arguments[0]
+      console.log(this.user)
+      game.players.push({
+        id: this.user._id,
+        name: this.user.name,
+        imgUrl: this.user.imgUrl
+      })
+      this.$store.dispatch({type: UPDATE_GAME, game})
+
     }
   },
   computed: {
@@ -51,6 +60,9 @@ export default {
     },
     selectedCategory() {
       return this.$store.getters[GET_SELECTED_CATEGORY];
+    },
+    user(){
+      return this.$store.getters[GET_USER]
     }
   },
   created() {
@@ -60,8 +72,10 @@ export default {
   watch: {
     selectedCategory() {
       console.log("hi");
-      this.$store.commit({ type: SET_SELECTED_GAME, categoryId: null });
-      // console.log('categoryId',categoryId)
+      let ctgId = this.selectedCategory._id
+      console.log('in home page', ctgId);
+      
+      this.$store.dispatch({ type: LOAD_GAMES , ctgId});
     }
   }
 };

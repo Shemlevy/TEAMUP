@@ -8,8 +8,8 @@ const GAME_URL = 'http://localhost:3003/data/game';
 function getEmptyGame(){
   return {
     url: '',
-    catagoryId: '',
-    catagoryName: '',
+    category:{},
+    level:'',
     name: '',
     date: '',
     location: {
@@ -25,10 +25,10 @@ function getEmptyGame(){
 
 function updateGame(game){
   return axios.put(`${GAME_URL}/${game._id}`, game)
-  .then(res => {
-    return res.data
-  })
-  .catch(_ => 'something didnt happend')
+  // .then(res => {
+  //   return res.data
+  // })
+  // .catch(_ => 'something didnt happend')
 }
 
 function deleteGame(gameId){
@@ -75,6 +75,8 @@ function getPlayerGames (PlayerId){
 function getGames(categoryId = null) {
   return axios.get(`${GAME_URL}`, { params: { categoryId } })
     .then(res => {
+      console.log({res, msg: 'we are in the service'})
+      if (res.data.length === 0) return null
       return res.data
     })
     .catch(e => console.log('No Games', e))

@@ -25,9 +25,8 @@ export default new Vuex.Store({
     },
     actions:{
         socket_gameUpdated({commit}, game){
-            debugger;
-            commit({type: UPDATE_SPECIFIC_GAME, game})
-            commit({type: UPDATE_SPECIFIC_USER_GAME, game})
+            commit({type: UPDATE_SPECIFIC_GAME, updatedGame: game})
+            commit({type: UPDATE_SPECIFIC_USER_GAME, updatedGame: game})
         },
         socket_gameCreated({commit}, game){
             if(!categoryModule.state.selectedCategory || game.category === categoryModule.state.selectedCategory){

@@ -3,7 +3,7 @@
     <transition name="slide-fade">
       <cg-popup v-if="show" @close-dialog="close"></cg-popup>
     </transition>
-    <input  class="controls" type="text" @change="getGeoByAddress" placeholder="Search Box" ref="googleSearch">    
+    <input class="controls" style="z-index:999;" type="text" @change="getGeoByAddress" placeholder="Search Box" ref="googleSearch">    
     <div class="google-map" :id="mapName"></div>
     <button class="location-btn" @click="getUserLoc"><i title="Get my location location-btn" class="material-icons">my_location</i></button>
   </section>
@@ -49,7 +49,7 @@ export default {
     });
   },
   mounted() {
-    this.renderMap()
+    this.renderMap();
   },
   watch: {
     selctedGame() {
@@ -58,8 +58,8 @@ export default {
       var lng = this.selctedGame.location.lng;
       this.map.panTo(new google.maps.LatLng(lat, lng));
     },
-    games(){  
-      if (this.games) this.renderMap()
+    games() {
+      this.renderMap();
     }
   },
   computed: {
@@ -71,30 +71,33 @@ export default {
     }
   },
   methods: {
-    renderMap(){
-    let self = this;
-    this.bounds = new google.maps.LatLngBounds();
-    const element = document.getElementById(this.mapName);
+    renderMap() {
+      let self = this;
+      this.bounds = new google.maps.LatLngBounds();
+      const element = document.getElementById(this.mapName);
 
-    let eltCenter = [{ location: { lat: 32.072634, lng: 34.763987 } }];
-    const mapCentre = this.games ? this.games[0] : eltCenter[0];
+      let eltCenter = [{ location: { lat: 32.072634, lng: 34.763987 } }];
+      const mapCentre = this.games ? this.games[0] : eltCenter[0];
 
-    const options = {
-      center: new google.maps.LatLng(
-        mapCentre.location.lat,
-        mapCentre.location.lng
-      )
-    };
+      const options = {
+        center: new google.maps.LatLng(
+          mapCentre.location.lat,
+          mapCentre.location.lng
+        )
+      };
 
-    this.map = new google.maps.Map(element, { maxZoom: 16 });
-    this.infoWindow = new google.maps.InfoWindow()
+      this.map = new google.maps.Map(element, { maxZoom: 12 });
+      this.infoWindow = new google.maps.InfoWindow();
 
-    this.tempMarker.setMap(this.map);
-    var input = this.$refs.googleSearch;
-    this.searchBox = new google.maps.places.SearchBox(input);
-    this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
+      this.tempMarker.setMap(this.map);
+      var input = this.$refs.googleSearch;
+      console.log('input',input);
+      
+      this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
+      this.searchBox = new google.maps.places.SearchBox(input);
 
     if (this.games) { 
+      console.log('in google map', this.games)
       this.games.forEach(coord => {
         const position = new google.maps.LatLng(
           coord.location.lat,
@@ -112,26 +115,29 @@ export default {
         // this.markers.push(marker)
         this.map.fitBounds(this.bounds.extend(position));
         });
-        } else {
+      } else {
         this.map.fitBounds(this.bounds.extend(options.center));
       }
     },
     getGeoByAddress(e) {
       MapService.getGeoByAddress(e).then(res => {
+        let pos = new google.maps.LatLng(res.lat, res.lng)
         this.map.setZoom(16);
         this.map.panTo(new google.maps.LatLng(res.lat, res.lng));
+        
         this.$store.commit({
           type: SET_CURR_ADDERSS,
           address: res
         });
         this.tempMarker.setPosition(res.postion);
+        console.log('this i this.tempMarkers res' ,  this.tempMarker);
       });
     },
     close() {
       this.show = false;
     },
     getUserLoc() {
-      let self = this
+      let self = this;
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           function(position) {
@@ -193,6 +199,8 @@ section {
   margin: 13px;
   border-radius: 5px;
   padding: 8px;
+  z-index: 5;
+
 }
 
 .slide-fade-enter-active {
@@ -207,7 +215,7 @@ section {
   opacity: 0;
 }
 
-.location-btn{
+.location-btn {
   border: 0px;
   margin: 10px 44px;
   padding: 0px;
