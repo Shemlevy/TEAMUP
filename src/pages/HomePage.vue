@@ -1,5 +1,5 @@
 <template>
-  <section >
+  <section>    
     <!--<category-search-bar></category-search-bar>-->
     <section class="main-game-info">
       <games-list-vut @userJoinGame="userJoinGame" :games="games" :selectedCategory="selectedCategory"></games-list-vut>
