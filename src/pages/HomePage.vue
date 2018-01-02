@@ -2,16 +2,16 @@
   <section >
     <!--<category-search-bar></category-search-bar>-->
     <section class="main-game-info">
-      <games-list-vut v-if="games" :games="games" :selectedCategory="selectedCategory"></games-list-vut>
-      <google-map v-if="games" ></google-map> 
+      <games-list-vut :games="games" :selectedCategory="selectedCategory"></games-list-vut>
+      <google-map></google-map> 
     </section>
   </section>
 </template>
 
 <script>
 import {
-  LOAD_CATEGORIES,
-  GET_SELECTED_CATEGORY
+  GET_SELECTED_CATEGORY,
+  LOAD_CATEGORIES
 } from "../store/modules/category/Category.module";
 import {
   LOAD_GAMES,
@@ -26,9 +26,7 @@ import GamesListVut from "../components/GamesListVut";
 export default {
   name: "HomePage",
   data() {
-    return {
-      
-    };
+    return {};
   },
   components: {
     CategorySearchBar,
@@ -37,7 +35,7 @@ export default {
   },
   methods: {
     unselectGame() {
-      this.$store.commit({ type: SET_SELECTED_GAME, gameId: null })
+      this.$store.commit({ type: SET_SELECTED_GAME, gameId: null });
     }
   },
   computed: {
@@ -58,8 +56,10 @@ export default {
   watch: {
     selectedCategory() {
       console.log("hi");
-      this.$store.commit({ type: SET_SELECTED_GAME, categoryId: null });
-      // console.log('categoryId',categoryId)
+      let ctgId = this.selectedCategory._id
+      console.log('in home page', ctgId);
+      
+      this.$store.dispatch({ type: LOAD_GAMES , ctgId});
     }
   }
 };

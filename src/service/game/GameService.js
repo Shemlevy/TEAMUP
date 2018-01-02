@@ -5,6 +5,7 @@ import axios from 'axios'
 const GAME_URL = 'http://localhost:3003/data/game';
 
 
+<<<<<<< HEAD
 // function getEmptyGame(){
 //   return {
 //     url: '',
@@ -29,6 +30,28 @@ const GAME_URL = 'http://localhost:3003/data/game';
 //     players:[]
 //   }
 // }
+=======
+function getEmptyGame(){
+  return {
+    url: '',
+    category:{},
+    level:'',
+    name: '',
+    time: {
+      date:'',
+      hour:'',
+    },
+    location: {
+      lat: null,
+      lng: null,
+      address: ''
+    },
+    about: '',
+    playersLimit: null,
+    players:[]
+  }
+}
+>>>>>>> dfbaf1914a4b1ff759dfec1edcacdbb249a4babe
 
 function updateGame(game){
   return axios.put(`${GAME_URL}/${game._id}`, game)
@@ -82,6 +105,7 @@ function getGames(categoryId = null) {
   return axios.get(`${GAME_URL}`, { params: { categoryId } })
     .then(res => {
       console.log({res, msg: 'we are in the service'})
+      if (res.data.length === 0) return null
       return res.data
     })
     .catch(e => console.log('No Games', e))
