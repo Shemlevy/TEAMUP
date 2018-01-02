@@ -14,3 +14,5 @@ function getCategories() {
 export default {
     getCategories
 }
+
+

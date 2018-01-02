@@ -95,6 +95,7 @@ export default {
     this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
 
     if (this.games) { 
+      console.log('in google map', this.games)
       this.games.forEach(coord => {
         const position = new google.maps.LatLng(
           coord.location.lat,
@@ -125,6 +126,7 @@ export default {
           address: res
         });
         this.tempMarker.setPosition(res.postion);
+        console.log('this i this.tempMarkers res' ,  this.tempMarker);
       });
     },
     close() {

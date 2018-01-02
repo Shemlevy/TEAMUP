@@ -2,8 +2,8 @@
   <section >
     <!--<category-search-bar></category-search-bar>-->
     <section class="main-game-info">
-      <games-list-vut :games="games" :selectedCategory="selectedCategory"></games-list-vut>
-      <google-map v-if="games" :details="gameDetails"></google-map> 
+      <games-list-vut v-if="games" :games="games" :selectedCategory="selectedCategory"></games-list-vut>
+      <google-map v-if="games" ></google-map> 
     </section>
   </section>
 </template>
@@ -19,7 +19,6 @@ import {
   GET_SELCTED_GAME,
   SET_SELECTED_GAME
 } from "../store/modules/game/Game.module";
-import GameDetails from "../components/GameDetails";
 import CategorySearchBar from "../components/CategorySearchBar";
 import GoogleMap from "../components/GoogleMap";
 import GamesListVut from "../components/GamesListVut";
@@ -32,7 +31,6 @@ export default {
     };
   },
   components: {
-    GameDetails,
     CategorySearchBar,
     GoogleMap,
     GamesListVut

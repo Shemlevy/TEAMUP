@@ -3,7 +3,7 @@
     <v-layout row>
     <v-flex xs12 sm6 offset-sm3>
       <v-card>
-        <v-card-media class="card-pic-area" src="/static/memebers-img/Soccer.jpg" height="300px" >
+        <v-card-media class="card-pic-area" src="" height="300px" >
           <v-layout column class="media">
             <v-card-title>
               <v-btn dark icon>
@@ -112,6 +112,7 @@ export default {
       console.log('page created')
       var id = this.$router.history.current.params.gameId
       this.$store.dispatch({type: LOAD_GAME_BY_ID , gameId: id})
+      
       
   }
   
