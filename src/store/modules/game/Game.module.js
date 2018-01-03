@@ -1,11 +1,16 @@
 import GameService from '../../../service/game/GameService.js'
+
 import { GET_SELECTED_CATEGORY } from '../category/Category.module'
+import EventBusService ,{SHOW_LOADER ,HIDE_LOADER} from '../../../service/EventBusService.js'
+
+
+
 
 
 export const LOAD_GAMES = 'game/loadGames'
 export const GET_GAMES = 'game/getGames'
 export const CREATE_GAME = 'game/createGame'
-export const DELETE_GAME = 'game/createGame'
+export const DELETE_GAME = 'game/deleteGame'
 export const UPDATE_GAME = 'game/updateGame'
 export const LOAD_GAME_BY_ID = 'game/loadGameById'
 export const GET_SELCTED_GAME = 'game/getSelectedGame'
@@ -49,6 +54,9 @@ export default {
             if(gameIdx >= 0){
                 console.log('game idx: ', gameIdx)
                 state.games.splice(gameIdx , 1 , updatedGame)
+                if(state.selectedGame._id === updatedGame._id){
+                    state.selectedGame = updatedGame;
+                }
             }
         },
         [ADD_NEW_GAME](state, {game}){
@@ -57,21 +65,24 @@ export default {
     },
     actions: {
         [LOAD_GAMES]({commit}, payload) {
+            EventBusService.$emit(SHOW_LOADER)
             return GameService.getGames(payload.ctgId)
                 .then(games => {
-                    console.log('in load game',{games ,  payload})
                     commit({ type: SET_GAMES, games })
+                    EventBusService.$emit(HIDE_LOADER)
                 })
                 .catch(err => {
                     commit(SET_GAMES, [])
+                    EventBusService.$emit(HIDE_LOADER)
                     throw err
             })
         },
         [CREATE_GAME]({commit}, {newGame}){
-            GameService.createGame(newGame)
+            console.log('new game to create', newGame)
+            return GameService.createGame(newGame)
                 .then(res => {
-                    console.log('new game created!!')
-                    console.log('game: ' , res)
+                    console.log('result in module: ', res)
+                    return res
                 })
                 .catch(err => {
                     console.log('new game didnt make it to module')
@@ -88,7 +99,7 @@ export default {
         },
         [UPDATE_GAME]({commit}, {game}){
             GameService.updateGame(game)
-                console.log('game in game module: ', game)
+                // console.log('game in game module: ', game)
                 // .then(res => {
                 //     console.log('game updated in database')
                 // }).catch(err => {

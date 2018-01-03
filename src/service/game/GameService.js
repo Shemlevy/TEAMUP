@@ -24,7 +24,9 @@ function getEmptyGame(){
 }
 
 function updateGame(game){
+  console.log('im in updateGame......in process')
   return axios.put(`${GAME_URL}/${game._id}`, game)
+  
   // .then(res => {
   //   return res.data
   // })
@@ -44,7 +46,8 @@ function deleteGame(gameId){
 function createGame(newGame){
   return axios.post(GAME_URL , newGame)
          .then(res =>{
-          //  console.log('new game created', res.data)
+           console.log(res)
+          return res.data
          })
          .catch(err => {
            console.log('could not create new game')
