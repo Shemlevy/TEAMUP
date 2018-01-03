@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import EventBusService, {SHOW_LOADER, HIDE_LOADER} from '../service/EventBusService.js'
 import {
   GET_SELECTED_CATEGORY,
   LOAD_CATEGORIES
@@ -66,6 +67,7 @@ export default {
     }
   },
   created() {
+    EventBusService.$emit(SHOW_LOADER)
     this.$store.dispatch({ type: LOAD_GAMES });
     this.$store.dispatch({ type: LOAD_CATEGORIES });
   },
