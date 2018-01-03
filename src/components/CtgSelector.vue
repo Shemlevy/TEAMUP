@@ -1,6 +1,6 @@
 <template>
-    <section  class="selector-container">
-            <v-select class="my-selector" :items="categoriesName" label="Select Category" v-model="a1" autocomplete></v-select>
+    <section class="selector-container">
+            <v-select v-if="categoriesName" class="my-selector" :items="categoriesName" label="Select Category" v-model="a1" autocomplete></v-select>
   </section>
 </template>
 

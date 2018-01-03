@@ -19,8 +19,8 @@
                   <div>{{game.category.name}}</div>
                   <div>{{game.time.date}} {{game.time.hour}}</div>
                   <div class="locatin-container">
-                    <btn @click="moveMapTo(game.location.lat,game.location.lng)"
-                      class="location-txt">{{game.location.address}}</btn>
+                    <a @click="moveMapTo(game.location.lat,game.location.lng)"
+                      class="location-txt">{{game.location.address}}</a>
                   </div>
                   <div>{{game.playerLimit}} / {{game.players.length}}</div>
                   <div>Level: {{game.level}}</div>

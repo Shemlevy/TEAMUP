@@ -16,7 +16,7 @@ import {
 } from "../store/modules/game/Game.module";
 import MapService from "../service/map/MapService";
 import CgPopup from "../components/CgPopup";
-import { SET_CURR_ADDERSS } from "../store/modules/map/Map.module";
+import { SET_CURR_ADDRESS } from "../store/modules/map/Map.module";
 import { GET_PICK_ADDRESS } from "../store/modules/map/Map.module";
 
 export default {
@@ -135,7 +135,7 @@ export default {
         this.map.panTo(new google.maps.LatLng(res.lat, res.lng));
 
         this.$store.commit({
-          type: SET_CURR_ADDERSS,
+          type: SET_CURR_ADDRESS,
           address: res
         });
         this.tempMarker.setPosition(res.postion);
