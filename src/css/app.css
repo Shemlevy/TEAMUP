@@ -47,29 +47,14 @@ button, input, select, textarea {
     
 }
 
-<<<<<<< HEAD
-.input-group--select.input-group--focused{
-    background-color: black;
-    
-=======
 .ctg-selector-container> .selector-container> .input-group--select.input-group--focused{
     background-color: rgb(0, 0, 0)
->>>>>>> 0564661571ed5a7c25d8ea61ea61696b6c19849e
 }
 .application > .menu__content--autocomplete > .card>.list{
     background-color: black;
-<<<<<<< HEAD
-    
-}
-#app > div.application--wrap > section > section > section:nth-child(1) > div > div > div > div.ctg-selector-container > section > div > div.input-group__input > div.input-group__selections > input{
-    cursor: pointer; 
-}
-.application > div > .card>.list > li > a > div >div{
-=======
 } 
 
 .application > .menu__content--autocomplete > .card>.list > li > a > div >div{
->>>>>>> 0564661571ed5a7c25d8ea61ea61696b6c19849e
     color: white;
 }
 .application > .menu__content--autocomplete > .card>.list > li > a > div >div> span{
