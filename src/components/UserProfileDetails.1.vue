@@ -1,45 +1,30 @@
 <template>
     <section>
-      <v-layout row>
-    <v-flex>
-      <v-card>
+      <div class="user-profile-details">
+        <div class="profile-img-container">
+          <img v-if="proxyUser.imgUrl" :src="proxyUser.imgUrl"/>
+          <img v-else src="https://cdn4.iconfinder.com/data/icons/social-communication/142/add_user-512.png"/>
 
-        <v-card-media v-if="proxyUser.imgUrl" :src="proxyUser.imgUrl" height="350px">
-        </v-card-media>
-        <v-card-media v-if="!proxyUser.imgUrl" src="https://cdn4.iconfinder.com/data/icons/social-communication/142/add_user-512.png" height="350px">
-        </v-card-media>
+        </div>
+        <div class="profile-details-container">
+
+          <div class="profile-details">
+            <div class="name-container">
+            <input type="text" :class="{ editable: edit}" required="true" :readonly="!edit" v-model="proxyUser.name" placeholder="Name">
+            </div>
+            <input type="text" required="true" readonly :value="proxyUser.email" placeholder="Email">
+            <input type="text" :class="{ editable: edit}" :readonly="!edit" v-model="proxyUser.phone" placeholder="Phone">
+            <textarea rows="3" cols="35" type="text" :class="{ editable: edit}" :readonly="!edit" v-model="proxyUser.about" placeholder="About"></textarea>
+          </div>
           <div class="profile-btns">
             <v-btn v-show="edit" class="saveBtn" fab dark small color="primary" @click="uploadImg"><v-icon>add_a_photo</v-icon></v-btn>
-              <input ref="inputFile" class="file-input"  type="file" @change="addPhoto" />
+                  <input ref="inputFile" class="file-input"  type="file" @change="addPhoto" />
             <v-btn v-if="edit" class="saveBtn" fab dark small color="green" @click="updateProfile"><v-icon>done</v-icon></v-btn>
             <v-btn v-if="edit" class="cancel-btn"  fab dark small color="red" @click="undoUpdate"><v-icon>clear</v-icon></v-btn>
             <v-btn fab color="red" @click="edit = true"><v-icon color="white">edit</v-icon></v-btn>
           </div>
-        <v-card-title primary-title>
-          <div>
-            <div class="headline">
-              <input type="text" :class="{ editable: edit}" required="true" :readonly="!edit" v-model="proxyUser.name" placeholder="Name">
-            </div>
-            <div class="headline">
-              <input type="text" required="true" readonly :value="proxyUser.email" placeholder="Email">
-            </div>
-            <div class="headline">
-              <input type="text" :class="{ editable: edit}" :readonly="!edit" v-model="proxyUser.phone" placeholder="Phone">
-            </div>
-            <span class="grey--text">
-              <textarea rows="3" cols="35" type="text" :class="{ editable: edit}" :readonly="!edit" v-model="proxyUser.about" placeholder="About"></textarea>
-            </span>
-          </div>
-        </v-card-title>
-        <v-card-actions>
-          <v-btn flat color="red" @click="emitLogout">Logout</v-btn>
-          <v-spacer></v-spacer>
-        </v-card-actions>
-        <v-slide-y-transition>
-        </v-slide-y-transition>
-          </v-card>
-        </v-flex>
-      </v-layout>
+        </div>
+      </div>
     </section>
 </template>
 
@@ -60,9 +45,6 @@ export default {
     updateProfile() {
       this.$emit("updateUserProfile", this.proxyUser);
       this.edit = false;
-    },
-    emitLogout(){
-      this.$emit('userLogout')
     },
     undoUpdate() {
       this.proxyUser = this.duplicateUser(this.user);
@@ -94,6 +76,37 @@ export default {
 </script>
 
 <style scoped>
+
+.profile-details{
+  background-color: #fff;
+  border: solid 1px navy;
+  margin: 8px;
+}
+
+.user-profile-details {
+  display: flex;
+  flex-flow: row nowrap;
+
+}
+
+.profile-img-container {
+  width: 25vw;
+  height: 25vw;
+  max-width: 250px;
+  max-height: 266px;
+}
+
+.name-container{
+  background-color: whitesmoke;
+  border: 1px solid navy;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
 textarea {
   display: block;
   margin: 10px;
@@ -118,9 +131,14 @@ input {
 
 .profile-btns {
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: column-reverse wrap;
   justify-content: flex-end;
   align-items: center;
+}
+
+.profile-details-container {
+  display: flex;
+  flex-flow: row nowrap;
 }
 
 .editable {
@@ -131,6 +149,5 @@ input {
 .file-input {
   position: absolute;
   z-index: -1;
-  opacity: 0;
 }
 </style>
