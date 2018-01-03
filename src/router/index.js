@@ -8,6 +8,7 @@ import Team from '../pages/Team.vue'
 import Login from '../pages/Login.vue'
 import GameDetailsPage from '../pages/GameDetailsPage.vue'
 import CreatGame from '../pages/CreatGame.vue'
+import testing from '../components/CtgSelector.vue'
 
 Vue.use(Router)
 
@@ -47,6 +48,11 @@ export default new Router({
       path: '/CreatGame',
       name: 'CreatGame',
       component: CreatGame
+    },
+    {
+      path: '/testing',
+      name :'testing',
+      component: testing
     }
     
   ]

@@ -65,6 +65,7 @@ export default {
   computed: {
     selctedGame() {
       return this.$store.getters[GET_SELCTED_GAME];
+      // return this.$store.getters.GET_SELCTED_GAME;
     },
     games() {
       return this.$store.getters[GET_GAMES];
@@ -108,9 +109,9 @@ export default {
           position,
           map: this.map
         });
-        marker.addListener("click", function(e) {
+        marker.addListener("click",  (e) => {
         console.log(coord._id);
-        self.$router.push(`/game/${coord._id}`);
+        this.$router.push(`/game/${coord._id}`);
         });
         // this.markers.push(marker)
         this.map.fitBounds(this.bounds.extend(position));
