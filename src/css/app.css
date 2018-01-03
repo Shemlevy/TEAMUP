@@ -37,15 +37,20 @@ button, input, select, textarea {
 
 .my-selector{
     background-color: black;
+    
 }
 
 .input-group--select.input-group--focused{
-    background-color: black
+    background-color: black;
+    
 }
 .application > div > .card>.list{
     background-color: black;
+    
 }
-
+#app > div.application--wrap > section > section > section:nth-child(1) > div > div > div > div.ctg-selector-container > section > div > div.input-group__input > div.input-group__selections > input{
+    cursor: pointer; 
+}
 .application > div > .card>.list > li > a > div >div{
     color: white;
 }
