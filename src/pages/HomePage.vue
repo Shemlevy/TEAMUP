@@ -66,11 +66,6 @@ export default {
       return this.$store.getters[GET_USER]
     }
   },
-  created() {
-    EventBusService.$emit(SHOW_LOADER)
-    this.$store.dispatch({ type: LOAD_GAMES });
-    this.$store.dispatch({ type: LOAD_CATEGORIES });
-  },
   watch: {
     selectedCategory() {
       console.log("hi");
