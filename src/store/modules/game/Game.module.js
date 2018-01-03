@@ -1,6 +1,10 @@
 import GameService from '../../../service/game/GameService.js'
+
 import { GET_SELECTED_CATEGORY } from '../category/Category.module'
 import EventBusService ,{SHOW_LOADER ,HIDE_LOADER} from '../../../service/EventBusService.js'
+
+
+
 
 
 export const LOAD_GAMES = 'game/loadGames'
@@ -50,6 +54,9 @@ export default {
             if(gameIdx >= 0){
                 console.log('game idx: ', gameIdx)
                 state.games.splice(gameIdx , 1 , updatedGame)
+                if(state.selectedGame._id === updatedGame._id){
+                    state.selectedGame = updatedGame;
+                }
             }
         },
         [ADD_NEW_GAME](state, {game}){
@@ -92,7 +99,7 @@ export default {
         },
         [UPDATE_GAME]({commit}, {game}){
             GameService.updateGame(game)
-                console.log('game in game module: ', game)
+                // console.log('game in game module: ', game)
                 // .then(res => {
                 //     console.log('game updated in database')
                 // }).catch(err => {

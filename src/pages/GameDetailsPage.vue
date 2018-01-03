@@ -1,112 +1,106 @@
 
 <template>
-    <v-layout row v-if="game">
+  <v-layout row v-if="game">
     <v-flex xs12 sm6 offset-sm3>
       <v-card>
-        <v-card-media class="card-pic-area" :src="coverImg" height="300px">
-          <v-layout column class="media">
-            <v-card-title>
-              <v-btn dark icon>
-                <v-icon>chevron_left</v-icon>
-              </v-btn>
-              <v-spacer></v-spacer>
-              <v-btn dark icon class="mr-3">
-                <v-icon>edit</v-icon>
-              </v-btn>
-              <v-btn dark icon>
-                <v-icon>more_vert</v-icon>
-              </v-btn>
-            </v-card-title>
-            <v-spacer></v-spacer>
-            <v-card-title class="black--text pl-5 pt-5">
-              <div class="display-1 pl-4 pt-5">{{game.name}}</div>
-            </v-card-title>
-          </v-layout>
-        </v-card-media>
-        <v-list two-line>
-          <v-list-tile @click="">
+        <v-card-media class="card-pic-area" :src="coverImg" height="450px">
+          <v-layout column class="media game-detailes-cover">
+              <v-card-title class="white--text title-height">
+                <div class="display-1">{{game.name}}</div>
+              </v-card-title>
+        </v-layout>
+      </v-card-media>
+      <v-list two-line>
+        <v-list-tile @click="">
             <v-list-tile-action>
-              <!-- <v-icon color="indigo">phone</v-icon> -->
+              <!-- this tag is for position only -->
+              <v-icon color="indigo"></v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
-              <v-list-tile-title>{{game.category.name}}</v-list-tile-title>
-              <v-list-tile-sub-title>Game Category</v-list-tile-sub-title>
-            </v-list-tile-content>
-            <v-list-tile-action>
-              <v-icon></v-icon>
-            </v-list-tile-action>
-          </v-list-tile>
-          <v-divider inset ></v-divider>
-           <v-list-tile @click="">
+            <v-list-tile-sub-title>GAME CATEGORY</v-list-tile-sub-title>
+            <v-list-tile-title>{{game.category.name}}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-divider inset></v-divider>
+        <v-list-tile @click="">
             <v-list-tile-action>
               <v-icon color="indigo">grade</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
-              <v-list-tile-title>TODO:game rank</v-list-tile-title>
-              <v-list-tile-sub-title>Game Rank</v-list-tile-sub-title>
+              <v-list-tile-sub-title>GAME LEVEL</v-list-tile-sub-title>
+              <v-list-tile-title>{{game.level}}</v-list-tile-title>
             </v-list-tile-content>
-            <v-list-tile-action>
-              <!-- <v-icon>face</v-icon> -->
-            </v-list-tile-action>
-          </v-list-tile>
+        </v-list-tile>
           <v-divider inset></v-divider>
-          <v-list-tile @click="">
-            <v-list-tile-action>
-              <v-icon color="indigo">schedule</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>{{game.time.date}}</v-list-tile-title>
-              <v-list-tile-sub-title>{{game.time.hour}}</v-list-tile-sub-title>
-            </v-list-tile-content>
-            <v-list-tile-action>
-              <v-icon>schedule</v-icon>
-            </v-list-tile-action>
-          </v-list-tile>
-        <v-divider inset></v-divider>
-          <v-list-tile @click="">
-            <v-list-tile-action>
-              <v-icon color="indigo">location_on</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <!-- <v-list-tile-title>1400 Main Street</v-list-tile-title>
-              <v-list-tile-sub-title>Orlando, FL 79938</v-list-tile-sub-title> -->
-              <v-list-tile-title>{{game.location.address}}</v-list-tile-title>
-              <v-list-tile-sub-title>{{game.location.address}}</v-list-tile-sub-title>
-            </v-list-tile-content>
-          </v-list-tile>
-           <v-divider inset></v-divider>
-           <v-list-tile @click="">
-            <v-list-tile-action>
-              <v-icon color="indigo">chat</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>Puki chat</v-list-tile-title>  
-            </v-list-tile-content>
-          </v-list-tile>
-           <Game-members></Game-members>
-        </v-list> 
-      </v-card>
-    </v-flex>
-  </v-layout>
+            <v-list-tile @click="">
+              <v-list-tile-action>
+                <v-icon color="indigo">schedule</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-sub-title>DATE</v-list-tile-sub-title>
+                <v-list-tile-title>{{game.time.date}}  {{game.time.hour}}</v-list-tile-title>
+              </v-list-tile-content>
+              <!-- <v-list-tile-action>
+                <v-icon></v-icon>
+              </v-list-tile-action> -->
+            </v-list-tile>
+          <v-divider inset></v-divider>
+            <v-list-tile @click="">
+              <v-list-tile-action>
+                <v-icon color="indigo">location_on</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-sub-title>LOCATION</v-list-tile-sub-title>
+                <v-list-tile-title>{{game.location.address}}</v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+            <v-divider inset></v-divider>
+            <v-list-tile @click="">
+              <v-list-tile-action>
+                <v-icon color="indigo">chat</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-sub-title>CHAT</v-list-tile-sub-title> 
+              </v-list-tile-content>
+            </v-list-tile>
+             <v-list-tile-sub-title>
+                <button class="main-btn" v-if="user && !exist" @click="userJoinGame">TEAM<span>UP</span></button>
+                <button class="main-btn" v-if="user && exist" @click="leaveGame">Leave</span></button>
+            </v-list-tile-sub-title>
+          </v-list>
+          <GameMembers :game="game"></GameMembers>          
+        </v-card>
+      </v-flex>
+    </v-layout>
   
 </template>
 
 <script>
 import {
   LOAD_GAME_BY_ID,
-  GET_SELCTED_GAME
+  GET_SELCTED_GAME,
+  UPDATE_GAME
 } from "../store/modules/game/Game.module";
+import {
+  GET_USER
+} from "../store/modules/user/user.module";
 import GameMembers from "../components/GameMembers";
+
+
 export default {
   data() {
-    return {};
-  },
-  components: {
-    GameMembers
+   
+    return {
+      exist : false
+    };
   },
   computed: {
     game() {
-      return this.$store.getters[GET_SELCTED_GAME];
+      var strGame = JSON.stringify(this.$store.getters[GET_SELCTED_GAME]);
+      return JSON.parse(strGame);
+    },
+    user() {
+      return this.$store.getters[GET_USER];
     },
     coverImg() {
       return this.game.category.url;
@@ -118,6 +112,40 @@ export default {
       this.$store.dispatch({type: LOAD_GAME_BY_ID , gameId: id})
       
       
+  },
+  watch:{
+    game() {
+       this.setActions();
+    },
+    user() {
+       this.setActions();
+    }
+  },
+  methods: {
+    setActions() {
+      if (this.game && this.user) {
+        this.exist = this.game.players.find(player => player.id === this.user._id) 
+      }
+    },
+     userJoinGame(){
+      
+
+      this.game.players.push({
+        id: this.user._id,
+        name: this.user.name,
+        imgUrl: this.user.imgUrl
+      })
+
+      this.$store.dispatch({type: UPDATE_GAME, game: this.game})
+
+    },
+    leaveGame(){
+       this.game.players = this.game.players.filter(player => player.id !== this.user._id) 
+       this.$store.dispatch({type: UPDATE_GAME, game: this.game})
+    }
+  },
+  components:{
+    GameMembers
   }
 };
 </script>
@@ -130,5 +158,13 @@ export default {
 
 .card-pic-area {
   background-color: var(--secondary-color);
+}
+.title-height{
+  position: absolute;
+  bottom: 0;
+  left: 7px;
+}
+.game-detailes-cover{
+  position: relative;
 }
 </style>

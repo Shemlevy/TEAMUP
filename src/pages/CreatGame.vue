@@ -7,6 +7,7 @@
         <v-card-media height="450px">
         <img :src="coverImg">
         </v-card-media>
+        
         <div class="form-container">
           <v-form v-model="valid" ref="form" lazy-validation>
             <v-text-field label="Name" v-model="name" :rules="nameRules" required></v-text-field>
