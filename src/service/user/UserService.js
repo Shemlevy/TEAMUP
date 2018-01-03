@@ -84,7 +84,8 @@ export default {
   register,
   login,
   deleteUser,
-  uploadImage
+  uploadImage,
+  logout
 }
 
 
