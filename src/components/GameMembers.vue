@@ -1,36 +1,39 @@
 <template>
-  <carousel-3d >
-    <section  v-for="(item,i) in items" :key="i">
-  <slide :index="i" class="slide" style="height: 150px; width:200px; border-radius:25% margin-left: 22%; border:none; box-shadow: 2px 2px 6px black; ">
-    <img :src="item.src" > 
-  </slide>
-  </section>
-</carousel-3d>
+  <v-layout row wrap>
+    <v-flex xs4 sm4 md3 lg4 offset-sm0 v-for="(player,i) in game.players" :key="i">
+      <v-container fill-height fluid grid-list-sm>      
+        <v-card>
+          <v-card-media
+            class="white--text"
+            height="100px"
+            :src="player.imgUrl"
+          >   
+          </v-card-media>
+          <v-card-title>
+            <div>
+              <span class="grey--text">{{player.name}}</span><br>
+              <span></span><br>
+              
+            </div>
+          </v-card-title>
+        </v-card>
+      </v-container>
+    </v-flex>
+  </v-layout>
 </template>
+
+
 <script>
-import { Carousel3d, Slide } from 'vue-carousel-3d';
   export default {
-    data () {
-      return {
-        items: [
-          {
-            src: '../../static/memebers-img/messi.jpg'
-          },
-          {
-            src: '../../static/memebers-img/bek.jpg'
-          },
-          {
-            src: '../../static/memebers-img/ronaldo.jpg'
-          }
-        ]
-      }
-    },
-  components: {
-    Carousel3d,
-    Slide
-  }
-  }
+    props: ["game"]
+}
 </script>
 
 <style scoped>
+
+  .card {
+    width: 100%
+  }
 </style>
+
+

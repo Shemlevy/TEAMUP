@@ -10,7 +10,8 @@
               @change="$v.ctg.$touch()" @blur="$v.ctg.$touch()" required></v-select>
             <v-text-field label="Name" v-model="name" :error-messages="nameErrors" :counter="10"
               @input="$v.name.$touch()" @blur="$v.name.$touch()" required></v-text-field>
-            <section v-if="currAddress"> 
+            <section v-if="currAddress">
+               
               <label style="color:gray;">Location*</label>
               <div>{{currAddress.address}}</div> 
               <hr style="border-top: 1px solid gray;">
