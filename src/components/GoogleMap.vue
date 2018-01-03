@@ -16,7 +16,8 @@ import {
 } from "../store/modules/game/Game.module";
 import MapService from "../service/map/MapService";
 import CgPopup from "../components/CgPopup";
-import { SET_CURR_ADDERSS } from "../store/modules/map/Map.module";
+import { SET_CURR_ADDRESS } from "../store/modules/map/Map.module";
+import { GET_PICK_ADDRESS } from "../store/modules/map/Map.module";
 
 export default {
   name: "google-map",
@@ -60,6 +61,10 @@ export default {
     },
     games() {
       this.renderMap();
+    },
+    pickLatLng(){
+      console.log('in google map',this.pickLatLng.lat);
+      this.map.panTo(new google.maps.LatLng(this.pickLatLng.lat, this.pickLatLng.lng));
     }
   },
   computed: {
@@ -69,6 +74,9 @@ export default {
     },
     games() {
       return this.$store.getters[GET_GAMES];
+    },
+    pickLatLng(){
+      return this.$store.getters[GET_PICK_ADDRESS];
     }
   },
   methods: {
@@ -92,29 +100,29 @@ export default {
 
       this.tempMarker.setMap(this.map);
       var input = this.$refs.googleSearch;
-      console.log('input',input);
-      
+      console.log("input", input);
+
       this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
       this.searchBox = new google.maps.places.SearchBox(input);
 
-    if (this.games) { 
-      console.log('in google map', this.games)
-      this.games.forEach(coord => {
-        const position = new google.maps.LatLng(
-          coord.location.lat,
-          coord.location.lng
-        );
-        const marker = new google.maps.Marker({
-          animation: google.maps.Animation.DROP,
-          position,
-          map: this.map
-        });
-        marker.addListener("click",  (e) => {
-        console.log(coord._id);
-        this.$router.push(`/game/${coord._id}`);
-        });
-        // this.markers.push(marker)
-        this.map.fitBounds(this.bounds.extend(position));
+      if (this.games) {
+        console.log("in google map", this.games);
+        this.games.forEach(coord => {
+          const position = new google.maps.LatLng(
+            coord.location.lat,
+            coord.location.lng
+          );
+          const marker = new google.maps.Marker({
+            animation: google.maps.Animation.DROP,
+            position,
+            map: this.map
+          });
+          marker.addListener("click", e => {
+            console.log(coord._id);
+            this.$router.push(`/game/${coord._id}`);
+          });
+          // this.markers.push(marker)
+          this.map.fitBounds(this.bounds.extend(position));
         });
       } else {
         this.map.fitBounds(this.bounds.extend(options.center));
@@ -122,16 +130,16 @@ export default {
     },
     getGeoByAddress(e) {
       MapService.getGeoByAddress(e).then(res => {
-        let pos = new google.maps.LatLng(res.lat, res.lng)
+        let pos = new google.maps.LatLng(res.lat, res.lng);
         this.map.setZoom(16);
         this.map.panTo(new google.maps.LatLng(res.lat, res.lng));
-        
+
         this.$store.commit({
-          type: SET_CURR_ADDERSS,
+          type: SET_CURR_ADDRESS,
           address: res
         });
         this.tempMarker.setPosition(res.postion);
-        console.log('this i this.tempMarkers res' ,  this.tempMarker);
+        console.log("this i this.tempMarkers res", this.tempMarker);
       });
     },
     close() {
@@ -182,15 +190,12 @@ export default {
 
 
 <style scoped>
-section {
+/* section{
   position: absolute;
-  z-index: 0;
-}
+} */
 .google-map {
-  width: 100vw;
+  width: 50vw;
   height: 600px;
-  margin: 0 auto;
-  background: gray;
 }
 .controls {
   width: 300px;
@@ -201,7 +206,6 @@ section {
   border-radius: 5px;
   padding: 8px;
   z-index: 5;
-
 }
 
 .slide-fade-enter-active {

@@ -35,21 +35,29 @@ button, input, select, textarea {
 }
 
 
+
+
+
+
+
+
+
 .my-selector{
     background-color: black;
+    
 }
 
-.input-group--select.input-group--focused{
-    background-color: black
+.ctg-selector-container> .selector-container> .input-group--select.input-group--focused{
+    background-color: rgb(0, 0, 0)
 }
-.application > div > .card>.list{
+.application > .menu__content--autocomplete > .card>.list{
     background-color: black;
-}
+} 
 
-.application > div > .card>.list > li > a > div >div{
+.application > .menu__content--autocomplete > .card>.list > li > a > div >div{
     color: white;
 }
-.application > div > .card>.list > li > a > div >div> span{
+.application > .menu__content--autocomplete > .card>.list > li > a > div >div> span{
     color:white;
 }
 .selector-container> .my-selector> div>div> input{
@@ -66,11 +74,11 @@ button, input, select, textarea {
     z-index: 1;
 }
 
-.input-group__details::before{
+.my-selector > .input-group__details::before{
     background-color: white;
 }
 
-.input-group__details::after{
+.my-selector > .input-group__details::after{
     background-color: white;
 }
 
