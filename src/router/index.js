@@ -8,7 +8,7 @@ import Team from '../pages/Team.vue'
 import Login from '../pages/Login.vue'
 import GameDetailsPage from '../pages/GameDetailsPage.vue'
 import CreatGame from '../pages/CreatGame.vue'
-import testing from '../components/CtgSelector.vue'
+import testing from '../components/LoadingProcess.vue'
 
 Vue.use(Router)
 

@@ -46,7 +46,8 @@ function deleteGame(gameId){
 function createGame(newGame){
   return axios.post(GAME_URL , newGame)
          .then(res =>{
-          //  console.log('new game created', res.data)
+           console.log(res)
+          return res.data
          })
          .catch(err => {
            console.log('could not create new game')

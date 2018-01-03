@@ -20,9 +20,9 @@
               <v-list-tile-content>
                 <v-layout row>
                   <v-list-tile-sub-title style="width: 150px;">{{game.name}}</v-list-tile-sub-title>
-                  <v-avatar class="avatar-area" v-for="n in game.level" :key="n" size="20px">
+                  <!-- <v-avatar class="avatar-area" v-for="n in game.level" :key="n" size="20px">
                     <img src="../../static/icons/iconmuscle.png" alt="avatar">
-                  </v-avatar>
+                  </v-avatar> -->
                   <v-list-tile-sub-title>
                     <button class="main-btn" @click="emitJoin(game)">TEAM<span>UP</span></button>
                   </v-list-tile-sub-title>

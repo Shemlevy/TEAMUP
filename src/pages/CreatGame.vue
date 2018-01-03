@@ -2,40 +2,27 @@
   <v-layout>
     <v-flex xs12 sm6 offset-sm3>
       <v-card class="main-container">
-        <v-card-media class="white--text" height="450px" :src="coverImg">
+        <!-- <v-card-media class="create-game-img" height="450px" :src="coverImg">
+        </v-card-media> -->
+        <v-card-media height="450px">
+        <img :src="coverImg">
         </v-card-media>
-          <form>
-            <h1>Create New Game</h1>
-            <v-select label="Choose Game Category"  v-model="ctg" :items="categoriesName" :error-messages="selectErrors"
-              @change="$v.ctg.$touch()" @blur="$v.ctg.$touch()" required></v-select>
-            <v-text-field label="Name" v-model="name" :error-messages="nameErrors" :counter="10"
-              @input="$v.name.$touch()" @blur="$v.name.$touch()" required></v-text-field>
+        
+        <div class="form-container">
+          <v-form v-model="valid" ref="form" lazy-validation>
+            <v-text-field label="Name" v-model="name" :rules="nameRules" required></v-text-field>
+            <v-select label="Select Category" v-if="categories" v-model="category" :items="categories" :rules="[v => !!v || 'Category is required']" required></v-select>
             <section v-if="currAddress">
-               
-              <label style="color:gray;">Location*</label>
-              <div>{{currAddress.address}}</div> 
-              <hr style="border-top: 1px solid gray;">
+              <label style="color:gray;">Location*</label><div>{{currAddress.address}}</div> <hr style="border-top: 1px solid gray;">
             </section>
-            <!-- need to add validation -->
-            <v-text-field v-else label="Location" v-model="location" @input="$v.location.$touch()"
-              @blur="$v.location.$touch()" required></v-text-field>
-
-            <v-text-field name="input-7-1" label="About the game" multi-line></v-text-field>
-            <v-text-field label="Player limit" mask="##" v-model="playerLimit"></v-text-field>
-              
-            <v-select label="Game Level" v-model="gamePower" :items="power" :error-messages="levelErrors"
-              @change="$v.level.$touch()" @blur="$v.level.$touch()" required single-line auto hide-details>
-            </v-select>
-            <br>
-            <date-picker @timeSend="timeSend($event)" :error-messages="selectErrors"
-              @change="$v.date.$touch()" @blur="$v.date.$touch()" required>
-            </date-picker>
-
-            <v-flex xs10 offset-xs8>
-              <v-btn class="main-btn" color="primary" @click="submit">Submit</v-btn>
-              <!-- <v-btn class="main-btn" outline color="black" @click="clear">clear</v-btn>  -->
-            </v-flex>
-          </form>
+            <v-text-field name="input-7-1" v-model="about" label="About the game" multi-line></v-text-field>
+            <v-text-field label="Player limit" v-model="playerLimit" :rules="limitRules" required></v-text-field>
+            <v-select label="Game Level" v-model="level" :items="levels"></v-select>
+            <date-picker @timeSend="timeSend($event)" required></date-picker>
+            <v-btn  @click="submit" >Create</v-btn>
+            <v-btn @click="clear">clear</v-btn>
+          </v-form>
+        </div>
       </v-card>
     </v-flex>
   </v-layout>
@@ -44,124 +31,94 @@
 
 
 <script>
-import { validationMixin } from "vuelidate";
-import { required, maxLength } from "vuelidate/lib/validators";
-import { GET_CURR_ADDRESS } from "../store/modules/map/Map.module";
-import {
-  GET_CATEGORIES,
-  GET_CATEGORIES_NAME
-} from "../store/modules/category/Category.module";
+import {GET_CURR_ADDRESS} from "../store/modules/map/Map.module";
+import {GET_CATEGORIES,GET_CATEGORIES_NAME} from "../store/modules/category/Category.module";
 import DatePicker from "../components/DatePicker";
-import GameService from "../service/game/GameService.js";
-import { GET_USER } from "../store/modules/user/user.module";
+import {GET_USER} from "../store/modules/user/user.module";
+import {CREATE_GAME} from '../store/modules/game/Game.module';
 
 export default {
-  mixins: [validationMixin],
-  validations: {
-    name: { required, maxLength: maxLength(10) },
-    location: { required },
-    ctg: { required },
-    date: { required },
-    level: { required }
-  },
-  data() {
-    return {
-      name: "",
-      location: "",
-      ctg: null,
-      power: ["Beginners", "Semi-Pro", "Pro"],
-      date: null,
-      playerLimit: null,
-      level: null,
-      coverImg: "../../static/memebers-img/bek.jpg"
-    };
-  },
+  data: () => ({
+    valid: false,
+    nameRules: [
+      v => !!v || "Name is required",
+      v => (v && v.length <= 20) || "Name must be less than 20 characters"
+    ],
+    limitRules: [
+      v => !!v || "Limit is required",
+      v => (v && /^[0-9]*$/.test(v)) || "Must be a number"
+    ],
+    categories: null,
+    levels: ["Beginners", "Semi-Pro", "Pro"],
+    coverImg: 'http://res.cloudinary.com/dkp5cwwjh/image/upload/v1514999728/SportCover_wqrk3l.png',
+    date: null,
+    name: "",
+    level: "",
+    category: null,
+    playerLimit: null,
+    about: null
+  }),
   methods: {
-    timeSend(date) {
-      this.date = date;
-    },
     submit() {
-      this.$v.$touch();
-      var gameObj = {
-        category: this.categories.find(ctg => ctg.name === this.ctg),
-        name: this.name,
-        location: this.currAddress,
-        time: this.date,
-        players: [
+      this.$refs.form.validate();
+      if (this.checkValidation()) {
+        var newGame = {
+          name: this.name,
+          category: this.categoryObjs.find(category => category.name === this.category),
+          location: this.currAddress,
+          time: this.date,
+          about: this.about,
+          players: [
           {
             id: this.user._id,
             imgUrl: this.user.imgUrl,
             name: this.user.name
+          }],
+          playerLimit: +this.playerLimit,
+          level: this.level
           }
-        ],
-        playerLimit: this.playerLimit,
-        level: this.level
-      };
-      GameService.createGame(gameObj);
-      console.log("inside submit", { gameObj });
+        console.log('befor dispatching', newGame)
+        this.$store.dispatch({type: CREATE_GAME, newGame})
+          .then(res => {
+            this.$router.push(`game/${res._id}`)
+          })
+      }
+    },
+    checkValidation() {
+      if ( this.name && this.date && this.category && this.playerLimit && this.level) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    timeSend(date) {
+      this.date = date;
     },
     clear() {
-      this.$v.$reset();
-      this.name = "";
-      this.location = "";
-      this.select = null;
+      this.$refs.form.reset();
     }
   },
-  watch: {
-    gamePower() {
-      console.log('gamePowr:',gamePower,'this',this);
-      switch (gamePower) {        
-        case value:
-          "Beginners";
-          this.level = 1;
-          break;
-        case value:
-          "Semi-Pro";
-          this.level = 2;
-          break;
-        case value:
-          "Pro";
-          this.level = 3;
-          break;
-      }
-    }
+  created() {
+    this.categories = this.$store.getters[GET_CATEGORIES_NAME];
   },
   computed: {
+    currAddress() {
+      return this.$store.getters[GET_CURR_ADDRESS];
+    },
     user() {
       return this.$store.getters[GET_USER];
     },
-    selectedCtg() {
-      return this.categories.find(ctg => ctg.name === this.ctg);
-    },
-    categories() {
-      return this.$store.getters[GET_CATEGORIES];
-    },
-    categoriesName() {
-      return this.$store.getters[GET_CATEGORIES_NAME];
-    },
-    selectErrors() {
-      const errors = [];
-      if (this.selectedCtg) this.coverImg = this.selectedCtg.url;
-      if (!this.$v.ctg.$dirty) return errors;
-      !this.$v.ctg.required && errors.push("Category is required");
-      return errors;
-    },
-    nameErrors() {
-      const errors = [];
-      if (!this.$v.name.$dirty) return errors;
-      !this.$v.name.maxLength &&
-        errors.push("Name must be at most 10 characters long");
-      !this.$v.name.required && errors.push("Name is required.");
-      return errors;
-    },
-    levelErrors() {
-      const errors = [];
-      if (!this.$v.level.$dirty) return errors;
-      !this.$v.level.required && errors.push("Level is required");
-      return errors;
+    categoryObjs(){
+      return this.$store.getters[GET_CATEGORIES]
     },
     currAddress() {
       return this.$store.getters[GET_CURR_ADDRESS];
+    }
+  },
+  watch:{
+    category(){
+      let slectedCategory = this.categoryObjs.find(category => category.name === this.category)
+      this.coverImg = slectedCategory.url
     }
   },
   components: {
@@ -170,56 +127,13 @@ export default {
 };
 </script>
 
+
+
 <style scoped>
-form {
-  font-family: var(--secondery-font);
+.form-container{
   padding: 50px;
 }
-.main-container {
-  box-shadow: 2px 6px 24px rgba(0, 0, 0, 0.6);
-}
-h1 {
-  font-family: var(--primary-font);
-  font-size: 3em;
-  color: var(--font-secondery-color);
-  height: 3em;
-  text-shadow: 2px 2px 4px black;
-  -webkit-animation: colorchange 20s infinite alternate;
-}
-
-@-webkit-keyframes colorchange {
-  0% {
-    color: rgb(150, 150, 212);
-  }
-  10% {
-    color: #8e44ad;
-  }
-  20% {
-    color: #1abc9c;
-  }
-  30% {
-    color: #d35400;
-  }
-  40% {
-    color: rgb(75, 161, 64);
-  }
-  50% {
-    color: #f59ce6;
-  }
-  60% {
-    color: rgb(255, 208, 0);
-  }
-  70% {
-    color: #5cb1eb;
-  }
-  80% {
-    color: #f1c40f;
-  }
-  90% {
-    color: #2980b9;
-  }
-  100% {
-    color: pink;
-  }
+img{
+  box-sizing: border-box;
 }
 </style>
