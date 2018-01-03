@@ -33,3 +33,47 @@ button, input, select, textarea {
 .main-btn:hover{
     transform: scale(1.03)
 }
+
+
+.my-selector{
+    background-color: black;
+}
+
+.input-group--select.input-group--focused{
+    background-color: black
+}
+.application > div > .card>.list{
+    background-color: black;
+}
+
+.application > div > .card>.list > li > a > div >div{
+    color: white;
+}
+.application > div > .card>.list > li > a > div >div> span{
+    color:white;
+}
+.selector-container> .my-selector> div>div> input{
+    background-color: black;
+    color: white;
+}
+
+.my-selector> .input-group__input > .input-group__selections> .input-group__selections__comma{
+    color: white !important;
+}
+
+.my-selector > label{
+    color: white !important;
+    z-index: 1;
+}
+
+.input-group__details::before{
+    background-color: white;
+}
+
+.input-group__details::after{
+    background-color: white;
+}
+
+.my-selector > .input-group__input> .input-group__icon-cb{
+    color: white;
+}

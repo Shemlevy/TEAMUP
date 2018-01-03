@@ -3,12 +3,10 @@
     <v-layout row>
       <v-flex xs12 sm12 offset-sm0>
         <v-card>
-          <v-toolbar dark>
-            <!-- <category-search-bar></category-search-bar>      -->
-            <search-ctg></search-ctg>
+            <div class="ctg-selector-container">
+            <ctg-selector></ctg-selector>
+            </div>
             <v-spacer></v-spacer>
-            <v-icon>search</v-icon>
-          </v-toolbar>
           <v-list three-line dark>
           <v-list-tile v-if="!games">No games to display</v-list-tile> 
           <template v-for="(game , i) in games">
@@ -49,7 +47,7 @@
 <script>
 import { SET_SELECTED_GAME } from "../store/modules/game/Game.module";
 import CategorySearchBar from "../components/CategorySearchBar";
-import SearchCtg from "../components/SearchCtg";
+import CtgSelector from "../components/CtgSelector";
 
 export default {
   props: ["games", "selectedCategory"],
@@ -72,14 +70,16 @@ export default {
   },
   components:{
     CategorySearchBar,
-    SearchCtg
+    CtgSelector
   }
   
   
 };
 </script>
 <style>
-
+.ctg-selector-container{
+  width: 100%
+}
 </style>
 
 
