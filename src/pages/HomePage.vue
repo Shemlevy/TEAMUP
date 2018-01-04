@@ -96,9 +96,7 @@ h1 {
   margin-right: 100px;
 }
 .key-words{
-  height: 180px;
-  position: relative;
-  top: 20px;
+  height: 220px;
 }
 </style>
 
