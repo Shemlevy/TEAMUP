@@ -120,8 +120,9 @@ export default {
 .ctg-title{
   font-size: 18px;
   color: var(--keywords);
-  position: absolute;
-  margin-top:-22px;
+  position: relative;
+  margin-top:-16px;
+  text-overflow: ellipsis;
 }
 .playersLimit {
   padding: 5px;
@@ -132,7 +133,7 @@ export default {
   font-family: var(--secondary-font);
   color: var(--players-limit);
   font-size: 15px;
-  -webkit-animation: colorchange 1.5s infinite alternate;
+  -webkit-animation: colorchange .8s infinite alternate;
 }
 .OnePlace {
   font-family: var(--secondary-font);
@@ -198,13 +199,14 @@ export default {
 }
 .text-game {
   padding: 8px;
+  width:300px;
 }
 
 .location-txt {
   color: rgb(233, 233, 233);
   cursor: pointer;
   display: inline-block;
-  width: 150px;
+  width: 280px;
   text-overflow: ellipsis;
   line-height: 25px;
   overflow: hidden;

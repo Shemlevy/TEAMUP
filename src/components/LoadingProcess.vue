@@ -14,7 +14,7 @@ export default {
 
 <style scoped>
 .loader-background {
-  background-color: rgba(34, 34, 34, 0.459);
+  background-color: rgba(34, 34, 34, 0.678);
   width: 100%;
   height: 100%;
   position: absolute;
@@ -37,7 +37,7 @@ export default {
     margin: -75px 0 0 -75px;
     border-radius: 50%;
     border: 3px solid transparent;
-    border-top-color: #9370DB;
+    border-top-color: rgb(214, 95, 25);
     -webkit-animation: spin 1.5s linear infinite;
     animation: spin 1.5s linear infinite;
 }
@@ -50,7 +50,7 @@ export default {
     bottom: 5px;
     border-radius: 50%;
     border: 3px solid transparent;
-    border-top-color: #BA55D3;
+    border-top-color: rgb(233, 255, 31);
     -webkit-animation: spin 2s linear infinite;
     animation: spin 2s linear infinite;
 }
@@ -63,7 +63,7 @@ export default {
     bottom: 15px;
     border-radius: 50%;
     border: 3px solid transparent;
-    border-top-color: #FF00FF;
+    border-top-color: rgb(190, 65, 16);
     -webkit-animation: spin 1s linear infinite;
     animation: spin 1s linear infinite;
 }
