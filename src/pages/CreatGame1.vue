@@ -97,7 +97,7 @@ export default {
         level: this.level
       };
       GameService.createGame(gameObj);
-      console.log("inside submit", { gameObj });
+      // console.log("inside submit", { gameObj });
     },
     clear() {
       this.$v.$reset();
@@ -108,7 +108,7 @@ export default {
   },
   watch: {
     gamePower() {
-      console.log('gamePowr:',gamePower,'this',this);
+      // console.log('gamePowr:',gamePower,'this',this);
       switch (gamePower) {        
         case value:
           "Beginners";

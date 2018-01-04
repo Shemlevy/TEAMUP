@@ -21,7 +21,7 @@ function getEmptyUser() {
 function register(newUserDetails) {
   return axios.post(`${USER_URL}/data/user`, newUserDetails)
     .then(_ => {
-      console.log('newUserDetails', newUserDetails);
+      // console.log('newUserDetails', newUserDetails);
       return login(newUserDetails)
     })
     .catch(err => err)
@@ -64,7 +64,7 @@ function uploadImage(file) {
   formData.append('upload_preset', CLOUDINARY_PRESET)
 
   for (var pair of formData.entries()) {
-      console.log(pair[0] + ', ' + pair[1]);
+      // console.log(pair[0] + ', ' + pair[1]);
   }
 
   return axios({

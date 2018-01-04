@@ -107,7 +107,7 @@ export default {
     }
   },
   created (){
-      console.log('page created')
+      // console.log('page created')
       var id = this.$router.history.current.params.gameId
       this.$store.dispatch({type: LOAD_GAME_BY_ID , gameId: id})
       

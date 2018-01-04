@@ -1,5 +1,8 @@
 <template>
-  <section>    
+  <section>  
+    <div class="key-words">
+      <key-words v-if="games"></key-words>  
+    </div>
     <!--<category-search-bar></category-search-bar>-->
     <section class="main-game-info">
       <games-list-vut @userJoinGame="userJoinGame" :games="games" :selectedCategory="selectedCategory"></games-list-vut>
@@ -25,32 +28,16 @@ import {GET_USER} from '../store/modules/user/user.module'
 import CategorySearchBar from "../components/CategorySearchBar";
 import GoogleMap from "../components/GoogleMap";
 import GamesListVut from "../components/GamesListVut";
-
+import KeyWords from '../components/KeyWords'
 export default {
   name: "HomePage",
   data() {
     return {};
   },
-  components: {
-    CategorySearchBar,
-    GoogleMap,
-    GamesListVut
-  },
-  methods: {
-    unselectGame() {
-      this.$store.commit({ type: SET_SELECTED_GAME, gameId: null });
-    },
-    userJoinGame(){
-      let game = arguments[0]
-      console.log(this.user)
-      game.players.push({
-        id: this.user._id,
-        name: this.user.name,
-        imgUrl: this.user.imgUrl
-      })
-      this.$store.dispatch({type: UPDATE_GAME, game})
-
-    }
+  created() {
+    EventBusService.$emit(SHOW_LOADER)
+    this.$store.dispatch({ type: LOAD_GAMES });
+    this.$store.dispatch({ type: LOAD_CATEGORIES });
   },
   computed: {
     games() {
@@ -66,20 +53,34 @@ export default {
       return this.$store.getters[GET_USER]
     }
   },
-  created() {
-    EventBusService.$emit(SHOW_LOADER)
-    this.$store.dispatch({ type: LOAD_GAMES });
-    this.$store.dispatch({ type: LOAD_CATEGORIES });
-  },
   watch: {
     selectedCategory() {
-      console.log("hi");
       let ctgId = this.selectedCategory._id
-      console.log('in home page', ctgId);
       
       this.$store.dispatch({ type: LOAD_GAMES , ctgId});
     }
-  }
+  },
+   methods: {
+    unselectGame() {
+      this.$store.commit({ type: SET_SELECTED_GAME, gameId: null });
+    },
+    userJoinGame(){
+      let game = arguments[0]
+      game.players.push({
+        id: this.user._id,
+        name: this.user.name,
+        imgUrl: this.user.imgUrl
+      })
+      this.$store.dispatch({type: UPDATE_GAME, game})
+
+    }
+  },
+   components: {
+    CategorySearchBar,
+    GoogleMap,
+    GamesListVut,
+    KeyWords
+  },
 };
 </script>
 
@@ -93,6 +94,11 @@ h1 {
 }
 .game-list {
   margin-right: 100px;
+}
+.key-words{
+  height: 180px;
+  position: relative;
+  top: 20px;
 }
 </style>
 

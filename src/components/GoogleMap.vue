@@ -1,11 +1,11 @@
 <template>
   <section> 
-    <transition name="slide-fade">
-      <cg-popup v-if="show" @close-dialog="close"></cg-popup>
-    </transition>
     <input class="controls" style="z-index:999;" type="text" @change="getGeoByAddress" placeholder="Search Box" ref="googleSearch">    
     <div class="google-map" :id="mapName"></div>
-    <button class="location-btn" @click="getUserLoc"><i title="Get my location location-btn" class="material-icons">my_location</i></button>
+    <button ref="locationBtn" class="location-btn" @click="getUserLoc"><i title="Get my location location-btn" class="material-icons">my_location</i></button>
+   <transition name="slide-fade">
+      <cg-popup v-if="show" @close-dialog="close"></cg-popup>
+    </transition>
   </section>
 </template>
 <script>
@@ -16,8 +16,12 @@ import {
 } from "../store/modules/game/Game.module";
 import MapService from "../service/map/MapService";
 import CgPopup from "../components/CgPopup";
-import { SET_CURR_ADDRESS } from "../store/modules/map/Map.module";
-import { GET_PICK_ADDRESS } from "../store/modules/map/Map.module";
+import {
+  SET_CURR_ADDRESS,
+  GET_PICK_ADDRESS,
+  SET_USER_LOCATION
+} from "../store/modules/map/Map.module";
+import EventBusService, { GET_LOCATION } from "../service/EventBusService";
 
 export default {
   name: "google-map",
@@ -39,7 +43,15 @@ export default {
     };
   },
   created() {
+    EventBusService.$on(GET_LOCATION, () => {
+      this.getUserLoc();
+    });
+    var markerIcon = {
+      url: "../../static/icons/addPlace.png",
+      scaledSize: new google.maps.Size(40, 40)
+    };
     this.tempMarker = new google.maps.Marker({
+      icon: markerIcon,
       animation: google.maps.Animation.DROP,
       draggable: false,
       map: this.map
@@ -58,13 +70,15 @@ export default {
       var lat = this.selctedGame.location.lat;
       var lng = this.selctedGame.location.lng;
       this.map.panTo(new google.maps.LatLng(lat, lng));
+      this.map.setZoom(18);
     },
     games() {
       this.renderMap();
     },
-    pickLatLng(){
-      console.log('in google map',this.pickLatLng.lat);
-      this.map.panTo(new google.maps.LatLng(this.pickLatLng.lat, this.pickLatLng.lng));
+    pickLatLng() {
+      this.map.panTo(
+        new google.maps.LatLng(this.pickLatLng.lat, this.pickLatLng.lng)
+      );
     }
   },
   computed: {
@@ -75,7 +89,7 @@ export default {
     games() {
       return this.$store.getters[GET_GAMES];
     },
-    pickLatLng(){
+    pickLatLng() {
       return this.$store.getters[GET_PICK_ADDRESS];
     }
   },
@@ -95,30 +109,35 @@ export default {
         )
       };
 
-      this.map = new google.maps.Map(element, { maxZoom: 12 });
+      this.map = new google.maps.Map(element, { zoom: 18 });
       this.infoWindow = new google.maps.InfoWindow();
 
       this.tempMarker.setMap(this.map);
       var input = this.$refs.googleSearch;
-      console.log("input", input);
+      var locationBtn = this.$refs.locationBtn;
 
       this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
+      this.map.controls[google.maps.ControlPosition.RIGHT].push(locationBtn);
       this.searchBox = new google.maps.places.SearchBox(input);
 
       if (this.games) {
-        console.log("in google map", this.games);
         this.games.forEach(coord => {
           const position = new google.maps.LatLng(
             coord.location.lat,
             coord.location.lng
           );
+          var markerIcon = {
+            url: "../../static/icons/gameMarker.png",
+            scaledSize: new google.maps.Size(40, 40)
+          };
+
           const marker = new google.maps.Marker({
+            icon: markerIcon,
             animation: google.maps.Animation.DROP,
             position,
             map: this.map
           });
           marker.addListener("click", e => {
-            console.log(coord._id);
             this.$router.push(`/game/${coord._id}`);
           });
           // this.markers.push(marker)
@@ -139,7 +158,6 @@ export default {
           address: res
         });
         this.tempMarker.setPosition(res.postion);
-        console.log("this i this.tempMarkers res", this.tempMarker);
       });
     },
     close() {
@@ -155,6 +173,10 @@ export default {
               lng: position.coords.longitude
             };
 
+            self.$store.commit({
+              type: SET_USER_LOCATION,
+              location: pos
+            });
             self.infoWindow.setPosition(pos);
             self.infoWindow.setContent("You are Here");
             self.infoWindow.open(self.map);
@@ -222,17 +244,18 @@ export default {
 
 .location-btn {
   border: 0px;
-  margin: 10px 44px;
-  padding: 0px;
-  position: absolute;
+  margin: -35px 44px;
+  /* padding: 0px; */
   cursor: pointer;
-  user-select: none;
+  /* user-select: none; */
+  text-align: center;
   width: 25px;
   height: 25px;
   overflow: hidden;
-  top: 51px;
-  right: 0px;
   color: gray;
   background-color: white;
+}
+.material-icons {
+  margin: 0;
 }
 </style>
