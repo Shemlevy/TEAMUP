@@ -4,7 +4,7 @@
     <loading-process v-show="loading"></loading-process>
     <nav-bar></nav-bar>
     <router-view/>
-
+    <footer-bar></footer-bar>
     </v-app> 
   </div>
 
@@ -14,6 +14,7 @@
 import NavBar from './components/NavBar.vue'
 import LoadingProcess from './components/LoadingProcess.vue'
 import EventBusService, {SHOW_LOADER, HIDE_LOADER} from './service/EventBusService.js'
+import FooterBar from './components/FooterBar'
 import StorageService from './service/StorageService.js'
 import {SET_USER, LOAD_USER_GAMES} from './store/modules/user/user.module'
 import {LOAD_GAMES} from './store/modules/game/Game.module'
@@ -46,7 +47,8 @@ export default {
   },
   components:{
     NavBar,
-    LoadingProcess
+    LoadingProcess,
+    FooterBar
   }
 };
 </script>

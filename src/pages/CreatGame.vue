@@ -77,7 +77,7 @@ export default {
           playerLimit: +this.playerLimit,
           level: this.level
           }
-        console.log('befor dispatching', newGame)
+        // console.log('befor dispatching', newGame)
         this.$store.dispatch({type: CREATE_GAME, newGame})
           .then(res => {
             this.$router.push(`game/${res._id}`)
