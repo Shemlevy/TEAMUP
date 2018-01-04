@@ -17,12 +17,16 @@
                 <img class="imgList" :src="game.category.url">
                 <div class="text-game">
                   <div>{{game.category.name}}</div>
-                  <div>{{game.time.date}} {{game.time.hour}}</div>
+                  <div class="time-txt" >{{game.time.date}} {{game.time.hour}}</div>
                   <div class="locatin-container">
                     <a @click="moveMapTo(game.location.lat,game.location.lng)"
                       class="location-txt">{{game.location.address}}</a>
                   </div>
-                  <div>{{game.players.length}} / {{game.playerLimit}}</div>
+                  <div><span class="playersCount">{{game.players.length}}</span>/<span class="playersLimit">{{game.playerLimit}}</span>
+                     <span v-if="(game.playerLimit - game.players.length) === 0" class="NoPlaces">GAME IS CLOSED</span>
+                     <span v-if="(game.playerLimit - game.players.length) === 1" class="OnePlace">1 PLACE LEFT</span>
+          
+                  </div>
                   <div>Level: {{game.level}}</div>
                 </div>  
                 <!-- <count-down date="21-10-17"></count-down>  -->
@@ -56,6 +60,7 @@ export default {
   data() {
     return {
       distanceFromUser: null
+      
     };
   },
   methods: {
@@ -109,6 +114,39 @@ export default {
 };
 </script>
 <style>
+.playersCount{
+padding: 5px;
+color: var(--main-color);
+
+}
+.playersLimit{
+  padding: 5px;
+  color: var(--players-limit);
+}
+.time-txt{
+  color: var(--main-color);
+}
+.NoPlaces{
+  font-family: var(--secondary-font);
+  color:var(--players-limit);
+  font-size:15px;
+   -webkit-animation: colorchange 1.5s infinite alternate;
+}
+.OnePlace{
+ font-family: var(--secondary-font);
+ color:var(--players-limit);
+ font-size:15px;
+ -webkit-animation: colorchange .5s infinite alternate; 
+}
+
+@-webkit-keyframes colorchange {
+  0% {
+    color:var(--players-limit);
+  }
+  100% {
+    color: white;
+  }
+}
 .ctg-selector-container {
   width: 100%;
   display: flex;
