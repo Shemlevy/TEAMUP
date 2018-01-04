@@ -25,25 +25,27 @@ export default {
 .container {
   display: flex;
   align-items: center;
+  max-width: 170px;
+  min-width: 170px;
 }
 .MED {
   margin: 5px;
   width: 40px;
   height: 40px;
-  background-color: rgba(255, 255, 255, 0.603);
+  background-color: rgba(228, 188, 142, 0.685);
   border-radius: 100%;
 }
 .spinner {
   width: 40px;
   height: 40px;
-  background-color: rgb(238, 238, 238);
+  background-color: rgb(255, 149, 11);
 
   border-radius: 100%;
   -webkit-animation: sk-scaleout 2s infinite ease-in-out;
   animation: sk-scaleout 2s infinite ease-in-out;
 }
 .distance {
-  color: rgb(0, 0, 0);
+  color: rgb(26, 25, 25);
   margin-left: -43px;
   position: initial;
   z-index: 5;
@@ -55,7 +57,7 @@ export default {
 .spinnerL {
   width: 40px;
   height: 40px;
-  background-color: rgb(126, 2, 2);
+  background-color: rgb(0, 255, 76);
 
   border-radius: 100%;
   -webkit-animation: sk-scaleout 1s infinite ease-in-out;

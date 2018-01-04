@@ -1,10 +1,7 @@
 <template>
  <footer class="footer-distributed">
-
 			<div class="footer-left">
-
 				<h3>TEAM<span>UP</span></h3>
-
 				<p class="footer-links">
 					<a href="#">Home</a>
 					·
@@ -86,7 +83,8 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .footer-distributed{
-	background-color: #292c2f;
+	border-top: 1px solid black;
+	background-color: var(--main-color);
 	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
 	box-sizing: border-box;
 	width: 100%;
@@ -112,20 +110,21 @@ export default {
 /* The company logo */
 
 .footer-distributed h3{
-	color:  #ffffff;
+	color:  var(--secondary-color);
   font-family: var(--primary-font);
   font-size: 36px;
 	margin: 0;
+	text-shadow: 2px 2px 2px black;
 }
 
 .footer-distributed h3 span{
-	color:  #5383d3;
+	color: var(--third-color);
 }
 
 /* Footer links */
 
 .footer-distributed .footer-links{
-	color:  #ffffff;
+	color: var(--keywords);
 	margin: 20px 0 12px;
 	padding: 0;
 }
@@ -170,7 +169,7 @@ export default {
 
 .footer-distributed .footer-center p{
 	display: inline-block;
-	color: #ffffff;
+	color: var(--black);
 	vertical-align: middle;
 	margin:0;
 }
@@ -196,7 +195,7 @@ export default {
 
 .footer-distributed .footer-company-about{
 	line-height: 20px;
-	color:  #92999f;
+	color:  #6e7275;
 	font-size: 13px;
 	font-weight: normal;
 	margin: 0;
@@ -204,7 +203,7 @@ export default {
 
 .footer-distributed .footer-company-about span{
 	display: block;
-	color:  #ffffff;
+	color:  var(--keywords);
 	font-size: 14px;
 	font-weight: bold;
 	margin-bottom: 20px;

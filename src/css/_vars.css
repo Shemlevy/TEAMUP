@@ -1,11 +1,12 @@
 :root{
     /* color vars */
     --main-color: rgb(224, 225, 226);
-    --secondary-color: rgb(86, 102, 136);
-    --font-main-color: rgb(71, 68, 68);
-    --dark: rgb(4, 4, 29);
+    --secondary-color: #fafafa;
+    --third-color: #f36923;
+    --keywords: #544647;
     --black: rgb(0,0,0);
-    --players-limit : rgb(158, 92, 5);
+    --font-color-selector: rgb(0,0,0);
+    --players-limit : rgb(224, 44, 44);
      /* Fonts */
      --primary-font: impact;
      --secondery-font: Arial, Helvetica, sans-serif;
