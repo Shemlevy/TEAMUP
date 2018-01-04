@@ -25,7 +25,7 @@
                   <div>{{game.players.length}} / {{game.playerLimit}}</div>
                   <div>Level: {{game.level}}</div>
                 </div>  
-                <!-- <count-down date="21-10-17"></count-down>  -->
+                <count-down :date="1515088195"></count-down> 
                 <distance-calc v-if="distanceFromUser" :distance="distanceFromUser[game._id]"></distance-calc>
                 <button class="main-btn" @click="showDetPage(game._id)">Details</button>
               </div>
