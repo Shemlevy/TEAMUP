@@ -19,6 +19,7 @@ export const SET_SELECTED_GAME_BY_Id = 'game/setSelectedGameById'
 export const GET_GAMES_BY_CTG = 'game/getGamesByCtg'
 export const ADD_NEW_GAME = 'game/addNewGame'
 export const UPDATE_SPECIFIC_GAME = 'game/updateSpecificGame'
+export const GET_GAME_REPS = 'game/getGameReps'
 
 
 const SET_GAMES = 'game/setGames';
@@ -27,6 +28,7 @@ export default {
     state: {
         games: null,
         selectedGame: null
+
     },
     getters: {
         [GET_GAMES](state) {
@@ -34,6 +36,22 @@ export default {
         },
         [GET_SELCTED_GAME](state) {
             return state.selectedGame
+        },
+        [GET_GAME_REPS](state) {
+            if (state.games) {
+                let i = 1
+                return state.games.reduce((acc, game) => {
+                    if (acc[game.category.name]) {
+                        acc[game.category.name] = `font-size:${i++}em`
+                    } else {
+                        acc[game.category.name] = `font-size:${i}em`
+                    }
+                    return acc
+                }, {})
+               
+            } else {
+                return null
+            }
         }
     },
     mutations: {

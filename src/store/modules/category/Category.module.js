@@ -53,7 +53,7 @@ export default {
         [LOAD_CATEGORIES]({ commit }) {
             CategoryService.getCategories()
                 .then(categories => {
-                    console.log('categories in module: ', categories);
+                    // console.log('categories in module: ', categories);
                     commit({ type: SET_CATEGORIES, categories })
                 })
                 .catch(err => {

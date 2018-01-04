@@ -1,8 +1,8 @@
 :root{
     /* color vars */
-    --main-color: rgb(55,103,200);
-    --secondary-color: rgb(220,148,57);
-    --font-main-color: rgb(255, 255, 255);
+    --main-color: rgb(224, 225, 226);
+    --secondary-color: rgb(86, 102, 136);
+    --font-main-color: rgb(71, 68, 68);
     --dark: rgb(4, 4, 29);
     --black: rgb(0,0,0);
 

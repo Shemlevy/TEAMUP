@@ -46,7 +46,7 @@ function deleteGame(gameId){
 function createGame(newGame){
   return axios.post(GAME_URL , newGame)
          .then(res =>{
-           console.log(res)
+          //  console.log(res)
           return res.data
          })
          .catch(err => {
@@ -67,9 +67,9 @@ function getGameById(gameId) {
 
 function getPlayerGames (PlayerId){
   return axios.get(`${GAME_URL}`, {params:{ PlayerId }})
-    console.log('player id in service: ', PlayerId)
+    // console.log('player id in service: ', PlayerId)
     .then(res => {
-      console.log('recived player games in service: ' , res.data)
+      // console.log('recived player games in service: ' , res.data)
       return res.data
     })
     .catch(e => console.log('Could not find player games', e))
@@ -78,7 +78,7 @@ function getPlayerGames (PlayerId){
 function getGames(categoryId = null) {
   return axios.get(`${GAME_URL}`, { params: { categoryId } })
     .then(res => {
-      console.log({res, msg: 'we are in the service'})
+      // console.log({res, msg: 'we are in the service'})
       if (res.data.length === 0) return null
       return res.data
     })
