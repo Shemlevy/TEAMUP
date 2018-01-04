@@ -39,12 +39,12 @@ export default {
         },
         [GET_GAME_REPS](state) {
             if (state.games) {
-                let i = 1
+                let i = 40
                 return state.games.reduce((acc, game) => {
                     if (acc[game.category.name]) {
-                        acc[game.category.name] = `font-size:${i++}em`
+                        acc[game.category.name] = `font-size:${i+10}px`
                     } else {
-                        acc[game.category.name] = `font-size:${i}em`
+                        acc[game.category.name] = `font-size:${i}px`
                     }
                     return acc
                 }, {})

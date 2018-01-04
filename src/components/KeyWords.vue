@@ -1,29 +1,32 @@
 <template>
  <section class="container">
    <div v-for="ctg in ctgsName" :key="ctg">
-     <h4 class="word" @click="setCtg(ctg)" :style="ctgSize[ctg]">{{ctg}}</h4>
+     <h2 class="word" @click="setCtg(ctg)" :style="ctgSize[ctg]">{{ctg}}</h2>
    </div>
  </section>
 </template>
 
 <script>
-import {GET_GAME_REPS} from '../store/modules/game/Game.module'
-import {GET_CATEGORIES_NAME,SET_SELECTED_CATEGORY} from '../store/modules/category/Category.module'
+import { GET_GAME_REPS } from "../store/modules/game/Game.module";
+import {
+  GET_CATEGORIES_NAME,
+  SET_SELECTED_CATEGORY
+} from "../store/modules/category/Category.module";
 
 export default {
   data() {
     return {};
   },
-  computed:{
-    ctgsName(){
-      return this.$store.getters[GET_CATEGORIES_NAME]  
+  computed: {
+    ctgsName() {
+      return this.$store.getters[GET_CATEGORIES_NAME];
     },
-    ctgSize(){
-      return this.$store.getters[GET_GAME_REPS]
+    ctgSize() {
+      return this.$store.getters[GET_GAME_REPS];
     }
   },
-  methods:{
-    setCtg(ctg){
+  methods: {
+    setCtg(ctg) {
       this.$store.commit({
         type: SET_SELECTED_CATEGORY,
         categoryName: ctg
@@ -34,18 +37,22 @@ export default {
 </script>
 
 <style scoped>
-.container{
+.container {
   display: flex;
-  flex-flow:row wrap;
-  width:300px;
+  flex-flow: row wrap;
+  width: 600px;
+  justify-content: center;
+  justify-self: center;
 }
-.word{
+
+.word {
   font-family: var(--primary-font);
   line-height: 25px;
-  margin: 20px;
+  font-size: 25px;
+  padding: 13px;
   color: whitesmoke;
   cursor: pointer;
-   display: inline-block;
+  display: inline-block;
   vertical-align: middle;
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
@@ -54,9 +61,6 @@ export default {
   backface-visibility: hidden;
   -moz-osx-font-smoothing: grayscale;
 }
-
-
-
 
 @-webkit-keyframes word {
   50% {
@@ -82,7 +86,9 @@ export default {
   }
 }
 
-.word:hover, .word:focus, .word:active {
+.word:hover,
+.word:focus,
+.word:active {
   text-shadow: 1px 1px 20px black;
   -webkit-animation-name: word;
   animation-name: word;
@@ -93,5 +99,4 @@ export default {
   -webkit-animation-iteration-count: infinite;
   animation-iteration-count: infinite;
 }
-
 </style>
