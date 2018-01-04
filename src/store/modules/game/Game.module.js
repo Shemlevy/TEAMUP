@@ -15,6 +15,7 @@ export const UPDATE_GAME = 'game/updateGame'
 export const LOAD_GAME_BY_ID = 'game/loadGameById'
 export const GET_SELCTED_GAME = 'game/getSelectedGame'
 export const SET_SELECTED_GAME = 'game/setSelectedGame'
+export const SET_SELECTED_GAME_BY_Id = 'game/setSelectedGameById'
 export const GET_GAMES_BY_CTG = 'game/getGamesByCtg'
 export const ADD_NEW_GAME = 'game/addNewGame'
 export const UPDATE_SPECIFIC_GAME = 'game/updateSpecificGame'
@@ -58,13 +59,8 @@ export default {
             console.log('state in game module mutation: ', state)
             state.games = games
         },
-        [SET_SELECTED_GAME](state, { gameId }) {
-            var game = state.games.find(game => game._id === gameId)
-            if (!game) {
-                state.selectedGame = null
-            } else {
-                state.selectedGame = game;
-            }
+        [SET_SELECTED_GAME](state, { game }) {
+            state.selectedGame = game;
         },
         [UPDATE_SPECIFIC_GAME](state, { updatedGame }) {
             console.log('recived game in module :', updatedGame)
@@ -121,17 +117,28 @@ export default {
                     console.log('game was not updated in database')
                 })
         },
-        [LOAD_GAME_BY_ID]({ state }, { gameId }) {
-            GameService.getGameById(gameId)
-                .then(game => {
-                    console.log(game)
-                    console.log('game loaded succefully')
-                    /*TODO: change to new mutation*/
-                    state.selectedGame = game
+        [LOAD_GAME_BY_ID](state, { gameId }) {
+            EventBusService.$emit(SHOW_LOADER)
+            var gameExists = state.games && state.games.find(game => game_id === gameId)
+            var res = null;
+            if (gameExists) {
+                res = new Promise(resolve, reject => {
+                    resolve(gameExists)
                 })
-                .catch(err => {
-                    console.log('was not able to load game')
-                })
+            } else {
+                res = GameService.getGameById(gameId)
+            }
+
+            res.then(game => {
+                state.commit({ type: SET_SELECTED_GAME, game })
+                EventBusService.$emit(HIDE_LOADER)
+
+            })
+            .catch(err => {
+                console.log('was not able to load game')
+            })
+
+
         },
         socket_newGameAdded({ state }, payload) {
             console.log(payload)

@@ -72,7 +72,8 @@ export default {
           {
             id: this.user._id,
             imgUrl: this.user.imgUrl,
-            name: this.user.name
+            name: this.user.name,
+            isAdmin: true
           }],
           playerLimit: +this.playerLimit,
           level: this.level

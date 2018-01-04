@@ -84,7 +84,8 @@
 import {
   LOAD_GAME_BY_ID,
   GET_SELCTED_GAME,
-  UPDATE_GAME
+  UPDATE_GAME,
+  SET_SELECTED_GAME
 } from "../store/modules/game/Game.module";
 import {
   GET_USER
@@ -98,13 +99,16 @@ export default {
     return {
       exist : false,
       canJoinGame: true,
-      playersLeft: -100
+      playersLeft: -100,
+      isAdmin: false
     };
   },
   computed: {
     game() {
-       
-      var strGame = JSON.stringify(this.$store.getters[GET_SELCTED_GAME]);
+      let game = this.$store.getters[GET_SELCTED_GAME]
+      if(!game) return
+
+      var strGame = JSON.stringify(game);
       return JSON.parse(strGame);
     },
     user() {
@@ -114,11 +118,10 @@ export default {
       return this.game.category.url;
     }
   },
-  created (){
-      // console.log('page created')
+  created(){
       var id = this.$router.history.current.params.gameId
       this.$store.dispatch({type: LOAD_GAME_BY_ID , gameId: id})
-      checkLimit();
+      // checkLimit();
       
       
       
@@ -136,8 +139,13 @@ export default {
   methods: {
     setActions() {
       if (this.game && this.user) {
-        this.exist = false;
-        this.exist = this.game.players.find(player => player.id === this.user._id)
+        let player = this.game.players.find(player => player.id === this.user._id)
+        if(player){
+          this.exist = true
+          // if(player.isAdmin){
+          //   this.isAdmin = true
+          // }
+        }
       }},
     checkLimit(){
       if(this.game){
@@ -152,16 +160,23 @@ export default {
       this.game.players.push({
         id: this.user._id,
         name: this.user.name,
-        imgUrl: this.user.imgUrl
+        imgUrl: this.user.imgUrl,
+        isAdmin: false
       })
 
       this.$store.dispatch({type: UPDATE_GAME, game: this.game})
+
+    },
+    checkAdmin(){
 
     },
     leaveGame(){
        this.game.players = this.game.players.filter(player => player.id !== this.user._id) 
        this.$store.dispatch({type: UPDATE_GAME, game: this.game})
     }
+  },
+  destroyed(){
+    this.$store.commit({type: SET_SELECTED_GAME, gameId: null})
   },
   components:{
     GameMembers

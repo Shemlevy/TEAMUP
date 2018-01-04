@@ -29,7 +29,7 @@ export default {
     EventBusService.$on(HIDE_LOADER, () => {
       setTimeout(() => {
         this.loading = false
-      }, 1000);
+      }, 500);
     });
     EventBusService.$emit(SHOW_LOADER)
     this.$store.dispatch({ type: LOAD_GAMES });
