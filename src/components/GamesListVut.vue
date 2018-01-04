@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     onGameClicked(game) {
-      this.$store.commit({ type: SET_SELECTED_GAME, gameId: game._id });
+      this.$store.commit({ type: SET_SELECTED_GAME, game });
     },
     showDetPage(gameId){
       this.$router.push(`/game/${gameId}`);
