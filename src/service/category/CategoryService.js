@@ -3,6 +3,9 @@
 import axios from 'axios';
 
 const CATEGORY_URL = 'http://localhost:3003/data/category';
+if(process.env.NODE_ENV !== 'development'){
+    CATEGORY_URL = '/data/category'
+}
 
 
 function getCategories() {

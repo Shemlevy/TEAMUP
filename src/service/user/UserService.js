@@ -4,6 +4,12 @@ import axios from 'axios'
 import cloudinary from "cloudinary"
 
 const USER_URL = 'http://localhost:3003';
+if(process.env.NODE_ENV !== 'development'){
+  USER_URL = ''
+}
+
+
+
 const CLOUDINARY_URL='https://api.cloudinary.com/v1_1/dkp5cwwjh/image/upload'
 const CLOUDINARY_PRESET = 'hxglosfa'
 function getEmptyUser() {
