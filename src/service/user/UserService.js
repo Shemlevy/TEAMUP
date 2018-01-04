@@ -3,7 +3,7 @@
 import axios from 'axios'
 import cloudinary from "cloudinary"
 
-const USER_URL = 'http://localhost:3003';
+let USER_URL = 'http://localhost:3003';
 if(process.env.NODE_ENV !== 'development'){
   USER_URL = ''
 }
