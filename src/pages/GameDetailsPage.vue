@@ -191,13 +191,13 @@ export default {
 }
 .NoPlaces{
   font-family: var(--secondary-font);
-  color:red;
+  color:var(--players-limit);
   font-size:15px;
    -webkit-animation: colorchange 1s infinite alternate;
 }
 .onePlace{
   font-family: var(--secondary-font);
-  color:red;
+  color:var(--players-limit);
   font-size:15px;
    -webkit-animation: colorchange .5s infinite alternate;
 }
@@ -233,7 +233,7 @@ export default {
 
 @-webkit-keyframes colorchange {
   0% {
-    color: red;
+    color:var(--players-limit);
   }
   100% {
     color: white;

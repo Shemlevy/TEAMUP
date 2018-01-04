@@ -43,10 +43,10 @@ button, input, select, textarea {
 
 
 
-.my-selector{
-    background-color: black;
+/* .my-selector{
+    background-color: rgba(146, 23, 23, 0.938);
     
-}
+} */
 
 .ctg-selector-container> .selector-container> .input-group--select.input-group--focused{
     background-color: rgb(0, 0, 0)
