@@ -42,7 +42,6 @@ export default {
   flex-flow: row wrap;
   width: 600px;
   justify-content: center;
-  justify-self: center;
 }
 
 .word {
