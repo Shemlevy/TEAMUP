@@ -31,9 +31,15 @@ export default {
             state.games = games
         },
         [UPDATE_SPECIFIC_USER_GAME](state , {updatedGame}){
+            var userExist = updatedGame.players.filter(player => player.id === state.user._id)
             var gameIdx = state.games.findIndex(game => game._id === updatedGame._id)
-            if(gameIdx >= 0){
-                state.games.splice(gameIdx , 0 , updatedGame)
+            
+            if(userExist[0] && gameIdx !== -1){
+                state.games.splice(gameIdx , 1 , updatedGame)
+            }else if(userExist[0] && gameIdx === -1){
+                state.games.push(updatedGame)
+            }else if(!userExist[0] && gameIdx !== -1){
+                state.games.splice(gameIdx, 1)
             }
         }
     },

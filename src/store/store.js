@@ -33,6 +33,7 @@ export default new Vuex.Store({
                 commit({type: ADD_NEW_GAME, game})
                 console.log('Game sent to game module from root state')
             }
+            commit({type: UPDATE_SPECIFIC_USER_GAME, updatedGame: game})
         }
     },
     strict : true
