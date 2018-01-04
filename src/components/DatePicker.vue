@@ -59,6 +59,7 @@ export default {
       this.$emit("timeSend", this.fullDate);
     },
     date(){
+      this.time = null
       if(this.date !== this.presentDate){
         this.allowedTimes= {
           min: '1AM',

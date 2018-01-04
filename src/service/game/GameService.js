@@ -2,8 +2,10 @@
 
 import axios from 'axios'
 
-const GAME_URL = 'http://localhost:3003/data/game';
-
+let GAME_URL = 'http://localhost:3003/data/game';
+if(process.env.NODE_ENV !== 'development'){
+  GAME_URL = '/data/game'
+}
 
 function getEmptyGame(){
   return {

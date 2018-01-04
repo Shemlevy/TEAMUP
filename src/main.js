@@ -9,7 +9,10 @@ import store from './store/store'
 import moment from 'moment';
 
 
-const SOCKET_URL = 'http://localhost:3003'
+let SOCKET_URL = 'http://localhost:3003'
+if(process.env.NODE_ENV !== 'development'){
+  SOCKET_URL = '/'
+}
 import VueSocketio from 'vue-socket.io'
 import socketio from 'socket.io-client'
 Vue.use(VueSocketio, socketio(SOCKET_URL), store);
