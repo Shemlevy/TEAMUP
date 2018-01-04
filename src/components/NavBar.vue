@@ -46,19 +46,18 @@ nav {
   align-items: center;
   width: 100vw;
   height: 80px;
-  /* border-bottom: 3px solid rgb(26, 48, 90); */
-  /* margin-bottom: 10px; */
-  background-color: rgb(36, 36, 36);
+  box-shadow: 2px 2px 20px rgba(117, 117, 117, 0.637);
+  background-color: var(--black);
 }
 h1 {
-  color: var(--font-main-color);
+  color: var(--secondary-color);
   font-family: var(--primary-font);
   font-size: 3em;
   margin-left: 10px;
-  text-shadow: 2px 2px 6px black;
+  text-shadow: 2px 2px 2px rgba(117, 117, 117, 0.671);
 }
 h1 span {
-  color: var(--secondary-color);
+  color: var(--third-color);
 }
 .log-btn {
   margin-right: 10px;

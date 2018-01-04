@@ -10,11 +10,11 @@
     </div>
     <div class="block">
         <p class="digit">{{ minutes | two_digits }}</p>
-        <p class="text">Minutes</p>
+        <p class="text">Min</p>
     </div>
     <div class="block">
         <p class="digit">{{ seconds | two_digits }}</p>
-        <p class="text">Seconds</p>
+        <p class="text">Sec</p>
     </div>
   </section>
 </template>
@@ -61,6 +61,7 @@ export default {
 <style scoped>
 .count-down{
   display: flex;
+  margin-top:40px;
 }
 .block {
   display: flex;
@@ -69,21 +70,27 @@ export default {
 }
 
 .text {
-  color: #1abc9c;
-  font-size: 10px;
+  color: #413838;
+  font-size: 15px;
   font-family: "Roboto Condensed", serif;
-  font-weight: 400;
+  font-weight: 600;
   margin-top: 5px;
   margin-bottom: 5px;
+  padding:2px;
   text-align: center;
 }
 
 .digit {
-  color: #ecf0f1;
+  color: #ffffff;
+  background-color:var(--third-color);
+  border-radius: 10px;
+  padding: 4px;
   font-size: 15px;
-  font-weight: 100;
+  font-weight: 600;
   font-family: "Roboto", serif;
   margin: 5px;
+  box-shadow: 1px 0px 10px grey;
+  width:30px;
   text-align: center;
 }
 </style>

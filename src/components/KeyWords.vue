@@ -49,7 +49,8 @@ export default {
   line-height: 25px;
   font-size: 25px;
   padding: 13px;
-  color: whitesmoke;
+  color:var(--keywords);
+  text-shadow: 3px 3px 2px white;
   cursor: pointer;
   display: inline-block;
   vertical-align: middle;
@@ -88,7 +89,6 @@ export default {
 .word:hover,
 .word:focus,
 .word:active {
-  text-shadow: 1px 1px 20px black;
   -webkit-animation-name: word;
   animation-name: word;
   -webkit-animation-duration: 0.15s;
