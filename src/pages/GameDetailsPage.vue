@@ -18,31 +18,41 @@
             </v-list-tile-action>
             <v-list-tile-content>
             <v-list-tile-sub-title>GAME CATEGORY</v-list-tile-sub-title>
-            <v-list-tile-title>{{game.category.name}}</v-list-tile-title>
+            <div class="GDtitle">{{game.category.name}}</div>
           </v-list-tile-content>
         </v-list-tile>
         <v-divider inset></v-divider>
-        <v-list-tile @click="">
+         <v-list-tile>
+            <v-list-tile-action>
+              <v-icon color="indigo">people</v-icon>
+         </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-sub-title>PLAYERS COUNT</v-list-tile-sub-title>
+              <div class="GDtitle">{{game.players.length}}/{{game.playerLimit}} </div>
+              <div v-if="playersLeft === 0" class="NoPlaces">NO PLACES LEFT</div>
+              <div v-if="playersLeft === 1" class="onePlace">{{playersLeft}} PLACE LEFT</div>
+              <div v-if="playersLeft > 1"   class="players-left">{{playersLeft}} PLACES LEFT</div>
+            </v-list-tile-content>
+        </v-list-tile>
+          <v-divider inset></v-divider>
+        <v-list-tile>
             <v-list-tile-action>
               <v-icon color="indigo">grade</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-sub-title>GAME LEVEL</v-list-tile-sub-title>
-              <v-list-tile-title>{{game.level}}</v-list-tile-title>
+              <div class="GDtitle">{{game.level}}</div>
             </v-list-tile-content>
         </v-list-tile>
           <v-divider inset></v-divider>
-            <v-list-tile @click="">
+            <v-list-tile>
               <v-list-tile-action>
                 <v-icon color="indigo">schedule</v-icon>
               </v-list-tile-action>
               <v-list-tile-content>
                 <v-list-tile-sub-title>DATE</v-list-tile-sub-title>
-                <v-list-tile-title>{{game.time.date}}  {{game.time.hour}}</v-list-tile-title>
+                <div class="GDtitle">{{game.time.date}} <span> {{game.time.hour}} </span></div>
               </v-list-tile-content>
-              <!-- <v-list-tile-action>
-                <v-icon></v-icon>
-              </v-list-tile-action> -->
             </v-list-tile>
           <v-divider inset></v-divider>
             <v-list-tile @click="">
@@ -51,21 +61,16 @@
               </v-list-tile-action>
               <v-list-tile-content>
                 <v-list-tile-sub-title>LOCATION</v-list-tile-sub-title>
-                <v-list-tile-title>{{game.location.address}}</v-list-tile-title>
+                <div class="GDtitle">{{game.location.address}}</div>
               </v-list-tile-content>
             </v-list-tile>
             <v-divider inset></v-divider>
-            <v-list-tile @click="">
-              <v-list-tile-action>
-                <v-icon color="indigo">chat</v-icon>
-              </v-list-tile-action>
-              <v-list-tile-content>
-                <v-list-tile-sub-title>CHAT</v-list-tile-sub-title> 
-              </v-list-tile-content>
-            </v-list-tile>
              <v-list-tile-sub-title>
-                <button class="main-btn" v-if="user && !exist" @click="userJoinGame">TEAM<span>UP</span></button>
-                <button class="main-btn" v-if="user && exist" @click="leaveGame">Leave</span></button>
+                <button class="main-btn" v-if="user && !exist && canJoinGame" @click="userJoinGame">TEAM<span>UP</span></button>
+                <button class="main-btn" v-if="user && exist" @click="leaveGame">Leave Game</span></button>
+                <div v-if="exist">
+                  <div class="GDinfo">YOU ARE A PLAYER IN THIS GAME</div>
+                </div>  
             </v-list-tile-sub-title>
           </v-list>
           <GameMembers :game="game"></GameMembers>          
@@ -91,11 +96,14 @@ export default {
   data() {
    
     return {
-      exist : false
+      exist : false,
+      canJoinGame: true,
+      playersLeft: -100
     };
   },
   computed: {
     game() {
+       
       var strGame = JSON.stringify(this.$store.getters[GET_SELCTED_GAME]);
       return JSON.parse(strGame);
     },
@@ -110,26 +118,37 @@ export default {
       // console.log('page created')
       var id = this.$router.history.current.params.gameId
       this.$store.dispatch({type: LOAD_GAME_BY_ID , gameId: id})
+      checkLimit();
+      
       
       
   },
   watch:{
     game() {
        this.setActions();
+       this.checkLimit();
     },
     user() {
        this.setActions();
+       this.checkLimit();
     }
   },
   methods: {
     setActions() {
       if (this.game && this.user) {
-        this.exist = this.game.players.find(player => player.id === this.user._id) 
-      }
-    },
+        this.exist = false;
+        this.exist = this.game.players.find(player => player.id === this.user._id)
+      }},
+    checkLimit(){
+      if(this.game){
+        this.playersLeft = this.game.playerLimit - this.game.players.length;
+        if(this.game.players.length >= this.game.playerLimit){
+          this.canJoinGame = false;
+        }else{
+          this.canJoinGame = true;
+        }
+      }},
      userJoinGame(){
-      
-
       this.game.players.push({
         id: this.user._id,
         name: this.user.name,
@@ -150,7 +169,32 @@ export default {
 };
 </script>
 <style lang="stylus">
-
+.players-left{
+  font-family: var(--secondary-font);
+  color: blue;
+  font-size:15px;
+}
+.NoPlaces{
+  font-family: var(--secondary-font);
+  color:red;
+  font-size:15px;
+   -webkit-animation: colorchange 1s infinite alternate;
+}
+.onePlace{
+  font-family: var(--secondary-font);
+  color:red;
+  font-size:15px;
+   -webkit-animation: colorchange .5s infinite alternate;
+}
+.GDtitle,GDinfo{
+  font-family: var(--secondary-font);
+  color:black;
+  font-size:17px;
+}
+.GDinfo{
+  color: blue;
+  padding: 23px 0 0 69px;
+}
 .media {
   height: 100%;
   margin: 0;
@@ -167,4 +211,18 @@ export default {
 .game-detailes-cover{
   position: relative;
 }
+.main-btn{
+  background-color: #e0dada;
+  margin: 15px;
+}
+
+@-webkit-keyframes colorchange {
+  0% {
+    color: red;
+  }
+  100% {
+    color: white;
+  }
+}
+
 </style>

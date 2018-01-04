@@ -117,12 +117,9 @@ export default {
         },
         [UPDATE_GAME]({ commit }, { game }) {
             GameService.updateGame(game)
-            // console.log('game in game module: ', game)
-            // .then(res => {
-            //     console.log('game updated in database')
-            // }).catch(err => {
-            //     console.log('game was not updated in database')
-            // })
+                .catch(err => {
+                    console.log('game was not updated in database')
+                })
         },
         [LOAD_GAME_BY_ID]({ state }, { gameId }) {
             GameService.getGameById(gameId)
