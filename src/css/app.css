@@ -9,6 +9,10 @@
     outline: none;
 }
 
+#app {
+    background-color: var(--main-color);
+}
+
 button, input, select, textarea {
     background-color: white;
     border-style: none;
