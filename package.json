@@ -19,6 +19,7 @@
     "socket.io-client": "^2.0.4",
     "vue": "^2.5.2",
     "vue-carousel-3d": "^0.1.19",
+    "vue-momentjs": "^0.1.1",
     "vue-router": "^3.0.1",
     "vue-socket.io": "^2.1.1-a",
     "vuelidate": "^0.6.1",

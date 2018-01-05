@@ -1,5 +1,6 @@
 <template>
-  <section class="count-down">
+<section>
+    <section v-if="show" class="count-down">
     <div class="block">
         <p class="digit">{{ days | two_digits }}</p>
         <p class="text">Days</p>
@@ -17,6 +18,11 @@
         <p class="text">Sec</p>
     </div>
   </section>
+  <section v-else>
+    Game has passed
+  </section>
+</section>
+
 </template>
 
 <script>
@@ -24,22 +30,26 @@ export default {
   mounted() {
     window.setInterval(() => {
       this.now = Math.trunc(new Date().getTime() / 1000);
-    }, 1000);
+    }, 1000);    
+    let gameTime = this.$moment(this.game.time.date + '' + this.game.time.hour, "YYYY-MM-DD HH:mm" )
+    let timeStamp = gameTime.valueOf()
+
+    this.date = timeStamp/1000
+    if (this.now > this.date) this.show = false    
   },
-  props: {
-    date: {
+  props: ['game'],
+  data() {
+    return {
+      now: Math.trunc(new Date().getTime() / 1000),
+      show: true,
+      date: {
       type: Number,
       coerce: str => Math.trunc(Date.parse(str) / 1000)
     }
-  },
-
-  data() {
-    return {
-      now: Math.trunc(new Date().getTime() / 1000)
     };
   },
   computed: {
-    seconds() {
+    seconds() {      
       return (this.date - this.now) % 60;
     },
 

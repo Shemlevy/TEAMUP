@@ -7,6 +7,7 @@ import router from './router'
 import './plugins/plugins.js'
 import store from './store/store'
 import moment from 'moment';
+import VueMomentJS from "vue-momentjs";
 
 
 let SOCKET_URL = 'http://localhost:3003'
@@ -18,6 +19,8 @@ import socketio from 'socket.io-client'
 Vue.use(VueSocketio, socketio(SOCKET_URL), store);
 Vue.config.productionTip = false
 moment().format();
+Vue.use(VueMomentJS, moment);
+
 
 
 /* eslint-disable no-new */
