@@ -28,7 +28,8 @@
                   </div>
                   <div>Level: {{game.level}}</div>
                 </div>  
-                <count-down :date="1515088195"></count-down> 
+                
+                <count-down :game="game"></count-down> 
                 <distance-calc v-if="distanceFromUser" :distance="distanceFromUser[game._id]"></distance-calc>
                 <div class="spacer" v-else></div>
                 <button class="main-btn" @click="showDetPage(game._id)">Details</button>
@@ -206,7 +207,7 @@ export default {
   color: rgb(233, 233, 233);
   cursor: pointer;
   display: inline-block;
-  width: 280px;
+  width: 280ppx;
   text-overflow: ellipsis;
   line-height: 25px;
   overflow: hidden;
