@@ -32,7 +32,7 @@
           </div>
         </v-card-title>
         <v-card-actions>
-          <v-btn flat color="red" @click="emitLogout">Logout</v-btn>
+          <button class="logout-btn" @click="emitLogout">Logout</button>
           <v-spacer></v-spacer>
         </v-card-actions>
         <v-slide-y-transition>
@@ -97,6 +97,7 @@ export default {
 textarea {
   display: block;
   margin: 10px;
+  padding: 10px;
   background-color: rgba(255, 255, 255, 0);
   transition: all 0.3s ease-in-out;
   font-size: 20px;
@@ -108,6 +109,7 @@ textarea {
 input {
   display: block;
   margin: 10px;
+  padding: 10px;
   background-color: rgba(255, 255, 255, 0);
   transition: all 0.3s ease-in-out;
   font-size: 20px;
@@ -132,5 +134,11 @@ input {
   position: absolute;
   z-index: -1;
   opacity: 0;
+}
+
+.logout-btn{
+  font-size: 25px;
+  color:red;
+  margin: 0 0 10px 20px;
 }
 </style>
