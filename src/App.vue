@@ -53,6 +53,6 @@ export default {
 };
 </script>
 
-<style src="./src/css/app.css">
+<style>
 
 </style>
