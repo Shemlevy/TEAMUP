@@ -55,6 +55,7 @@ export default {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-around;
+  padding-top: 10px;
 }
 </style>
 

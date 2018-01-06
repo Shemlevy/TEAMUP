@@ -71,13 +71,14 @@ function getPlayerGames (PlayerId){
   return axios.get(`${GAME_URL}`, {params:{ PlayerId }})
     // console.log('player id in service: ', PlayerId)
     .then(res => {
-      // console.log('recived player games in service: ' , res.data)
+      console.log('recived player games in service: ' , res)
       return res.data
     })
     .catch(e => console.log('Could not find player games', e))
 }
 
 function getGames(categoryId = null) {
+  if(categoryId === '5a510c70734d1d5a2369c2e1') categoryId = null
   return axios.get(`${GAME_URL}`, { params: { categoryId } })
     .then(res => {
       // console.log({res, msg: 'we are in the service'})
