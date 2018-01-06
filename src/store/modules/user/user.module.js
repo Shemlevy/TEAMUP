@@ -59,17 +59,19 @@ export default {
                     commit({ type: SET_USER, user: res })
                         StorageService.saveToStorage('user', res)
                         GameService.getPlayerGames(res._id)
-                        .then(res =>{console.log('results in player module: ' ,res.data)
-                            commit({type: SET_USER_GAMES, games: res.data})
+                        .then(games =>{
+                            console.log('results in player module: ' ,games)
+                            commit({type: SET_USER_GAMES, games})
                         })
                         .catch(e => console.log('error in user module'))
                 })
+
         },
         [LOAD_USER_GAMES]({commit}, {userId}){
             console.log('user id in dispatch: ', userId)
             GameService.getPlayerGames(userId)
-            .then(res =>{console.log('results in player module: ' ,res.data)
-                commit({type: SET_USER_GAMES, games: res.data})
+            .then(res =>{console.log('results in player module: ' ,res)
+                commit({type: SET_USER_GAMES, games: res})
             })
             .catch(e => console.log('error in user module'))
         },

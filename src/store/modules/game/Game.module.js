@@ -56,7 +56,6 @@ export default {
     },
     mutations: {
         [SET_GAMES](state, { games }) {
-            console.log('state in game module mutation: ', state)
             state.games = games
         },
         [SET_SELECTED_GAME](state, { game }) {
