@@ -4,6 +4,9 @@
         <div id="loader"></div>
     </div>
   </section>
+  <!-- <section>
+      <img src="../../static/ create.gif" alt="" srcset="">
+  </section> -->
 </template>
 
 <script>
@@ -50,7 +53,7 @@ export default {
     bottom: 5px;
     border-radius: 50%;
     border: 3px solid transparent;
-    border-top-color: rgb(233, 255, 31);
+    border-top-color: var(--nav-color);
     -webkit-animation: spin 2s linear infinite;
     animation: spin 2s linear infinite;
 }
@@ -63,7 +66,7 @@ export default {
     bottom: 15px;
     border-radius: 50%;
     border: 3px solid transparent;
-    border-top-color: rgb(190, 65, 16);
+    border-top-color: var(--main-color);
     -webkit-animation: spin 1s linear infinite;
     animation: spin 1s linear infinite;
 }

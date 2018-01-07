@@ -53,7 +53,7 @@ export default {
 
 .porfile-contianer{
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: row wrap;
   justify-content: space-around;
   padding-top: 10px;
 }

@@ -1,19 +1,19 @@
 <template>
-    <section>
+    <section class="main-section">
       <v-layout row>
     <v-flex>
       <v-card>
-
+        <div class="header-user">Hi {{proxyUser.name}} </div>
         <v-card-media v-if="proxyUser.imgUrl" :src="proxyUser.imgUrl" height="350px">
         </v-card-media>
         <v-card-media v-if="!proxyUser.imgUrl" src="https://cdn4.iconfinder.com/data/icons/social-communication/142/add_user-512.png" height="350px">
         </v-card-media>
           <div class="profile-btns">
             <v-btn v-show="edit" class="saveBtn" fab dark small color="primary" @click="uploadImg"><v-icon>add_a_photo</v-icon></v-btn>
-              <input ref="inputFile" class="file-input"  type="file" @change="addPhoto" />
+            <input ref="inputFile" class="file-input"  type="file" @change="addPhoto" />
             <v-btn v-if="edit" class="saveBtn" fab dark small color="green" @click="updateProfile"><v-icon>done</v-icon></v-btn>
             <v-btn v-if="edit" class="cancel-btn"  fab dark small color="red" @click="undoUpdate"><v-icon>clear</v-icon></v-btn>
-            <v-btn fab color="red" @click="edit = true"><v-icon color="white">edit</v-icon></v-btn>
+            <v-btn fab color="red" @click="edit = !edit"><v-icon color="white">edit</v-icon></v-btn>
           </div>
         <v-card-title primary-title>
           <div>
@@ -27,7 +27,7 @@
               <input type="text" :class="{ editable: edit}" :readonly="!edit" v-model="proxyUser.phone" placeholder="Phone">
             </div>
             <span class="grey--text">
-              <textarea rows="3" cols="35" type="text" :class="{ editable: edit}" :readonly="!edit" v-model="proxyUser.about" placeholder="About"></textarea>
+              <textarea rows="3" cols="29" type="text" :class="{ editable: edit}" :readonly="!edit" v-model="proxyUser.about" placeholder="About"></textarea>
             </span>
           </div>
         </v-card-title>
@@ -94,6 +94,19 @@ export default {
 </script>
 
 <style scoped>
+.main-section{
+  box-shadow: 1px 0px 20px rgb(102, 102, 102);
+}
+.header-user{
+  height: 84px;
+  padding:10px;
+  font-size:3em;
+  color:rgb(71, 67, 67);
+  text-shadow: 4px 4px 6px white;
+  font-family: var(--primary-font);
+  background-color: var(--main-color);
+}
+
 textarea {
   display: block;
   margin: 10px;
@@ -123,6 +136,7 @@ input {
   flex-flow: row wrap;
   justify-content: flex-end;
   align-items: center;
+  /* margin-right:20px; */
 }
 
 .editable {
@@ -136,9 +150,16 @@ input {
   opacity: 0;
 }
 
+@media (max-width: 880px) {
+  .main-section{ width:100vw;}
+}
+
+.profile-btns {margin-right: 15px;}
+
 .logout-btn{
   font-size: 25px;
   color:red;
   margin: 0 0 10px 20px;
 }
+
 </style>

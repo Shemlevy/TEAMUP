@@ -1,6 +1,6 @@
 <template>
   <section> 
-    <input class="controls" style="z-index:999;" type="text" @change="getGeoByAddress" placeholder="Search Box" ref="googleSearch">    
+    <input class="controls" style="z-index:999;" type="text" @change="getGeoByAddress" placeholder="Search place for a New Game" ref="googleSearch">    
     <div class="google-map" :id="mapName"></div>
     <button ref="locationBtn" class="location-btn" @click="getUserLoc"><i title="Get my location location-btn" class="material-icons">my_location</i></button>
    <transition name="slide-fade">
@@ -62,7 +62,7 @@ export default {
     });
   },
   mounted() {
-    this.renderMap();
+    // this.renderMap();
   },
   watch: {
     selctedGame() {
@@ -108,8 +108,8 @@ export default {
           mapCentre.location.lng
         )
       };
-
-      this.map = new google.maps.Map(element, { zoom: 18 });
+      
+      this.map = new google.maps.Map(element, { zoom : 18 });
       this.infoWindow = new google.maps.InfoWindow();
 
       this.tempMarker.setMap(this.map);
@@ -148,8 +148,9 @@ export default {
       }
     },
     getGeoByAddress(e) {
-      MapService.getGeoByAddress(e).then(res => {
-        let pos = new google.maps.LatLng(res.lat, res.lng);
+      let pos = e.target.value
+      MapService.getGeoByAddress(pos).then(res => {
+        // let pos = new google.maps.LatLng(res.lat, res.lng);
         this.map.setZoom(16);
         this.map.panTo(new google.maps.LatLng(res.lat, res.lng));
 
@@ -216,13 +217,14 @@ export default {
   position: absolute;
 } */
 .google-map {
-  width: 50vw;
+  width: 100%;
   height: 600px;
 }
 .controls {
-  width: 300px;
+  width: 240px;
+  color: var(--third-color);
   height: 25px;
-  font-size: 1.2em;
+  font-size: 1.4em;
   font-weight: 500;
   margin: 13px;
   border-radius: 5px;

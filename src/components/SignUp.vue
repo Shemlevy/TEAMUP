@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="main-container">
     <div class="details-sign">
       <div class="head-sign">
         <h1>Connect with friends and the
@@ -11,7 +11,7 @@
       <p>Open game groups <span> And invite your friends</span></p>
     </div>
 
-    <form @submit.prevent="register">
+    <form class="main-form" @submit.prevent="register">
       <div class="email">
         <input id="email"  v-model="SignUpDetails.email" type="email" placeholder="Email" required>
       </div>
@@ -60,9 +60,10 @@ export default {
 
 
 <style scoped>
-section {
-  color: white;
-  font-family: var(--secondery-font);
+.main-container{
+  max-width: 600px;
+  color: rgb(57, 51, 51);
+  margin: 20px;
 }
 .details-sign{
   margin:20px;
@@ -70,21 +71,25 @@ section {
 .head-sign{
   font-size: 1.5em;
   margin-bottom: 20px;
+  font-weight: 900;
 }
 .head-sign span{
-  color: peru;
+  color: var(--third-color)
+}
+.main-form{
+  margin-left:17px;
 }
 p {
-  font-weight: 700;
+  font-weight: 800;
   font-size: 1em;
   margin:10px;
 }
 p span {
-  color:rgba(180, 174, 174, 0.808);
-  font-weight: 300;
+  color:rgba(99, 99, 99, 0.808);
+  font-weight: 400;
 }
 form {
-  margin: 20px;
+  /* margin: 20px; */
   display: flex;
   flex-flow: column wrap;
   width: 180px;
@@ -110,12 +115,16 @@ form {
 #email:focus,
 #pass:focus,
 #name:focus {
-  border: 1.5px solid peru;
-  outline: 1.5px solid peru;
+  border: 1.5px solid var(--third-color);
+  outline: 1.5px solid var(--third-color);
   border-radius: 5px;
 }
-.btn-log{
-  margin-left: 20px;
+
+.main-btn{
+  width:172px;  
+  background-color: #fff;
+  margin: 10px;
+  margin-bottom:100px;
 }
 
 </style>

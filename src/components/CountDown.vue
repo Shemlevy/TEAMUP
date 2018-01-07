@@ -71,18 +71,18 @@ export default {
 <style scoped>
 .count-down{
   display: flex;
-  margin-top:40px;
+  width:auto;
+  justify-content: space-around;
+  
 }
 .block {
   display: flex;
   flex-direction: column;
-  
 }
 
 .text {
   color: #413838;
-  font-size: 15px;
-  font-family: "Roboto Condensed", serif;
+  font-size: 12px;
   font-weight: 600;
   margin-top: 5px;
   margin-bottom: 5px;
@@ -95,9 +95,8 @@ export default {
   background-color:var(--third-color);
   border-radius: 10px;
   padding: 4px;
-  font-size: 15px;
+  font-size: 12px;
   font-weight: 600;
-  font-family: "Roboto", serif;
   margin: 5px;
   box-shadow: 1px 0px 10px grey;
   width:30px;

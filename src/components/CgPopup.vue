@@ -4,7 +4,7 @@
       <div>{{currAddress.address}}</div>
       <div>The perfect place to start a game</div>
       <div class="popup-btn">
-        <v-btn class="cg-btn" @click="moveTo">CreateGame</v-btn>
+        <v-btn class="cg-btn" @click="moveTo">Create Game</v-btn>
         <v-btn class="cg-btn" @click="closeDialog">Cencel</v-btn>
       </div>
     </section>
@@ -33,7 +33,6 @@ export default {
       if (this.$store.getters[GET_USER]) {
         this.$router.push("/CreatGame");
       } else {
-        //need to put sweet alart!!!!//////
         this.show = false
       }
     },
@@ -52,25 +51,41 @@ export default {
 <style scoped>
 .marker-popup {
   position: absolute;
+  width: 600px;
   background-color: #fff;
-  border: 1px solid rgb(27, 33, 121);
+  border: 1px solid rgb(42, 43, 58);
   border-radius: 2px;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
-  color: rgb(23, 48, 100);
+  color: rgb(28, 34, 46);
   right:100px;
   padding: 8px;
+  font-size: 1.5em;
   font-weight: 600;
   max-height: 120px;
-  margin-top: -120px;
+  margin-top: -130px;
 }
 
 .cg-btn {
   background-color: transparent !important;
-  border: 1px solid #121f97;
-  color: #2e4591;
+  border: 1px solid #161935;
+  color: #262c3f;
   box-shadow: 0px 1px 2px black;
+}
+.cg-btn:first-child{
+  color: var(--third-color);
+  border-color: var(--third-color);
 }
 .cg-btn:hover {
   box-shadow: none;
+}
+
+@media (max-width: 880px) {
+.marker-popup {
+  width:300px;
+  font-size: 1em;
+  max-height: 250px;
+  margin-right: -55px;
+  margin-top: -145px;
+}
 }
 </style>

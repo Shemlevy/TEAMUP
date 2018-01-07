@@ -6,7 +6,7 @@
         <v-card-media class="card-pic-area" :src="coverImg" height="450px">
           <v-layout column class="media game-detailes-cover">
               <v-card-title class="white--text title-height">
-                <div class="display-1">{{game.name}}</div>
+                <div class="headline-title">{{game.name}}</div>
               </v-card-title>
         </v-layout>
       </v-card-media>
@@ -214,7 +214,13 @@ export default {
   height: 100%;
   margin: 0;
 }
-
+.headline-title{
+  color:whitesmoke;
+  text-shadow: 3px 3px 6px black;
+  font-family: var(--primary-font);
+  font-weight: 600;
+  font-size:3em !important;
+}
 .card-pic-area {
   background-color: var(--secondary-color);
 }
