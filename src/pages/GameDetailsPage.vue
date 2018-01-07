@@ -65,6 +65,16 @@
               </v-list-tile-content>
             </v-list-tile>
             <v-divider inset></v-divider>
+            <v-list-tile v-if="game.about !== null" @click="">
+              <v-list-tile-action>
+                <!-- <v-icon color="indigo">about_on</v-icon> -->
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-sub-title>ABOUT</v-list-tile-sub-title>
+                <div class="GDtitle" >{{game.about}}</div>
+              </v-list-tile-content>
+            </v-list-tile>
+            <v-divider inset></v-divider>
              <v-list-tile-sub-title>
                 <button class="main-btn" v-if="user && !exist && canJoinGame" @click="userJoinGame">TEAM<span>UP</span></button>
                 <button class="main-btn" v-if="user && exist" @click="leaveGame">Leave Game</span></button>
