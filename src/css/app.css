@@ -50,7 +50,7 @@ button, input, select, textarea {
 .my-selector{
     background-color: var(--main-color);
     
-}
+} */
 
 .ctg-selector-container> .selector-container> .input-group--select.input-group--focused{
     background-color:var(--main-color);

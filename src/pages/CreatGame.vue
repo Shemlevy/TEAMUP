@@ -109,7 +109,10 @@ export default {
     }
   },
   created() {
-    this.categories = this.$store.getters[GET_CATEGORIES_NAME];
+    let tempCtg = this.$store.getters[GET_CATEGORIES_NAME];
+    let idx = tempCtg.findIndex(ctg => ctg === 'All')
+    tempCtg.splice(idx, 1)
+    this.categories = tempCtg
   },
   computed: {
     currAddress() {

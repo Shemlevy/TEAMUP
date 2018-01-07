@@ -3,7 +3,7 @@
     <v-layout row>
       <v-flex xs12 sm12 offset-sm0>
         <v-card>
-          <div class="ctg-selector-container">
+          <div class="ctg-selector-container" v-if="!profilePage">
             <i  @click="sortByTime" title="Sort By Time" class="material-icons">timer</i>
             <i  @click="sortByDistance" title="Sort By Distance" class="material-icons">location_on</i>
             <ctg-selector class="ctg-selector"></ctg-selector>
@@ -81,7 +81,14 @@ export default {
       newGame: false,
       next: true,
       createGame: false
+      profilePage: null
     };
+  },
+  created(){
+    this.profilePage = false
+    if(this.$route.name === 'UserProfile'){
+      this.profilePage= true
+    }
   },
   methods: {
     onGameClicked(game) {
