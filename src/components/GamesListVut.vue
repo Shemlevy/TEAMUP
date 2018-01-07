@@ -80,7 +80,7 @@ export default {
       distanceFromUser: null,
       newGame: false,
       next: true,
-      createGame: false
+      createGame: false,
       profilePage: null
     };
   },
