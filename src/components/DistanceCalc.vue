@@ -1,5 +1,5 @@
 <template>
-	<section class="container">
+	<section class="main-container">
 		<div class="MED">
 			<div class="spinner">
 				<div class="spinnerL">
@@ -8,7 +8,7 @@
 		</div>
 		<div class="distance">{{distance}}</div>
 			
-		<div>&nbsp Km from you</div>
+		<div>&nbsp Km</div>
 	</section>
 </template>
 
@@ -22,11 +22,12 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.main-container {
   display: flex;
   align-items: center;
-  max-width: 170px;
-  min-width: 170px;
+  width:70px;
+  margin:10px;
+
 }
 .MED {
   margin: 5px;
@@ -41,23 +42,22 @@ export default {
   background-color: rgb(255, 149, 11);
 
   border-radius: 100%;
-  -webkit-animation: sk-scaleout 2s infinite ease-in-out;
-  animation: sk-scaleout 2s infinite ease-in-out;
+  -webkit-animation: sk-scaleout .5s infinite ease-in-out;
+  animation: sk-scaleout 1s infinite ease-in-out;
 }
 .distance {
-  color: rgb(26, 25, 25);
-  margin-left: -43px;
+  color: rgb(65, 62, 62);
+  margin-left: -39px;
   position: initial;
   z-index: 5;
-  width: 35px;
-  text-overflow: clip;
+  max-width: 3.5ch;
   overflow: hidden;
 }
 
 .spinnerL {
   width: 40px;
   height: 40px;
-  background-color: rgb(0, 255, 76);
+  background-color: rgb(255, 255, 255);
 
   border-radius: 100%;
   -webkit-animation: sk-scaleout 1s infinite ease-in-out;

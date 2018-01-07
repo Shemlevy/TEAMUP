@@ -8,7 +8,11 @@
     padding: 0;
     outline: none;
 }
-
+.login-page{
+  background-image: url('../../static/bg1.jpg');
+  background-repeat: round;
+  /* background-size:100%; */
+}
 button, input, select, textarea {
     background-color: white;
     border-style: none;

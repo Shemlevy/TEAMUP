@@ -47,7 +47,6 @@ export default {
 .word {
   font-family: var(--primary-font);
   line-height: 25px;
-  font-size: 25px;
   padding: 13px;
   color:var(--keywords);
   text-shadow: 3px 3px 2px white;
@@ -98,4 +97,5 @@ export default {
   -webkit-animation-iteration-count: infinite;
   animation-iteration-count: infinite;
 }
+
 </style>

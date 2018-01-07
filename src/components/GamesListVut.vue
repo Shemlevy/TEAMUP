@@ -7,17 +7,29 @@
             <i  @click="sortByTime" title="Sort By Time" class="material-icons">timer</i>
             <i  @click="sortByDistance" title="Sort By Distance" class="material-icons">location_on</i>
             <ctg-selector class="ctg-selector"></ctg-selector>
+            <section v-if="games">
+              <button class="create-btns" @click="createGame=true" v-if="!createGame"></button>            
+              <transition name="fade" mode="in-out" >
+                <new-game class="create-game" v-if="createGame"></new-game>
+              </transition> 
+            </section>
           </div>
           <v-spacer></v-spacer>
           <div class="list-container">
-            <div v-if="!games" >No games to display</div> 
-            <template class="container" v-for="(game , i) in games">
-              <v-divider></v-divider>
+            <div class="no-game" v-if="!games" >
+              <h1>A great opportunity to set up a game</h1> 
+                <button @click="newGame=true" v-if="!newGame">Click Here</button>
+              <transition name="fade" mode="in-out" >
+                <new-game class="new-game" v-if="newGame"></new-game>
+              </transition>
+            </div> 
+            <template class="game-container" v-for="(game , i) in games">
+              <!-- <v-divider></v-divider> -->
               <div class="game-details" :key="i">
                 <img class="imgList" :src="game.category.url">
                 <div class="text-game">
                   <div class="ctg-title">{{game.name}} - {{game.category.name}}</div>
-                  <div>{{game.time.date}} {{game.time.hour}}</div>
+                  <div>{{game.time.hour}}  {{game.time.date}}</div>
                   <div class="locatin-container">
                     <a @click="moveMapTo(game.location.lat,game.location.lng)"
                       class="location-txt">{{game.location.address}}</a>
@@ -29,10 +41,13 @@
                   <div>Level: {{game.level}}</div>
                 </div>  
                 
-                <count-down :game="game"></count-down> 
-                <distance-calc v-if="distanceFromUser" :distance="distanceFromUser[game._id]"></distance-calc>
-                <div class="spacer" v-else></div>
-                <button class="main-btn" @click="showDetPage(game._id)">Details</button>
+                  <distance-calc v-if="distanceFromUser" :distance="distanceFromUser[game._id]"></distance-calc> 
+                  <div class="spacer" v-else></div>
+                  <section class="count-and-det">
+                    <count-down :game="game"></count-down> 
+                    <a class="main-btn" @click="showDetPage(game._id)">More Details</a>
+                  </section>
+                
               </div>
             <v-divider></v-divider>
             </template>
@@ -56,12 +71,16 @@ import {
 import mapService from "../service/map/MapService";
 import EventBusService, { GET_LOCATION } from "../service/EventBusService";
 import DistanceCalc from "./DistanceCalc";
+import NewGame from "./NewGame";
 
 export default {
   props: ["games", "selectedCategory"],
   data() {
     return {
-      distanceFromUser: null
+      distanceFromUser: null,
+      newGame: false,
+      next: true,
+      createGame: false
     };
   },
   methods: {
@@ -104,43 +123,64 @@ export default {
         );
         return acc;
       }, {});
+
+      // let self = this;
+      // this.games.sort(function(a, b) {
+      //   return self.distanceFromUser[a._id] - self.distanceFromUser[b._id];
+      // });
     }
   },
   components: {
     CategorySearchBar,
     CtgSelector,
     CountDown,
-    DistanceCalc
+    DistanceCalc,
+    NewGame
   }
 };
 </script>
-<style>
-.main-list{
+<style scoped>
+.main-list {
   box-shadow: 1px 0px 20px rgb(102, 102, 102);
 }
-.ctg-title{
-  font-size: 18px;
+.ctg-title {
+  font-size: 1.125em;
   color: var(--keywords);
-  position: relative;
-  margin-top:-16px;
-  text-overflow: ellipsis;
 }
+.ctg-title {
+  width: 240px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 .playersLimit {
   padding: 5px;
   color: var(--players-limit);
 }
-
+.locatin-container {
+  width: 240px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  text-decoration: underline;
+}
 .NoPlaces {
   font-family: var(--secondary-font);
   color: var(--players-limit);
-  font-size: 15px;
-  -webkit-animation: colorchange .8s infinite alternate;
+  font-size: 0.9em;
+  -webkit-animation: colorchange 0.8s infinite alternate;
 }
 .OnePlace {
   font-family: var(--secondary-font);
   color: var(--players-limit);
-  font-size: 15px;
-  -webkit-animation: colorchange 0.6s infinite alternate;
+  font-size: 0.9em;
+  -webkit-animation: colorchange 0.3s infinite alternate;
+}
+.count-and-det {
+  display: flex;
+  flex-flow: column;
+  margin: 10px;
 }
 
 @-webkit-keyframes colorchange {
@@ -152,11 +192,17 @@ export default {
   }
 }
 .ctg-selector-container {
-  width: 100%;
   display: flex;
   align-items: center;
-  color: var(--font-color-selector)!important;
+  color: var(--font-color-selector) !important;
   background-color: var(--main-color);
+}
+.create-btns:after {
+  content: "Create New Game";
+}
+.create-btns {
+  margin-left: 100%;
+  width: 140px;
 }
 .ctg-selector {
   margin-top: 10px;
@@ -174,17 +220,16 @@ export default {
   color: gold;
 }
 .main-btn {
-  height: 30px;
-  width: auto;
-  position: relative;
-  right: 0;
-  margin: 0 10px;
-  background-color: rgb(235, 226, 226);
+  text-decoration: underline;
+  color: gray !important;
+  width: 115px;
 }
-
+.spacer {
+  width: 90px;
+}
 .imgList {
-  height: 134px !important;
-  width: 170px !important;
+  max-height: 134px !important;
+  max-width: 170px !important;
 }
 .game-details {
   display: flex;
@@ -192,33 +237,68 @@ export default {
   align-items: center;
 }
 .list-container {
-  color:var(--font-color-selector);
+  color: var(--font-color-selector);
   font-family: var(--secondery-font);
   font-weight: 600;
-  min-width: 50vw;
+  width: 690px;
+  height: 516px;
+  overflow-x: hidden;
   background-color: var(--secondary-color);
 }
 .text-game {
-  padding: 8px;
-  width:300px;
-}
-
-.location-txt {
-  color: rgb(233, 233, 233);
-  cursor: pointer;
-  display: inline-block;
-  width: 280ppx;
+  padding: 0 10px;
+  width: 250px;
   text-overflow: ellipsis;
-  line-height: 25px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-decoration: underline;
-}
-.list-container {
-  height: 516px;
-  overflow-x: hidden;
 }
 
+.no-game {
+  font-size: 2em;
+  background-image: url("../../static/ create.gif");
+  background-size: cover;
+  height: 300px;
+  min-width: 375px;
+}
+.no-game h1 {
+  color: white;
+  padding: 10px;
+  font-family: var(--primary-font);
+}
+.no-game button {
+  margin-top: 300px;
+}
+button {
+  margin: 0 auto;
+  display: block;
+  background-color: var(--third-color);
+  opacity: 0.9;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 10px;
+}
+.create-game {
+  margin-left: 25px;
+}
+
+.new-game {
+  margin: 0 auto;
+  display: block;
+  margin-top: 300px;
+  margin-left: 4%;
+  -moz-user-focus: inherit;
+}
+button:hover {
+  background: rgba(0, 0, 0, 0);
+  color: var(--third-color);
+  box-shadow: inset 0 0 0 2px var(--third-color);
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.6s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
 @-webkit-keyframes spin {
   0% {
     -webkit-transform: rotate(0deg);
@@ -238,6 +318,45 @@ export default {
     -webkit-transform: rotate(359deg);
     transform: rotate(359deg);
   }
+}
+
+@media (max-width: 880px) {
+  .imgList {
+    display: none;
+  }
+  .list-container {
+    width: 100vw;
+  }
+  .text-game {
+    width: 160px;
+  }
+  .locatin-container {
+    width: 160px;
+  }
+  .ctg-title {
+    width: 160px;
+  }
+
+  .create-btns:after {
+    content: "+";
+  }
+  .create-btns {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    font-weight: 900;
+    border-radius: 50%;
+    font-size: 2em;
+    margin-left: 30px;
+  }
+  .create-game {
+    position: absolute;
+    margin-left:-278px;
+    z-index: 6;
+    margin-top:-12px;
+
+  }
+  .ctg-title {white-space:normal;}
 }
 </style>
 

@@ -4,15 +4,18 @@
       <key-words v-if="games"></key-words>  
     </div>
     <!--<category-search-bar></category-search-bar>-->
-    <section class="main-game-info">
+    <section class="main-container">
       <games-list-vut @userJoinGame="userJoinGame" :games="games" :selectedCategory="selectedCategory"></games-list-vut>
-      <google-map></google-map> 
+      <google-map class="google-map" v-if="games"></google-map> 
     </section>
   </section>
 </template>
 
 <script>
-import EventBusService, {SHOW_LOADER, HIDE_LOADER} from '../service/EventBusService.js'
+import EventBusService, {
+  SHOW_LOADER,
+  HIDE_LOADER
+} from "../service/EventBusService.js";
 import {
   GET_SELECTED_CATEGORY,
   LOAD_CATEGORIES
@@ -24,18 +27,18 @@ import {
   SET_SELECTED_GAME,
   UPDATE_GAME
 } from "../store/modules/game/Game.module";
-import {GET_USER} from '../store/modules/user/user.module'
+import { GET_USER } from "../store/modules/user/user.module";
 import CategorySearchBar from "../components/CategorySearchBar";
 import GoogleMap from "../components/GoogleMap";
 import GamesListVut from "../components/GamesListVut";
-import KeyWords from '../components/KeyWords'
+import KeyWords from "../components/KeyWords";
 export default {
   name: "HomePage",
   data() {
     return {};
   },
   created() {
-    EventBusService.$emit(SHOW_LOADER)
+    EventBusService.$emit(SHOW_LOADER);
     this.$store.dispatch({ type: LOAD_GAMES });
     this.$store.dispatch({ type: LOAD_CATEGORIES });
   },
@@ -49,38 +52,37 @@ export default {
     selectedCategory() {
       return this.$store.getters[GET_SELECTED_CATEGORY];
     },
-    user(){
-      return this.$store.getters[GET_USER]
+    user() {
+      return this.$store.getters[GET_USER];
     }
   },
   watch: {
     selectedCategory() {
-      let ctgId = this.selectedCategory._id
-      
-      this.$store.dispatch({ type: LOAD_GAMES , ctgId});
+      let ctgId = this.selectedCategory._id;
+
+      this.$store.dispatch({ type: LOAD_GAMES, ctgId });
     }
   },
-   methods: {
+  methods: {
     unselectGame() {
       this.$store.commit({ type: SET_SELECTED_GAME, gameId: null });
     },
-    userJoinGame(){
-      let game = arguments[0]
+    userJoinGame() {
+      let game = arguments[0];
       game.players.push({
         id: this.user._id,
         name: this.user.name,
         imgUrl: this.user.imgUrl
-      })
-      this.$store.dispatch({type: UPDATE_GAME, game})
-
+      });
+      this.$store.dispatch({ type: UPDATE_GAME, game });
     }
   },
-   components: {
+  components: {
     CategorySearchBar,
     GoogleMap,
     GamesListVut,
     KeyWords
-  },
+  }
 };
 </script>
 
@@ -89,14 +91,20 @@ h1 {
   font-family: var(--primary-font);
   color: var(--font-main-color);
 }
-.main-game-info {
+.main-container {
   display: flex;
 }
-.game-list {
-  margin-right: 100px;
+.key-words {
+  min-height: 220px;
 }
-.key-words{
-  height: 220px;
+@media (max-width: 1145px) {
+  .key-words {
+    display: none;
+  }
+  .main-container {
+    display: flex;
+    flex-flow: row wrap;
+  }
 }
 </style>
 

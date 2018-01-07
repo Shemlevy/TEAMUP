@@ -3,7 +3,7 @@
     <v-app>
     <loading-process v-show="loading"></loading-process>
     <nav-bar></nav-bar>
-    <router-view/>
+    <router-view class="view-port"/>
     <footer-bar></footer-bar>
     </v-app> 
   </div>
@@ -55,6 +55,16 @@ export default {
 
 <style>
 #app {
-  background-color: var(--main-color);
+  background-color: var(--nav-color);
+  padding: 0 15px;
 }
+.view-port{
+  background-color: var(--main-color); 
+}
+
+ @media (max-width: 880px){
+  #app {
+  padding: 0;
+} 
+ }
 </style>

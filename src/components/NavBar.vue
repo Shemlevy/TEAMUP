@@ -44,10 +44,10 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100vw;
+  width: 100%;
   height: 80px;
-  box-shadow: 2px 2px 20px rgba(117, 117, 117, 0.637);
-  background-color: var(--black);
+  box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.822);
+  background-color: var(--nav-color);
 }
 h1 {
   color: var(--secondary-color);

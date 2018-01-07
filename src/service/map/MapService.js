@@ -3,8 +3,8 @@ import axios from 'axios'
 
 
 function getGeoByAddress(e) {
-    e.preventDefault();
-    let searchPosition = e.target.value
+    // e.preventDefault();
+    let searchPosition = e
     let posData = {}
     return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${searchPosition}&key=AIzaSyBMPwmpKGkNozJfQ2zrVZdvlvJDv7QsZrM`)
         .then(res => {

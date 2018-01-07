@@ -4,8 +4,16 @@
       <v-card class="main-container">
         <!-- <v-card-media class="create-game-img" height="450px" :src="coverImg">
         </v-card-media> -->
-        <v-card-media height="450px">
-        <img :src="coverImg">
+        <v-card-media height="450px"
+        :src="coverImg">
+     
+         <v-container fill-height fluid>
+            <v-layout fill-height>
+              <v-flex xs12 align-end flexbox>
+                <span class="headline">Create your Game</span>
+              </v-flex>
+            </v-layout>
+          </v-container>
         </v-card-media>
         
         <div class="form-container">
@@ -13,7 +21,8 @@
             <v-text-field label="Name" v-model="name" :rules="nameRules" required></v-text-field>
             <v-select label="Select Category" v-if="categories" v-model="category" :items="categories" :rules="[v => !!v || 'Category is required']" required></v-select>
             <section v-if="currAddress">
-              <label style="color:gray;">Location*</label><div>{{currAddress.address}}</div> <hr style="border-top: 1px solid gray;">
+              <label style="color:gray;">Location*</label>
+              <div>{{currAddress.address}}</div> <hr style="border-top: 1px solid gray;">
             </section>
             <v-text-field name="input-7-1" v-model="about" label="About the game" multi-line></v-text-field>
             <v-text-field label="Player limit" v-model="playerLimit" :rules="limitRules" required></v-text-field>
@@ -50,7 +59,7 @@ export default {
     ],
     categories: null,
     levels: ["Beginners", "Semi-Pro", "Pro"],
-    coverImg: 'http://res.cloudinary.com/dkp5cwwjh/image/upload/v1514999728/SportCover_wqrk3l.png',
+    coverImg: '../../static/ create.gif',
     date: null,
     name: "",
     level: "",
@@ -136,5 +145,11 @@ export default {
 }
 img{
   box-sizing: border-box;
+}
+.headline{
+  color:whitesmoke;
+  font-family: var(--primary-font);
+  font-weight: 600;
+  font-size:3em !important;
 }
 </style>

@@ -1,27 +1,18 @@
 <template>
-  <section>
-   
+  <section class="main-container">
     <!-- <h1>CONNECT THROUGH</h1>
     <div>
         <button>facebook</button>
         <button>google</button>
     </div> -->
 
-    <form @submit.prevent="login">
-      <div class="email">
-          <label for="email">Email</label>
-          <input id="email"  v-model="signInDetails.email" type="email" required>
-      </div>
-      <div class="pass">
-          <label for="pass">Password</label>
-          <input  id="pass" v-model="signInDetails.password" type="text" required>
-      </div>
-      <div class="btn-log">
-          <button  class="main-btn" type="submit">Log in</button>
-      </div>
-    </form>
+    <form class="form-container" @submit.prevent="login">
+      <h1 class="head-title">Hi, Welcom Back!</h1>
+      <input id="email" placeholder="Email"  v-model="signInDetails.email" type="email" required>
+      <input  id="pass" placeholder="Password" v-model="signInDetails.password" type="text" required>
+      <button  class="main-btn" type="submit">Log in</button>
+    </form>  
 
-   
   </section>
 </template>
 
@@ -46,7 +37,8 @@ export default {
           console.log(err, "catch error in signin");
         });
     }
-  }
+  },
+  components: {}
 };
 </script>
 
@@ -57,40 +49,55 @@ export default {
 
 
 <style scoped>
-section {
-  color: white;
-}
-form {
+.main-container {
+  width: 600px;
   display: flex;
-  /* position: fixed;
-  right:0; */
-  margin: 20px;
+  justify-content: center;
+  margin-top:60px;
+
 }
-.email,
-.pass {
+.form-container{
   display: flex;
-  flex-flow: column;
-  margin: 10px;
-  font-size: 1em;
-  font-weight: 600;
-  font-family: var(--secondery-font);
+  flex-flow: column wrap;
+}
+
+.head-title{
+  font-size:2em;
+  font-weight: 500;
+  text-align:center;
+  color: var(--third-color);
 }
 
 #email,
-#pass {
-  width: 160px;
-  padding: 5px;
-  border: 1px solid black;
+#pass,
+.main-btn {
+  width: 250px;
+  padding: 5px 8px;
+  border: none;
+  border-radius: 10px;
   font-weight: 600;
+  margin: 5px 0;
 }
 #email:focus,
 #pass:focus {
-  border: 1px solid peru;
-  outline: 1px solid peru;
+  border-radius: 10px;
+  border: 1px solid var(--third-color);
 }
-.btn-log {
-  align-self: center;
+.main-btn {
+  background-color: var(--third-color);
+  opacity: .9;
+  color: white;
 }
+
+.main-btn:hover{
+
+	background: rgba(0,0,0,0);
+  color: var(--third-color);
+  box-shadow: inset 0 0 0 2px var(--third-color);
+
+}
+ 
+
 </style>
 
     
