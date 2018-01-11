@@ -36,8 +36,11 @@ export default {
     moveTo() {
       if (this.$store.getters[GET_USER]) {
         this.$router.push("/CreatGame");
+        $('html,body').scrollTop(0);
       } else {
         this.$router.push("/login");
+        $('html,body').scrollTop(0);
+        
       }
     },
     codeAddress(address) {
