@@ -28,11 +28,10 @@ function getEmptyGame(){
 function updateGame(game){
   console.log('im in updateGame......in process')
   return axios.put(`${GAME_URL}/${game._id}`, game)
-  
-  // .then(res => {
-  //   return res.data
-  // })
-  // .catch(_ => 'something didnt happend')
+  .then(res => {
+    return res.data
+  })
+  .catch(_ => 'something didnt happend')
 }
 
 function deleteGame(gameId){

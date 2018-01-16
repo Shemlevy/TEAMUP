@@ -112,6 +112,9 @@ export default {
         },
         [UPDATE_GAME]({ commit }, { game }) {
             GameService.updateGame(game)
+                .then(res => {
+                    return
+                })
                 .catch(err => {
                     console.log('game was not updated in database')
                 })

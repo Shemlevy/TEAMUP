@@ -23,7 +23,8 @@
                 <new-game class="new-game" v-if="newGame"></new-game>
               </transition>
             </div> 
-            <template class="game-container" v-for="(game , i) in games">
+              <template class="game-container" v-for="(game , i) in games">
+                <div class="mobile-click" @click="showDetPageMobile(game._id)"> 
               <!-- <v-divider></v-divider> -->
               <div class="game-details" :key="i">
                 <img class="imgList" :src="game.category.url">
@@ -40,17 +41,16 @@
                   </div>
                   <div>Level: {{game.level}}</div>
                 </div>  
-                
-                  <distance-calc v-if="distanceFromUser" :distance="distanceFromUser[game._id]"></distance-calc> 
-                  <div class="spacer" v-else></div>
-                  <section class="count-and-det">
-                    <count-down :game="game"></count-down> 
-                    <a class="main-btn" @click="showDetPage(game._id)">More Details</a>
-                  </section>
-                
-              </div>
-            <v-divider></v-divider>
-            </template>
+                <distance-calc v-if="distanceFromUser" :distance="distanceFromUser[game._id]"></distance-calc> 
+                <div class="spacer" v-else></div>
+                <section class="count-and-det">
+                  <count-down :game="game"></count-down> 
+                  <a class="main-btn" @click="showDetPage(game._id)">More Details</a>
+                </section>
+                </div>
+              <v-divider></v-divider>
+             </div>
+              </template>
           </div>
         </v-card>
       </v-flex>
@@ -84,10 +84,10 @@ export default {
       profilePage: null
     };
   },
-  created(){
-    this.profilePage = false
-    if(this.$route.name === 'UserProfile'){
-      this.profilePage= true
+  created() {
+    this.profilePage = false;
+    if (this.$route.name === "UserProfile") {
+      this.profilePage = true;
     }
   },
   methods: {
@@ -96,6 +96,9 @@ export default {
     },
     showDetPage(gameId) {
       this.$router.push(`/game/${gameId}`);
+    },
+    showDetPageMobile(gameId) {
+      if (window.innerWidth < 900) this.$router.push(`/game/${gameId}`);
     },
     emitJoin(game) {
       this.$emit("userJoinGame", game);
@@ -187,7 +190,8 @@ export default {
 .count-and-det {
   display: flex;
   flex-flow: column;
-  margin: 10px;
+  align-items: center;
+  margin-right: 10px;
 }
 
 @-webkit-keyframes colorchange {
@@ -230,6 +234,8 @@ export default {
   text-decoration: underline;
   color: gray !important;
   width: 115px;
+  margin: 0;
+  background-color: rgba(255, 255, 255, 0);
 }
 .spacer {
   width: 90px;
@@ -328,9 +334,21 @@ button:hover {
 }
 
 @media (max-width: 880px) {
-  .imgList {
+  .count-and-det {
     display: none;
   }
+
+  .imgList {
+    height: 130px;
+    width: 180px;
+  }
+  .material-icons {
+    display: none;
+  }
+  .mobile-click{
+    cursor: pointer;
+  }
+
   .list-container {
     width: 100vw;
   }
@@ -354,16 +372,21 @@ button:hover {
     font-weight: 900;
     border-radius: 50%;
     font-size: 2em;
-    margin-left: 30px;
+    margin-right: 20px;
+    
   }
   .create-game {
     position: absolute;
-    margin-left:-278px;
+    margin-left: -210px;
     z-index: 6;
-    margin-top:-12px;
-
+    margin-top: -12px;
   }
-  .ctg-title {white-space:normal;}
+  .ctg-title {
+    white-space: normal;
+  }
+  .ctg-selector{
+    margin-left: 10px;
+  }
 }
 </style>
 

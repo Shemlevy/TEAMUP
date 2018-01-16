@@ -11,12 +11,12 @@ import VueMomentJS from "vue-momentjs";
 
 
 let SOCKET_URL = 'http://localhost:3003'
-if(process.env.NODE_ENV !== 'development'){
+if (process.env.NODE_ENV !== 'development') {
   SOCKET_URL = '/'
 }
 import VueSocketio from 'vue-socket.io'
-import socketio from 'socket.io-client'
-Vue.use(VueSocketio, socketio(SOCKET_URL), store);
+// import socketio from 'socket.io-client'
+Vue.use(VueSocketio, SOCKET_URL, store);
 Vue.config.productionTip = false
 moment().format();
 Vue.use(VueMomentJS, moment);

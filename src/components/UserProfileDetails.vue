@@ -45,12 +45,14 @@
 
 <script>
 import UserService from "../service/user/UserService";
+import EventBusService, { SHOW_ALART } from "../service/EventBusService";
+
 export default {
   props: ["user"],
   data() {
     return {
       proxyUser: {},
-      edit: false,
+      edit: false
     };
   },
   methods: {
@@ -61,8 +63,8 @@ export default {
       this.$emit("updateUserProfile", this.proxyUser);
       this.edit = false;
     },
-    emitLogout(){
-      this.$emit('userLogout')
+    emitLogout() {
+      this.$emit("userLogout");
     },
     undoUpdate() {
       this.proxyUser = this.duplicateUser(this.user);
@@ -80,6 +82,11 @@ export default {
           this.proxyUser.imgUrl = imgUrl;
         })
         .catch(err => {
+          EventBusService.$emit(
+            SHOW_ALART,
+            "error adding photo try again later"
+          );
+
           console.error("error adding photo:", err);
         });
     },
@@ -94,14 +101,14 @@ export default {
 </script>
 
 <style scoped>
-.main-section{
+.main-section {
   box-shadow: 1px 0px 20px rgb(102, 102, 102);
 }
-.header-user{
+.header-user {
   height: 84px;
-  padding:10px;
-  font-size:3em;
-  color:rgb(71, 67, 67);
+  padding: 10px;
+  font-size: 3em;
+  color: rgb(71, 67, 67);
   text-shadow: 4px 4px 6px white;
   font-family: var(--primary-font);
   background-color: var(--main-color);
@@ -151,15 +158,18 @@ input {
 }
 
 @media (max-width: 880px) {
-  .main-section{ width:100vw;}
+  .main-section {
+    width: 100vw;
+  }
 }
 
-.profile-btns {margin-right: 15px;}
+.profile-btns {
+  margin-right: 15px;
+}
 
-.logout-btn{
+.logout-btn {
   font-size: 25px;
-  color:red;
+  color: red;
   margin: 0 0 10px 20px;
 }
-
 </style>

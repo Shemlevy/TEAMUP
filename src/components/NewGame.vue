@@ -3,6 +3,7 @@
     <div id="locationField">
       <input id="autocomplete" placeholder="Set place for a New Game" type="text" autofocus/>
     </div> 
+    
   </section>
 </template>
 
@@ -12,7 +13,8 @@ import MapService from "../service/map/MapService";
 import { GET_USER } from "../store/modules/user/user.module";
 import EventBusService, {
   SHOW_LOADER,
-  HIDE_LOADER
+  HIDE_LOADER,
+  SHOW_ALART
 } from "../service/EventBusService";
 
 export default {
@@ -36,11 +38,9 @@ export default {
     moveTo() {
       if (this.$store.getters[GET_USER]) {
         this.$router.push("/CreatGame");
-        $('html,body').scrollTop(0);
+        $("html,body").scrollTop(0);
       } else {
-        this.$router.push("/login");
-        $('html,body').scrollTop(0);
-        
+        EventBusService.$emit(SHOW_ALART,'You need to be looged in before');
       }
     },
     codeAddress(address) {
@@ -48,9 +48,8 @@ export default {
       this.geocoder.geocode({ address: address }, function(results, status) {
         if (status == "OK") {
           ///*******not woriking?? */
-        
-        
-        // EventBusService.$emit(SHOW_LOADER);
+
+          // EventBusService.$emit(SHOW_LOADER);
           // EventBusService.$on(HIDE_LOADER, () => {
           //   setTimeout(() => {
           //     this.loading = false;

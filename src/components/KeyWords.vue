@@ -40,7 +40,7 @@ export default {
 .container {
   display: flex;
   flex-flow: row wrap;
-  width: 600px;
+  width: 700px;
   justify-content: center;
 }
 

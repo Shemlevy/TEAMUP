@@ -18,6 +18,7 @@
 
 <script>
 import { USER_LOGIN } from "../store/modules/user/user.module";
+import EventBusService, {SHOW_ALART} from '../service/EventBusService';
 
 export default {
   name: "SignIn",
@@ -34,6 +35,7 @@ export default {
           this.$router.push("/");
         })
         .catch(err => {
+          EventBusService.$emit(SHOW_ALART,'User & password do not match');
           console.log(err, "catch error in signin");
         });
     }
@@ -53,18 +55,17 @@ export default {
   width: 600px;
   display: flex;
   justify-content: center;
-  margin-top:60px;
-
+  margin-top: 60px;
 }
-.form-container{
+.form-container {
   display: flex;
   flex-flow: column wrap;
 }
 
-.head-title{
-  font-size:2em;
+.head-title {
+  font-size: 2em;
   font-weight: 500;
-  text-align:center;
+  text-align: center;
   color: var(--third-color);
 }
 
@@ -85,19 +86,15 @@ export default {
 }
 .main-btn {
   background-color: var(--third-color);
-  opacity: .9;
+  opacity: 0.9;
   color: white;
 }
 
-.main-btn:hover{
-
-	background: rgba(0,0,0,0);
+.main-btn:hover {
+  background: rgba(0, 0, 0, 0);
   color: var(--third-color);
   box-shadow: inset 0 0 0 2px var(--third-color);
-
 }
- 
-
 </style>
 
     
