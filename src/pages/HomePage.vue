@@ -95,7 +95,7 @@ h1 {
   display: flex;
 }
 .key-words {
-  min-height: 220px;
+  min-height: 185px;
 }
 @media (max-width: 1145px) {
   .key-words {

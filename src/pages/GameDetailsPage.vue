@@ -75,12 +75,14 @@
               </v-list-tile-content>
             </v-list-tile>
             <v-divider inset></v-divider>
-             <v-list-tile-sub-title>
-                <button class="main-btn" v-if="user && !exist && canJoinGame" @click="userJoinGame">TEAM<span>UP</span></button>
-                <button class="main-btn" v-if="user && exist" @click="leaveGame">Leave Game</span></button>
-                <div v-if="exist">
-                  <div class="GDinfo">YOU ARE A PLAYER IN THIS GAME</div>
-                </div>  
+             <v-list-tile-sub-title class="buttons-contain">
+              <button class="main-btn" v-if="user && !exist && canJoinGame" @click="userJoinGame">TEAM<span>UP</span></button>
+                <div class="leave-game">
+                  <button class="main-btn" v-if="user && exist" @click="leaveGame">Leave Game</button>
+                  <div v-if="exist">
+                    <div class="GDinfo">YOU ARE A PLAYER IN THE GAME</div>
+                  </div> 
+                </div>   
             </v-list-tile-sub-title>
           </v-list>
           <GameMembers :game="game"></GameMembers>          
@@ -97,17 +99,13 @@ import {
   UPDATE_GAME,
   SET_SELECTED_GAME
 } from "../store/modules/game/Game.module";
-import {
-  GET_USER
-} from "../store/modules/user/user.module";
+import { GET_USER } from "../store/modules/user/user.module";
 import GameMembers from "../components/GameMembers";
-
 
 export default {
   data() {
-   
     return {
-      exist : false,
+      exist: false,
       canJoinGame: true,
       playersLeft: -100,
       isAdmin: false
@@ -115,8 +113,8 @@ export default {
   },
   computed: {
     game() {
-      let game = this.$store.getters[GET_SELCTED_GAME]
-      if(!game) return
+      let game = this.$store.getters[GET_SELCTED_GAME];
+      if (!game) return;
 
       var strGame = JSON.stringify(game);
       return JSON.parse(strGame);
@@ -128,132 +126,149 @@ export default {
       return this.game.category.url;
     }
   },
-  created(){
-      var id = this.$router.history.current.params.gameId
-      this.$store.dispatch({type: LOAD_GAME_BY_ID , gameId: id})
-      // checkLimit();
-      
-      
-      
+  created() {
+    var id = this.$router.history.current.params.gameId;
+    this.$store.dispatch({ type: LOAD_GAME_BY_ID, gameId: id });
+    // checkLimit();
   },
-  watch:{
+  watch: {
     game() {
-       this.setActions();
-       this.checkLimit();
+      this.setActions();
+      this.checkLimit();
     },
     user() {
-       this.setActions();
-       this.checkLimit();
+      this.setActions();
+      this.checkLimit();
     }
   },
   methods: {
     setActions() {
       if (this.game && this.user) {
-        let player = this.game.players.find(player => player.id === this.user._id)
-        if(player){
-          this.exist = true
+        let player = this.game.players.find(
+          player => player.id === this.user._id
+        );
+        if (player) {
+          this.exist = true;
           // if(player.isAdmin){
           //   this.isAdmin = true
           // }
         }
-      }},
-    checkLimit(){
-      if(this.game){
+      }
+    },
+    checkLimit() {
+      if (this.game) {
         this.playersLeft = this.game.playerLimit - this.game.players.length;
-        if(this.game.players.length >= this.game.playerLimit){
+        if (this.game.players.length >= this.game.playerLimit) {
           this.canJoinGame = false;
-        }else{
+        } else {
           this.canJoinGame = true;
         }
-      }},
-     userJoinGame(){
+      }
+    },
+    userJoinGame() {
       this.game.players.push({
         id: this.user._id,
         name: this.user.name,
         imgUrl: this.user.imgUrl,
         isAdmin: false
-      })
+      });
 
-      this.$store.dispatch({type: UPDATE_GAME, game: this.game})
-
+      this.$store.dispatch({ type: UPDATE_GAME, game: this.game });
     },
-    checkAdmin(){
-
-    },
-    leaveGame(){
-       this.game.players = this.game.players.filter(player => player.id !== this.user._id) 
-       this.$store.dispatch({type: UPDATE_GAME, game: this.game})
+    checkAdmin() {},
+    leaveGame() {
+      this.game.players = this.game.players.filter(
+        player => player.id !== this.user._id
+      );
+      this.$store.dispatch({ type: UPDATE_GAME, game: this.game });
+      this.exist = false;
     }
   },
-  destroyed(){
-    this.$store.commit({type: SET_SELECTED_GAME, gameId: null})
+  destroyed() {
+    this.$store.commit({ type: SET_SELECTED_GAME, gameId: null });
   },
-  components:{
+  components: {
     GameMembers
   }
 };
 </script>
 <style lang="stylus">
-.players-left{
+
+.players-left {
   font-family: var(--secondary-font);
   color: blue;
-  font-size:15px;
+  font-size: 15px;
 }
-.NoPlaces{
+
+.NoPlaces {
   font-family: var(--secondary-font);
-  color:var(--players-limit);
-  font-size:15px;
-   -webkit-animation: colorchange 1s infinite alternate;
+  color: var(--players-limit);
+  font-size: 15px;
+  -webkit-animation: colorchange 1s infinite alternate;
 }
-.onePlace{
+
+.onePlace {
   font-family: var(--secondary-font);
-  color:var(--players-limit);
-  font-size:15px;
-   -webkit-animation: colorchange .5s infinite alternate;
+  color: var(--players-limit);
+  font-size: 15px;
+  -webkit-animation: colorchange 0.5s infinite alternate;
 }
-.GDtitle,GDinfo{
+
+.GDtitle, GDinfo {
   font-family: var(--secondary-font);
-  color:black;
-  font-size:17px;
+  color: black;
+  font-size: 17px;
 }
-.GDinfo{
+
+.GDinfo {
   color: blue;
-  padding: 23px 0 0 69px;
+  padding: 23px 0 0 0;
+}
+.leave-game{
+  display:flex;
+}
+.buttons-contain{
+  height : 63px;
 }
 .media {
   height: 100%;
   margin: 0;
 }
-.headline-title{
-  color:whitesmoke;
+
+.headline-title {
+  color: whitesmoke;
   text-shadow: 3px 3px 6px black;
   font-family: var(--primary-font);
   font-weight: 600;
-  font-size:3em !important;
+  font-size: 3em !important;
 }
+
 .card-pic-area {
   background-color: var(--secondary-color);
 }
-.title-height{
+
+.title-height {
   position: absolute;
   bottom: 0;
   left: 7px;
 }
-.game-detailes-cover{
+
+.game-detailes-cover {
   position: relative;
 }
-.main-btn{
+
+.main-btn {
   background-color: #e0dada;
   margin: 15px;
 }
 
-@-webkit-keyframes colorchange {
+@keyframes colorchange {
   0% {
-    color:var(--players-limit);
+    color: var(--players-limit);
   }
+
   100% {
     color: white;
   }
 }
-
 </style>

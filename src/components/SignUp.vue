@@ -29,8 +29,10 @@
 </template>
 
 <script>
-import {USER_REGISTER} from '../store/modules/user/user.module';
-import userService from '../service/user/UserService'
+import { USER_REGISTER } from "../store/modules/user/user.module";
+import userService from "../service/user/UserService";
+import EventBusService, { SHOW_ALART } from "../service/EventBusService";
+
 export default {
   name: "SignUp",
   data() {
@@ -39,53 +41,53 @@ export default {
     };
   },
   methods: {
-    register() {      
+    register() {
       this.$store
         .dispatch({ type: USER_REGISTER, newUser: this.SignUpDetails })
         .then(_ => {
           this.$router.push("/");
         })
         .catch(err => {
+          EventBusService.$emit(SHOW_ALART, "Something went worng");
           console.log(err);
         });
     }
   },
-  created(){
-    this.SignUpDetails = userService.getEmptyUser()
+  created() {
+    this.SignUpDetails = userService.getEmptyUser();
   }
-
 };
 </script>
 
 
 
 <style scoped>
-.main-container{
+.main-container {
   max-width: 600px;
   color: rgb(57, 51, 51);
   margin: 20px;
 }
-.details-sign{
-  margin:20px;
+.details-sign {
+  margin: 20px;
 }
-.head-sign{
+.head-sign {
   font-size: 1.5em;
   margin-bottom: 20px;
   font-weight: 900;
 }
-.head-sign span{
-  color: var(--third-color)
+.head-sign span {
+  color: var(--third-color);
 }
-.main-form{
-  margin-left:17px;
+.main-form {
+  margin-left: 17px;
 }
 p {
   font-weight: 800;
   font-size: 1em;
-  margin:10px;
+  margin: 10px;
 }
 p span {
-  color:rgba(99, 99, 99, 0.808);
+  color: rgba(99, 99, 99, 0.808);
   font-weight: 400;
 }
 form {
@@ -120,13 +122,12 @@ form {
   border-radius: 5px;
 }
 
-.main-btn{
-  width:172px;  
+.main-btn {
+  width: 172px;
   background-color: #fff;
   margin: 10px;
-  margin-bottom:100px;
+  margin-bottom: 100px;
 }
-
 </style>
 
     

@@ -1,5 +1,5 @@
 <template>
-<section>
+<section class="conatin">
     <section v-if="show" class="count-down">
     <div class="block">
         <p class="digit">{{ days | two_digits }}</p>
@@ -18,7 +18,7 @@
         <p class="text">Sec</p>
     </div>
   </section>
-  <section v-else>
+  <section class="no-game" v-else>
     Game has passed
   </section>
 </section>
@@ -69,6 +69,12 @@ export default {
 </script>
 
 <style scoped>
+.conatin{
+  width:160px;
+}
+.no-game{
+  text-align: center;
+}
 .count-down{
   display: flex;
   width:auto;
